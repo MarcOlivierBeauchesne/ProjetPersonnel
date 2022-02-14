@@ -11,6 +11,9 @@ public class Timer : MonoBehaviour
     [SerializeField] private Text _champTimer; // acces prive pour le champs de texte qui affiche le Timer
     [SerializeField] private BasicStats _basicStats; // acces prive pour le BasicStats _basicStats
     [SerializeField] private Animator _dayWindowAnim; // acces prive pour l'animator de la fenetre de journee
+    [SerializeField] private DayManager _dayManager;
+    [SerializeField] private TaskManager _taskManager;
+    [SerializeField] private float _endDayWaitTime = 2f;
 
     [SerializeField] private float _minute = 5; // acces prive au nombre de minutes disponible par jour
     public float minute // acces public au nombre de minutes disponible par jour
@@ -39,10 +42,7 @@ public class Timer : MonoBehaviour
     /// </summary>
     void Start()
     {
-        _dayWindowAnim.SetBool("EndDay", false); // on met le bool de _dayWindowAnim a false
-        minute = _basicStats.dayTime; // minute devient la valeur de dayTime du _basicStats
-        _champTimer.text = minute + ":00"; // le texte du timer affiche les minute disponible + 00
-        StartCoroutine(CoroutineTemps()); // on démarre la coroutine CoroutineTemps
+        ProchaineJournee(); // on appel ProchaineJournee
     }
 
     /// <summary>
@@ -61,6 +61,7 @@ public class Timer : MonoBehaviour
         if (minute == 0 && seconde == 0) // si minute et seconde sont égals a 0
         {
             _dayWindowAnim.SetBool("EndDay", true); // on met le bool de _dayWindowAnim a true
+            StartCoroutine(CoroutineFinJournee());
             // on termine la journee
             // verification si le joueur est revenu a sa zone de depart
         }
@@ -68,6 +69,20 @@ public class Timer : MonoBehaviour
         {
             StartCoroutine(CoroutineTemps()); // on demarre la coroutine CoroutineTemps
         }
+    }
+
+    private IEnumerator CoroutineFinJournee(){
+        yield return new WaitForSeconds(_endDayWaitTime);
+        _dayManager.AfficherPoint();
+    }
+
+    public void ProchaineJournee(){
+        _dayWindowAnim.SetBool("EndDay", false); // on met le bool de _dayWindowAnim a false
+        ResetTimer(); // on Apple ResetTimer
+        _champTimer.text = minute + ":00"; // le texte du timer affiche les minute disponible + 00
+        StartCoroutine(CoroutineTemps()); // on démarre la coroutine CoroutineTemps
+        _dayManager.ResetChamps();
+        _taskManager.ResetScore();
     }
 
     /// <summary>

@@ -15,7 +15,7 @@ public class PlayerRessources : ScriptableObject
             _seedAmount = value; // par seedAmount, on change la valeur de _seedAmount
         }
     }
-    private int _naturePoint = 10000; // acces prive pour la quantite de point de nature que possede le joueur
+    [SerializeField] private int _naturePoint = 100000; // acces prive pour la quantite de point de nature que possede le joueur
     public int naturePoint{ // acces public pour la quantite de point de nature que possede le joueur
         get => _naturePoint; // par naturePoint, on retourne la valeur prive _naturePoint
         set{

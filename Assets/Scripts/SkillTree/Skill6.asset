@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f341e8abc9bab1b47bf2721c4ae27787, type: 3}
-  m_Name: ressources
+  m_Script: {fileID: 11500000, guid: 3bc8183276fbda248989779fbc3d2fdf, type: 3}
+  m_Name: Skill6
   m_EditorClassIdentifier: 
-  _naturePoint: 1000000
+  _nomSkill: Fini la coupe
+  _explication: "R\xE9duit l'augmentation de la d\xE9forestation par jour (-10 par
+    cumul)."

@@ -4,81 +4,102 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/// <summary>
+/// Script qui le comportement d'un skill
+/// </summary>
 public class SkillInfos : MonoBehaviour
 {
-    [SerializeField] string _nom = "Nom du skill";
-    [SerializeField] float _modifier = 0;
-    [SerializeField] TypeStats _typeStats;
-    [SerializeField] int _skillCost = 200;
-    [SerializeField] int _costModif = 100;
-    [SerializeField] int _savedTotalStack = 0;
-    [SerializeField] int _actualStack = 0;
-    public int actualStack{
-        get => _actualStack;
-        set{
-            _actualStack = value;
+    [SerializeField] string _nom = "Nom du skill"; // acces prive pour le nom du skill
+    [SerializeField] float _modifier = 0; // acces prive pour le modificateur du skill
+    [SerializeField] TypeStats _typeStats; // Reference au enum du type de stats
+    [SerializeField] int _skillCostRef = 200; // cout de reference du skill
+    [SerializeField] int _skillCost = 200; // cout actuel du skill
+    [SerializeField] int _savedTotalStack = 0; // total de niveau enregistres dans le skill
+    [SerializeField] int _actualStack = 0; // acces prive pour le nombre de niveau actuel pour le skill
+    public int actualStack{ // acces public pour le nombre de niveau actuel pour le skill
+        get => _actualStack; // par actualStack, on retourne la valeur de _actualStack
+        set{ 
+            _actualStack = value; // par actualStack, on change la valeur de _actualStack
         }
     }
-    [SerializeField] int _maxStack = 1;
-    public int maxStack{
-        get => _maxStack;
+    [SerializeField] int _maxStack = 1; // acces prive pour le niveau maximum que peut avoir un skill 
+    public int maxStack{ // acces public pour le niveau maximum que peut avoir un skill 
+        get => _maxStack; // par maxStack, on retourne la valeur _maxStack
     }
-    [SerializeField] Sprite _iconFullStack;
-    [SerializeField] Sprite _iconBase;
-    [SerializeField] BasicStats _basicStats;
-    [SerializeField] SkillInfos _dependance;
-    [SerializeField] SkillInfos[] _tHeritiers;
-    [SerializeField] PlayerRessources _playerRessources;
-    [SerializeField] Personnage _perso;
-    [SerializeField] Skilltree _arbre;
-    [SerializeField] SkillExplication _skillExplication;
-    [SerializeField] GameObject _boiteExpliction;
+    [SerializeField] Sprite _iconFullStack; // image quand le skill est plein
+    [SerializeField] Sprite _iconBase; // image pour le skill
+    [SerializeField] BasicStats _basicStats; // reference pour le BasicStats
+    [SerializeField] SkillInfos _dependance; // skill qui doit etre complet avant que le skill actuel puisse etre augmente
+    [SerializeField] SkillInfos[] _tHeritiers; // tableau des heritier du skill actuel
+    [SerializeField] PlayerRessources _playerRessources; // Reference pour le PlayerRessources
+    [SerializeField] Personnage _perso; // Rerefence pour le personnage
+    [SerializeField] Skilltree _arbre; // Reference pour le SkillTree
+    [SerializeField] SkillExplication _skillExplication; // ScriptableObject qui detient les informations a afficher du skill
+    [SerializeField] GameObject _boiteExplication; // Reference pour la boite d'explication du skill
+    private float _skillReset = 1;
 
-    Image img;
-    Button _bouton;
+    public Image img; // acces public de l'Image du gameObject
+    Button _bouton; // on stock le Button du gameObject
     /// <summary>
     /// Start is called on the frame when a script is enabled just before
     /// any of the Update methods is called the first time.
     /// </summary>
     void Start()
     {
-        _bouton = GetComponent<Button>();
-        img = GetComponent<Image>();
-        CheckDepend();
-        _boiteExpliction.SetActive(false);
+        _skillCost = AjusterCoutSkill();
+        _bouton = GetComponent<Button>(); // on va chercher le Button du gameObject et on le met dans _button
+        img = GetComponent<Image>(); // on va chercher l'image du gameObject et on le met dans img
+        CheckDepend(); // on appel CheckDepend
     }
 
+    /// <summary>
+    /// Fonction qui verifie si les dependances du skill sont completes
+    /// </summary>
     public void VerifierDispo(){
-        if(_dependance != null){
-            if(_dependance.actualStack == _dependance.maxStack){
-                VerifierRessources();
+        if(_dependance != null){ // si le skill possede une dependance
+            if(_dependance.actualStack == _dependance.maxStack){ // si le niveau actuel de la dependance a atteint son maximum
+                VerifierRessources(); // on appel VerifierRessources
             }
-            else{
-                Debug.Log("Vous devez débloquer le skill précédent");
+            else{ // si le niveau actuel de la dependance n'est pas a son maximum
+                Debug.Log("Vous devez débloquer le skill précédent"); // Message d'avertissement
             }
         }
-        else{
-            VerifierRessources();
+        else{ // si le skill ne possede pas de dependance
+            VerifierRessources(); // on appel VerifierRessources
         }
     }
 
+    public int AjusterCoutSkill(){
+        float cout = _skillCostRef + (_skillCost * _arbre.absorbCount);
+        return Mathf.RoundToInt(cout);
+    }
+
+    /// <summary>
+    /// Fonction qui verifier si le joueur possede les ressources pour acheter le skill
+    /// </summary>
     private void VerifierRessources(){
-        int realCost = _skillCost * (actualStack + 1);
-        if(_playerRessources.naturePoint >= realCost){
-            _perso.AjusterPoint("naturePoint", -realCost);
-            //_playerRessources.naturePoint -= realCost;
-            actualStack++;
-            _savedTotalStack++;
-            _boiteExpliction.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = $"{actualStack}/{maxStack}";
-            _basicStats.ChangerStats(_typeStats, _modifier, false);
-            _arbre.CheckRessources();
-            if(actualStack == maxStack){
-                GetComponent<Button>().interactable = false;
-                img.sprite = _iconFullStack;
-                if(_tHeritiers.Length > 0){
-                    foreach (SkillInfos heritier in _tHeritiers)
+        int realCost = _skillCost * (actualStack + 1); // on calcul le cout real du skill (temporaire)
+        if(_playerRessources.naturePoint >= realCost){ // si les points de nature du joueur sont egal ou plus eleves que le cout real du skill
+            _perso.AjusterPoint("naturePoint", -(realCost-_skillCost)); // on demande au personnage d'ajuter ses points de nature
+            actualStack++; // on augmente le niveau du skill actuel de 1
+            _savedTotalStack++; // on augmente le niveau total du skill
+            _boiteExplication.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = $"{actualStack}/{maxStack}"; // on met a jour le niveau affiche dans la boite d'explication
+            if(actualStack != maxStack){ // si le niveau du skill actuel n'est pas egal a son maximum
+                _boiteExplication.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = (_skillCost * (actualStack + 1)).ToString(); // on met a jour l'affichage du cout reel du skill
+            }
+            else{ // si le niveau actuel est egal a son maximum
+                _boiteExplication.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "Complet";
+            }
+            _basicStats.ChangerStats(_typeStats, _modifier, false); // on change la stat approprie dans BasicStats
+            _arbre.CheckRessources(); // on demande au SkillTree de mettre a jour la disponibilite du bouton Absorber
+            if(actualStack == maxStack){ // si le niveau actuel du skill a atteint son niveau maximal
+                _bouton.interactable = false; // le skill actuel ne peut plus etre clique
+                img.sprite = _iconFullStack; // on change l'image du skill pour son image complete
+                if(_tHeritiers.Length > 0){ // si le skill possede au moins 1 heritier dans le _tHeritiers
+                    foreach (SkillInfos heritier in _tHeritiers) // pour chaque heritiers dans le tableau
                     {
-                        heritier._bouton.interactable = true;
+                        heritier._bouton.interactable = true; // on rend l'heritier cliquable
+                        heritier.img.color = new Color(1f, 1f, 1f, 1f); // on remet sa couleur pleine opacite
                     }
                 }
             }
@@ -86,61 +107,83 @@ public class SkillInfos : MonoBehaviour
     }
 
     /// <summary>
-    /// Called when the mouse enters the GUIElement or Collider.
+    /// Foncition qui active ou desactive la boite explicative au passage de la souris
     /// </summary>
     public void ActiverBoite()
     {
-        if(!_boiteExpliction.activeInHierarchy){
-            _boiteExpliction.SetActive(true);
-            _boiteExpliction.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _skillExplication.nomSkill;
-            _boiteExpliction.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = _skillExplication.explication;
-            _boiteExpliction.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = $"{actualStack}/{maxStack}";
+        if(!_boiteExplication.activeInHierarchy){ // si la boite explicatioin n'est pas active
+            _boiteExplication.SetActive(true); // on active la boite explicative
+            _boiteExplication.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _skillExplication.nomSkill; // on affiche le nom du skill
+            _boiteExplication.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = _skillExplication.explication; // on affiche l'explication du du skill
+            _boiteExplication.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = $"{actualStack}/{maxStack}"; // on affiche le niveau actuel sur le niveau maximum du skill
+            _boiteExplication.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = (_skillCost * (actualStack + 1)).ToString(); // on affiche le cout du skill
         }
-        else{
-            _boiteExpliction.SetActive(false);
+        else{ // si la boite est active
+            _boiteExplication.SetActive(false); // on desactive la boite
         }
     }
 
+    /// <summary>
+    /// Fonction qui remet le niveau actuel du skill a 0
+    /// </summary>
     public void ResetSkill(){
-        actualStack = 0;
+        actualStack = 0; // le niveau actuel du skill est egal a 0
+        _skillCost = AjusterCoutSkill();
     }
 
+    /// <summary>
+    /// Fonction qui verifie les dependance du skill actuel
+    /// </summary>
     public void CheckDepend(){
-        if(_dependance != null){
-            _bouton.interactable = (_dependance.actualStack == _dependance.maxStack && actualStack < maxStack);
-        }
-        else{
-            if(actualStack < maxStack){
-                _bouton.interactable = true;
+        if(_dependance != null){ // si le skill actuel possede une dependance
+            _bouton.interactable = (_dependance.actualStack == _dependance.maxStack && actualStack < maxStack); // le bouton est cliquable selon si le niveau actuel de la dependance 
+            // est egal a son maximum ou non
+            if (!_bouton.interactable){ // si le bouton du skill actuel n'est pas cliquable
+                img.color = new Color(1f, 1f, 1f, 0.5f); // l'image du skill est a demi opacite
             }
-            else{
-                _bouton.interactable = false;
+            else{ // si le bouton est cliquable
+                img.color = new Color(1f, 1f, 1f, 1f); // l'image est a plein opacite
+            }
+        }
+        else{ // si le skill ne possede pas de dependance
+            if(actualStack < maxStack){ // si le niveau actuel du skill est plus petit que son maximum
+                _bouton.interactable = true; // le skill est cliquable
+            }
+            else{ // si le niveau actuel du skill est egal ou plus grand que son maximum
+                _bouton.interactable = false; // le skill n'est plus cliquable
             }
 
         }
-        CheckStack();
+        CheckStack(); // on appel CheckStack
     }
 
+    /// <summary>
+    /// Fonction qui change l'image du skill selon son niveau
+    /// </summary>
     private void CheckStack(){
-        if(actualStack<maxStack){
-            img.sprite = _iconBase;
+        if(actualStack<maxStack){ // si le niveau actuel du skill est plus petit que son maximum
+            img.sprite = _iconBase; // l'image est celle de base
         }
-        else if(actualStack == maxStack){
-            img.sprite = _iconFullStack;
+        else if(actualStack == maxStack){ // si le niveau actuel du skill est egal a son maximum
+            img.sprite = _iconFullStack; // l'image est celle du skill maximum
         }
     }
 
+    /// <summary>
+    /// Fonction qui sauvegarde l'etat actuel du skill
+    /// </summary>
     public void SaveSkill(){
-        // PlayerPrefs.DeleteKey(_nom + "total");
-        // PlayerPrefs.DeleteKey(_nom + "actual");
-        PlayerPrefs.SetInt(_nom + "total", _savedTotalStack);
-        PlayerPrefs.SetInt(_nom + "actual", _actualStack);
-        Debug.Log("total sauvegardé: "+ _savedTotalStack + "/ actuel sauvegardé: " + _actualStack);
+        PlayerPrefs.SetInt(_nom + "total", _savedTotalStack); // on cree un PlayerPrefs avec le nom du skill + total et on sauvegarde son niveau total acquis
+        PlayerPrefs.SetInt(_nom + "actual", _actualStack); // on cree un PlayerPrefs avec le nom du skill + actual et on sauvegarde le niveau actuel du skill
+        Debug.Log("total sauvegardé: "+ _savedTotalStack + "/ actuel sauvegardé: " + _actualStack); // temporaire
     }
 
+    /// <summary>
+    /// Fonction qui charge les information sauvegardees du skill
+    /// </summary>
     public void LoadSkill(){
-        _savedTotalStack = PlayerPrefs.GetInt(_nom + "total");
-        _actualStack = PlayerPrefs.GetInt(_nom + "actual");
-        _basicStats.ChangerStats(_typeStats, (_modifier*_savedTotalStack), true);
+        _savedTotalStack = PlayerPrefs.GetInt(_nom + "total"); // _saveTotalStack prend la valeur sauvegardee
+        _actualStack = PlayerPrefs.GetInt(_nom + "actual"); // _actualStack prend la valeur sauvegardee
+        _basicStats.ChangerStats(_typeStats, (_modifier*_savedTotalStack), true); // on met les informations du BasicStats a jour selon les stats sauvegardees
     }
 }

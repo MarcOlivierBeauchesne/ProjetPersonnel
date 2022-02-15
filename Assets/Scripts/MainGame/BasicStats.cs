@@ -130,7 +130,7 @@ public class BasicStats : MonoBehaviour
     }
 }
 
-public enum TypeStats{
+public enum TypeStats{ // enum pour le type de stats du jeu
     Mouvement,
     NatureGain,
     NatueMaxPool,

@@ -11,9 +11,9 @@ public class Timer : MonoBehaviour
     [SerializeField] private Text _champTimer; // acces prive pour le champs de texte qui affiche le Timer
     [SerializeField] private BasicStats _basicStats; // acces prive pour le BasicStats _basicStats
     [SerializeField] private Animator _dayWindowAnim; // acces prive pour l'animator de la fenetre de journee
-    [SerializeField] private DayManager _dayManager;
-    [SerializeField] private TaskManager _taskManager;
-    [SerializeField] private float _endDayWaitTime = 2f;
+    [SerializeField] private DayManager _dayManager; // reference au DayManager
+    [SerializeField] private TaskManager _taskManager; // reference au TaskManager
+    [SerializeField] private float _endDayWaitTime = 2f; // temps d'attente a la fin de la journee
 
     [SerializeField] private float _minute = 5; // acces prive au nombre de minutes disponible par jour
     public float minute // acces public au nombre de minutes disponible par jour
@@ -61,7 +61,7 @@ public class Timer : MonoBehaviour
         if (minute == 0 && seconde == 0) // si minute et seconde sont égals a 0
         {
             _dayWindowAnim.SetBool("EndDay", true); // on met le bool de _dayWindowAnim a true
-            StartCoroutine(CoroutineFinJournee());
+            StartCoroutine(CoroutineFinJournee()); // on demarre la coroutine CoroutineFinJournee
             // on termine la journee
             // verification si le joueur est revenu a sa zone de depart
         }
@@ -71,18 +71,25 @@ public class Timer : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Coroutine qui cree un delai avant de demander au DayManager d'afficher les scores
+    /// </summary>
+    /// <returns>temps d'attente avant d'afficher les scores</returns>
     private IEnumerator CoroutineFinJournee(){
-        yield return new WaitForSeconds(_endDayWaitTime);
-        _dayManager.AfficherPoint();
+        yield return new WaitForSeconds(_endDayWaitTime); // delai d'attente(_endDayWaitTime) avant d'afficher les points
+        _dayManager.AfficherPoint(); // on demande au DayManager d'afficher les points
     }
 
+    /// <summary>
+    /// Fonction qui reinitialise les champs afin de demarrer une nouvelle journee
+    /// </summary>
     public void ProchaineJournee(){
         _dayWindowAnim.SetBool("EndDay", false); // on met le bool de _dayWindowAnim a false
         ResetTimer(); // on Apple ResetTimer
         _champTimer.text = minute + ":00"; // le texte du timer affiche les minute disponible + 00
         StartCoroutine(CoroutineTemps()); // on démarre la coroutine CoroutineTemps
-        _dayManager.ResetChamps();
-        _taskManager.ResetScore();
+        _dayManager.ResetChamps(); // on demande au DayManager de fermer tous les champs
+        _taskManager.ResetScore(); // on demande au TaskManager de reinitialiser les scores de la journee
     }
 
     /// <summary>

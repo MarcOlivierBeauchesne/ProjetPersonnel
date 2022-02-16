@@ -12,6 +12,7 @@ public class DayManager : MonoBehaviour
     [SerializeField] GameObject[] _tChampsEndDay; // tableau des differents champs de la page de fin de journee
     [SerializeField] Animator _animFenetre; // animator de la fenetre de fin de journee
     [SerializeField] TaskManager _taskManager; // reference au TaskManager qui gere les taches
+    [SerializeField] private GenerateurSalle _genSalle;
     private int _indexTableau = 0;
     // Start is called before the first frame update
     void Start()
@@ -59,6 +60,8 @@ public class DayManager : MonoBehaviour
                 _tChampsEndDay[6].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = GetComponent<BasicStats>().deforestAugment.ToString(); // le valeur du total prend la valeur du deforestAugment du BasicStats
                 _tChampsEndDay[7].SetActive(true); // on affiche la categorie Total des scores
                 _tChampsEndDay[7].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_taskManager.scoreArbre + _taskManager.scoreTache).ToString(); // le valeur du total prend la valeur cumulee des arbres plantes et des taches accomplies
+                _genSalle.GenererFirstSalle();
+                Debug.Log("On recommence la carte");
                 break; // on sort de la condition
             }
             case 5 : { // si _indexTableau est de 5
@@ -79,6 +82,7 @@ public class DayManager : MonoBehaviour
         for (int i = 0; i < _tChampsEndDay.Length; i++) // selon la longueur du tableau
         {
             _tChampsEndDay[i].SetActive(false); // on prend chaque element du tableau et on le ferme
+            StopAllCoroutines();
         }
         _indexTableau = 0; // on remet _indexTableau a 0
     }

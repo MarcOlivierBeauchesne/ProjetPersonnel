@@ -9,6 +9,7 @@ using UnityEngine;
 public class BasicStats : MonoBehaviour
 {
     [SerializeField] PlayerRessources _playerRessources; // Reference pour le ScriptableObject PlayerRessources
+    [SerializeField] Personnage _perso; // reference au Personnage du perso
 
     [Header("Player Updrades")] // identification de la section des ameliorations du joueur
     [SerializeField] private float _mouvementSpeedRef = 10; // acces prive pour la reference de la vitesse de deplacement du joueur
@@ -17,6 +18,7 @@ public class BasicStats : MonoBehaviour
         get => _mouvementSpeed; // par mouvementSpeed, on retourne la valeur _mouvementSpeed
         set{
             _mouvementSpeed = value; // par mouvementSpeed, on change la valeur de _mouvementSpeed
+            _perso.ModifierMoveSpeed(); // on demande au perso de modifier sa vitesse de deplacement
         }
     }
 

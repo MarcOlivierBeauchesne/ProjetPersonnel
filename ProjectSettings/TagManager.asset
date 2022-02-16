@@ -13,7 +13,7 @@ TagManager:
   - UI
   - 
   - sol
-  - 
+  - Perso
   - 
   - 
   - 
@@ -40,4 +40,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Tache
+    uniqueID: 123501307
+    locked: 0
+  - name: Perso
+    uniqueID: 1751950255
     locked: 0

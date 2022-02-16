@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Skill4
   m_EditorClassIdentifier: 
   _nomSkill: "C\xE9l\xE9rit\xE9"
-  _explication: "Augmente la vitesse de d\xE9placement de votre personnage (+0.5
+  _explication: "Augmente la vitesse de d\xE9placement de votre personnage (+0.2
     par cumul)."

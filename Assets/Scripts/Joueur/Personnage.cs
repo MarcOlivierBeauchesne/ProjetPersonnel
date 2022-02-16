@@ -11,9 +11,18 @@ public class Personnage : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _txtNaturePoint; // acces prive pour le champs de texte des points de nature du joueur
     [SerializeField] private TextMeshProUGUI _txtNaturePower; // acces prive pour le champs de texte de la puissance naturelle du joueur
     [SerializeField] private PlayerRessources _ressourcesPlayer; // reference de PlayerRessources du joueur
+    [SerializeField] private BasicStats _basicStats; // reference au BasicStats
+
+    private float _mouvementSpeed = 5; // acces prive pour _mouvementSpeed
+    private float _axeX = 0f; // acces prive pour _axeX du Input Horizontal
+    private float _axeY = 0f; // acces prive pour _axeY du Input Vertical
+
+    Rigidbody2D _rb; // on stoc le rigidBody2D
     // Start is called before the first frame update
     void Start()
     {
+        _mouvementSpeed = _basicStats.mouvementSpeed; // _mouvementSped devient la valeur du mouvementSpeed du BasicStats
+        _rb = GetComponent<Rigidbody2D>(); // _rb s'associe au RigidBody 2D du perso
         _txtNaturePoint.text = _ressourcesPlayer.naturePoint.ToString(); // on affiche les points de nature dans le champs approprie
         _txtNaturePower.text = _ressourcesPlayer.naturePower.ToString(); // on affiche la puissance naturelle dans le champs approprie
     }
@@ -39,6 +48,37 @@ public class Personnage : MonoBehaviour
                 _txtNaturePoint.text = _ressourcesPlayer.naturePoint.ToString();
                 break; // on sort de la condition
         }
+    }
+
+    /// <summary>
+    /// Fonction public pour mettre a jour la vitesse de deplacement du joueur
+    /// </summary>
+    public void ModifierMoveSpeed(){
+        _mouvementSpeed = _basicStats.mouvementSpeed; // _mouvementSped devient la valeur du mouvementSpeed du BasicStats
+    }
+
+    /// <summary>
+    /// Fonction qui met prend les valuers des Input Horizontal et Vertical du joueur
+    /// </summary>
+    private void Mouvement(){
+        _axeX = Input.GetAxisRaw("Horizontal"); // _axeX prend la valeur du Input de l'axe Horizontal
+        _axeY = Input.GetAxisRaw("Vertical"); // _axeY prend la valeur du Input de l'axe Vertical
+    }
+
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    void Update()
+    {
+        Mouvement(); // on appel Mouvement
+    }
+
+    /// <summary>
+    /// This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    void FixedUpdate()
+    {
+        _rb.velocity = new Vector2(_axeX * _mouvementSpeed, _axeY * _mouvementSpeed); // on bouge le RigidBody2D du perso ave un Vector2 de _axeX et _axeY multiplie par la _mouvementSpeed
     }
 
 }

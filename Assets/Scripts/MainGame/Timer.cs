@@ -58,10 +58,11 @@ public class Timer : MonoBehaviour
             seconde = 59; // seconde est egal a 59
             minute--; // on reduit minute de 1
         }
-        if (minute == 0 && seconde == 0) // si minute et seconde sont égals a 0
+        if (minute == 0 && seconde == 0) // si minute et seconde sont egals a 0
         {
             _dayWindowAnim.SetBool("EndDay", true); // on met le bool de _dayWindowAnim a true
             StartCoroutine(CoroutineFinJournee()); // on demarre la coroutine CoroutineFinJournee
+            Debug.Log("Fin de la journee");
             // on termine la journee
             // verification si le joueur est revenu a sa zone de depart
         }
@@ -84,11 +85,11 @@ public class Timer : MonoBehaviour
     /// Fonction qui reinitialise les champs afin de demarrer une nouvelle journee
     /// </summary>
     public void ProchaineJournee(){
+        _dayManager.ResetChamps(); // on demande au DayManager de fermer tous les champs
         _dayWindowAnim.SetBool("EndDay", false); // on met le bool de _dayWindowAnim a false
         ResetTimer(); // on Apple ResetTimer
         _champTimer.text = minute + ":00"; // le texte du timer affiche les minute disponible + 00
         StartCoroutine(CoroutineTemps()); // on démarre la coroutine CoroutineTemps
-        _dayManager.ResetChamps(); // on demande au DayManager de fermer tous les champs
         _taskManager.ResetScore(); // on demande au TaskManager de reinitialiser les scores de la journee
     }
 

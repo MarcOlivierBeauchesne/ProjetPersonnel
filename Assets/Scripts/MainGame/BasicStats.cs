@@ -10,6 +10,7 @@ public class BasicStats : MonoBehaviour
 {
     [SerializeField] PlayerRessources _playerRessources; // Reference pour le ScriptableObject PlayerRessources
     [SerializeField] Personnage _perso; // reference au Personnage du perso
+    [SerializeField] private Deforestation _defoManager;
 
     [Header("Player Updrades")] // identification de la section des ameliorations du joueur
     [SerializeField] private float _mouvementSpeedRef = 10; // acces prive pour la reference de la vitesse de deplacement du joueur
@@ -66,6 +67,10 @@ public class BasicStats : MonoBehaviour
         get => _deforestAugment; // par deforestAugment, on retourne la valeur _deforestAugment
         set{
             _deforestAugment = value; // par deforestAugment, on change la valeur _deforestAugment
+            if(_deforestAugment < _deforestAugmentRef){
+                _deforestAugment = _deforestAugmentRef;
+            }
+            Debug.Log("defoAugment" + _deforestAugment);
         }
     }
 
@@ -75,6 +80,11 @@ public class BasicStats : MonoBehaviour
         get => _deforestLevel; // par deforestLevel, on retourne la valeur _deforestLevel
         set{
             _deforestLevel = value; // par deforestLevel, on change la valeur _deforestLevel
+            if(_deforestLevel < 0){
+                _deforestLevel = 0;
+            }
+            Debug.Log("defoLevel" + _deforestLevel);
+            _defoManager.AjusterDefoVisuel();
         }
     }
 
@@ -84,7 +94,9 @@ public class BasicStats : MonoBehaviour
         get => _deforestPool; // par deforestPool, on retourne la valeur _deforestPool
         set{
             _deforestPool = value; // par deforestPool, on change la valeur _deforestPool
-        }
+            Debug.Log("defoPool" + _deforestPool);
+            _defoManager.AjusterDefoVisuel();
+        } 
     }
 
     /// <summary>

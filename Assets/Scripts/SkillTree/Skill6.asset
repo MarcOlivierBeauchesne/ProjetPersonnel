@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Skill6
   m_EditorClassIdentifier: 
   _nomSkill: Fini la coupe
-  _explication: "R\xE9duit l'augmentation de la d\xE9forestation par jour (-10 par
+  _explication: "R\xE9duit l'augmentation de la d\xE9forestation par jour (-3 par
     cumul)."

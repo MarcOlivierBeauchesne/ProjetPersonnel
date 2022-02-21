@@ -102,7 +102,6 @@ public class GenerateurSalle : MonoBehaviour
             }
         }
         else{ // si la quantite total de salle a generer est inferieur a 1
-            Debug.Log("Il n'y a plus de salle a faire spawn");
             OuvrirSalle(); // on appel OuvrirSalle
         }
     }

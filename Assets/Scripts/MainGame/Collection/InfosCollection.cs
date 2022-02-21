@@ -1,0 +1,25 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "infosCollection", menuName = "infosCollection")]
+public class InfosCollection : ScriptableObject
+{
+    [SerializeField] private Sprite _imageObjet;
+    public Sprite imageObjet{
+        get => _imageObjet;
+    }
+    [TextArea]
+    [SerializeField] private string _textObjet;
+    public string textObjet{
+        get => _textObjet;
+    }
+
+    [SerializeField] private bool _isFound = false;
+    public bool isFound{
+        get => _isFound;
+        set{
+            _isFound = value;
+        }
+    }
+}

@@ -89,7 +89,7 @@ public class Salle : MonoBehaviour
                 tache.transform.position = pos.position; // on change la position de la tache pour la position de pos
             }
             else{ // si le chiffre est 1
-                Debug.Log("Aucune tache instanciée");
+                // Debug.Log("Aucune tache instanciée");
             }
         }
     }

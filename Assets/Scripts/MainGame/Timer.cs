@@ -13,7 +13,12 @@ public class Timer : MonoBehaviour
     [SerializeField] private Animator _dayWindowAnim; // acces prive pour l'animator de la fenetre de journee
     [SerializeField] private DayManager _dayManager; // reference au DayManager
     [SerializeField] private TaskManager _taskManager; // reference au TaskManager
+    [SerializeField] private Deforestation _defoManager;
     [SerializeField] private float _endDayWaitTime = 2f; // temps d'attente a la fin de la journee
+    [SerializeField] private int _nbJour = 0;
+    public int nbJour{
+        get => _nbJour;
+    }
 
     [SerializeField] private float _minute = 5; // acces prive au nombre de minutes disponible par jour
     public float minute // acces public au nombre de minutes disponible par jour
@@ -85,12 +90,16 @@ public class Timer : MonoBehaviour
     /// Fonction qui reinitialise les champs afin de demarrer une nouvelle journee
     /// </summary>
     public void ProchaineJournee(){
+        if(_nbJour > 0){
+            _defoManager.AjusterDefoLevel();
+        }
         _dayManager.ResetChamps(); // on demande au DayManager de fermer tous les champs
         _dayWindowAnim.SetBool("EndDay", false); // on met le bool de _dayWindowAnim a false
         ResetTimer(); // on Apple ResetTimer
         _champTimer.text = minute + ":00"; // le texte du timer affiche les minute disponible + 00
         StartCoroutine(CoroutineTemps()); // on démarre la coroutine CoroutineTemps
         _taskManager.ResetScore(); // on demande au TaskManager de reinitialiser les scores de la journee
+        _nbJour++;
     }
 
     /// <summary>

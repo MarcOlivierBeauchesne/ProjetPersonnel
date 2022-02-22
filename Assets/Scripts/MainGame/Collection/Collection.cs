@@ -55,6 +55,7 @@ public class Collection : MonoBehaviour
         switch(gameObject.activeInHierarchy){
             case true :
                 gameObject.SetActive(false);
+                transform.GetChild(3).gameObject.SetActive(false);
                 break;
             case false:
                 gameObject.SetActive(true);

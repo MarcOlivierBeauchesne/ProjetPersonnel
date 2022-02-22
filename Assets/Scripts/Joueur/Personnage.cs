@@ -18,11 +18,15 @@ public class Personnage : MonoBehaviour
     private float _axeY = 0f; // acces prive pour _axeY du Input Vertical
 
     Rigidbody2D _rb; // on stoc le rigidBody2D
+    Animator _anim;
+    SpriteRenderer _sr;
     // Start is called before the first frame update
     void Start()
     {
-        _mouvementSpeed = _basicStats.mouvementSpeed; // _mouvementSped devient la valeur du mouvementSpeed du BasicStats
+        _anim = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody2D>(); // _rb s'associe au RigidBody 2D du perso
+        _sr = GetComponent<SpriteRenderer>();
+        _mouvementSpeed = _basicStats.mouvementSpeed; // _mouvementSped devient la valeur du mouvementSpeed du BasicStats
         _txtNaturePoint.text = _ressourcesPlayer.naturePoint.ToString(); // on affiche les points de nature dans le champs approprie
         _txtNaturePower.text = _ressourcesPlayer.naturePower.ToString(); // on affiche la puissance naturelle dans le champs approprie
     }
@@ -63,6 +67,14 @@ public class Personnage : MonoBehaviour
     private void Mouvement(){
         _axeX = Input.GetAxisRaw("Horizontal"); // _axeX prend la valeur du Input de l'axe Horizontal
         _axeY = Input.GetAxisRaw("Vertical"); // _axeY prend la valeur du Input de l'axe Vertical
+        bool enMouvement = _axeX != 0 || _axeY != 0;
+        _anim.SetBool("Move", enMouvement);
+        if(_axeX < 0){
+            _sr.flipX = true;
+        }
+        else if(_axeX > 0){
+            _sr.flipX = false;
+        }
     }
 
     /// <summary>

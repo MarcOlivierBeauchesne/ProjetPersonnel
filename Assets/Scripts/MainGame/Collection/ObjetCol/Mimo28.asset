@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d790801b8544e2641bff1a28814dd132, type: 3}
   m_Name: Mimo28
   m_EditorClassIdentifier: 
-  _imageObjet: {fileID: 21300000, guid: 32bb8ec27e05f27408f93d92e5af9f95, type: 3}
-  _textObjet: Troisieme animal de la liste
+  _imageObjet: {fileID: 21300000, guid: 7968fc0696ab5b943a9f9acc443b5dc4, type: 3}
+  _textObjet: "Vous n'avez jamais observ\xE9 ce type d'insect avant. Sa carapace
+    est tr\xE8s solide et il semble avoir une grande valeur. On pourrait croire qu'il
+    est fait de roche et de m\xE9tal."
+  _isFound: 1

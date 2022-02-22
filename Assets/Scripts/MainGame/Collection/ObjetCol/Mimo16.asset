@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d790801b8544e2641bff1a28814dd132, type: 3}
   m_Name: Mimo16
   m_EditorClassIdentifier: 
-  _imageObjet: {fileID: 21300000, guid: 32bb8ec27e05f27408f93d92e5af9f95, type: 3}
-  _textObjet: Troisieme animal de la liste
+  _imageObjet: {fileID: 21300000, guid: 3388408a1c3b8ae479b634a54f438e29, type: 3}
+  _textObjet: "Ce jeune renardeau fut s\xE9par\xE9 de sa maman alors qu'ils fut \xE9ffray\xE9
+    par de forts bruits m\xE9talliques et les craquements des abres qui tombaient. "
+  _isFound: 1

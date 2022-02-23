@@ -5,6 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "infosCollection", menuName = "infosCollection")]
 public class InfosCollection : ScriptableObject
 {
+    [SerializeField] private string _nomMimo;
+    public string nomMimo{
+        get => _nomMimo;
+    }
+
     [SerializeField] private Sprite _imageObjet;
     public Sprite imageObjet{
         get => _imageObjet;

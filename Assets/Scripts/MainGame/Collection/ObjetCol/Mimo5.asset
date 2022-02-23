@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d790801b8544e2641bff1a28814dd132, type: 3}
   m_Name: Mimo5
   m_EditorClassIdentifier: 
+  _nomMimo: Ecureuil
   _imageObjet: {fileID: 21300000, guid: 61694723c6defa64386e8f9e3beb4648, type: 3}
   _textObjet: "Cet \xE9cureuil \xE0 perdu toutes ses r\xE9serve pour l'hiver quand
     son arbre a \xE9t\xE9 coup\xE9. Il aura besoin de votre aide pour remplir son
     garde-manger."
-  _isFound: 1
+  _isFound: 0

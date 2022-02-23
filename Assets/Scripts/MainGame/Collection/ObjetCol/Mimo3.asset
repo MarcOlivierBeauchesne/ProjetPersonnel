@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d790801b8544e2641bff1a28814dd132, type: 3}
   m_Name: Mimo3
   m_EditorClassIdentifier: 
+  _nomMimo: Lapin
   _imageObjet: {fileID: 21300000, guid: 409cd76cc85d5374aab1cc8ba59d14b5, type: 3}
   _textObjet: "Ce petit lapin sauvage a perdu le reste de sa famille. Son terrier
     ayant \xE9t\xE9 d\xE9truit, il esp\xE8re trouver refuge aupr\xE8s de vous."
-  _isFound: 1
+  _isFound: 0

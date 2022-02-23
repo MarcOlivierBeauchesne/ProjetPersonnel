@@ -77,6 +77,7 @@ public class Collection : MonoBehaviour
                     imageObj.sprite = _tInfosCollection[i].imageObjet;
                     imageObj.color = new Color (1f,1f,1f,1f);
                     Debug.Log("Nouveau mimo trouvé! il s'appel" + nomObjet);
+                    return;
                 }
             }
         }

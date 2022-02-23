@@ -16,6 +16,15 @@ public class ObjetCollection : MonoBehaviour
         get => _imageInconnu;
     }
 
+    /// <summary>
+    /// Start is called on the frame when a script is enabled just before
+    /// any of the Update methods is called the first time.
+    /// </summary>
+    void Start()
+    {
+        gameObject.name = _infosObjet.nomMimo;
+    }
+
     public void ActiverBoite(){
         switch(_boiteObjet.activeInHierarchy){
             case true :

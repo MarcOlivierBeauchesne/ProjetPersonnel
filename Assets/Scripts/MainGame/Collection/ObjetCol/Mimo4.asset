@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d790801b8544e2641bff1a28814dd132, type: 3}
   m_Name: Mimo4
   m_EditorClassIdentifier: 
+  _nomMimo: Poisson
   _imageObjet: {fileID: 21300000, guid: e6648a36af5e00e47b8f02570565b117, type: 3}
   _textObjet: "Ce poisson aura besoin de toutes les ressources n\xE9cessaires pour
     \xE9lever son petit poissons. Les rivi\xE8res \xE9tant de plus en plus pollu\xE9es,
     sa recherche sera ardue."
-  _isFound: 1
+  _isFound: 0

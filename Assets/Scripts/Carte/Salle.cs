@@ -8,15 +8,17 @@ public class Salle : MonoBehaviour
     [SerializeField] private LayerMask _layerSol; // layer du sol d'une tache
     [SerializeField] GameObject[] _tDetecteurs; // tableaux des detecteurs de la salle
     [SerializeField] Transform[] _tPosTaches; // tableau des positions possible des taches
+    [SerializeField] Transform[] _tPosMimo; // tableau des positions possible des Mimos
+    [SerializeField] GameObject _goMimo; // gameObject d'un mimo
     [SerializeField] GameObject[] _tGoTache; // tableau des taches possibles
     private List<Vector2> _listFreePos = new List<Vector2> { }; // liste des position disponible pour instancier une salle
     private bool _toucheAuxBlocs; // bool qui determine si un detecteur touche a _layerTuile
     
     private List<Vector2> _listPositions = new List<Vector2> // list de positions a verifier pour une salle
-    {   new Vector2(0,11),
-        new Vector2(0,-11),
-        new Vector2(-19,0),
-        new Vector2(19,0),
+    {   new Vector2(0,22),
+        new Vector2(0,-22),
+        new Vector2(-26,0),
+        new Vector2(26,0),
     };
 
     private GenerateurSalle _genSalle; // acces prive pour le GenerateurSalle
@@ -40,6 +42,7 @@ public class Salle : MonoBehaviour
         if(_tPosTaches.Length > 0){ // si la liste des positions de tache n'est pas vide
             GenererTaches(); // on appel GenererTache
         }
+        SpawnMimo(); // on appel SpawnMimo
     }
 
     /// <summary>
@@ -71,6 +74,19 @@ public class Salle : MonoBehaviour
                 Vector3Int posCell = laCarte.GetComponentInParent<Grid>().WorldToCell(posParent2); // on transform posParent2 en position d'une tuile et on stock cette position dans posCell 
                 laCarte.SetTile(posCell, null); // on dit au tilemap des cotes de supprimer la tuile a posCell
                 Destroy(leParent.gameObject); // on detruit le gameObject du parent
+            }
+        }
+    }
+
+    /// <summary>
+    /// Fonction qui determine si un Mimo doit apparaitre
+    /// </summary>
+    private void SpawnMimo(){
+        foreach (Transform posMimo in _tPosMimo) // boucle qui passe chaque position du tableau _tPosMimo
+        {
+            int spawnMimo = Random.Range(0, 2); // on fait un hasard entre 0 et 1
+            if(spawnMimo == 1){ // si le resultat est 1
+                Instantiate(_goMimo, posMimo.position, Quaternion.identity); // on genere un Mimo a la position PosMimo
             }
         }
     }

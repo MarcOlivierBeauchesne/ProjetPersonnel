@@ -8,7 +8,7 @@ public class GenerateurSalle : MonoBehaviour
     [SerializeField] private GameObject[] _tSalleForet; // tableau des salle de foret
     [SerializeField] private GameObject[] _tSalleCoupe; // tableau des salles de deforestation
     [SerializeField] private BasicStats _basicStats; // refenrence au BasicStats
-    [SerializeField] private GameObject _perso;
+    [SerializeField] private GameObject _perso; // reference du personnage
     private float _pourcentage; // pourcentage de la carte couvert par al deforestation
     [SerializeField] private int _nbSalle = 10; // nombre de salle a generer
     private int _qteSalleForet = 10; // quantite de salle de foret a generer
@@ -32,7 +32,7 @@ public class GenerateurSalle : MonoBehaviour
     /// Fonction qui genere la premiere salle et etablit la quantite de chaque salle a generer
     /// </summary>
     public void GenererFirstSalle(){
-        _salleOuverte = false;
+        _salleOuverte = false; // les salles ne sont pas ouverte
         _pourcentage = _basicStats.deforestLevel; // le pourcentage prend la valeur de deforestLevel du BasicStats
         ClearRooms(); // on appel ClearRooms
         _qteSalleCoupe = Mathf.RoundToInt((_nbSalle * _pourcentage)/100); // le nombre de salle de deforestaation prend la valeur en pourcentage selon le total de salle a generer
@@ -41,7 +41,7 @@ public class GenerateurSalle : MonoBehaviour
         salle.transform.SetParent(transform); // le generateur de salle devient le parent de la premiere salle
         salle.GetComponent<Salle>().genSalle = this; // on attribue le genSalle de la salle pour le script actuel
         _listSalle.Add(salle); // on ajoute la premiere salle dans la liste des salles
-        _perso.transform.position = salle.transform.position;
+        _perso.transform.position = salle.transform.position; // on place le perso au centre de la premiere salle
     }
 
     /// <summary>

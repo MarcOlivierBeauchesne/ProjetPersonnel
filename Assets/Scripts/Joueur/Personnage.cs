@@ -10,8 +10,15 @@ public class Personnage : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _txtNaturePoint; // acces prive pour le champs de texte des points de nature du joueur
     [SerializeField] private TextMeshProUGUI _txtNaturePower; // acces prive pour le champs de texte de la puissance naturelle du joueur
+    [SerializeField] private TextMeshProUGUI _txtSeed;
     [SerializeField] private PlayerRessources _ressourcesPlayer; // reference de PlayerRessources du joueur
+    [SerializeField] private TaskManager _taskManager;
+    [SerializeField] private GameObject _goArbre;
+    public PlayerRessources ressourcesPlayer{
+        get=> _ressourcesPlayer;
+    }
     [SerializeField] private BasicStats _basicStats; // reference au BasicStats
+    [SerializeField] private LayerMask _layerTache;
 
     private float _mouvementSpeed = 5; // acces prive pour _mouvementSpeed
     private float _axeX = 0f; // acces prive pour _axeX du Input Horizontal
@@ -29,6 +36,7 @@ public class Personnage : MonoBehaviour
         _mouvementSpeed = _basicStats.mouvementSpeed; // _mouvementSped devient la valeur du mouvementSpeed du BasicStats
         _txtNaturePoint.text = _ressourcesPlayer.naturePoint.ToString(); // on affiche les points de nature dans le champs approprie
         _txtNaturePower.text = _ressourcesPlayer.naturePower.ToString(); // on affiche la puissance naturelle dans le champs approprie
+        _txtSeed.text = _ressourcesPlayer.seedAmount.ToString();
     }
 
     /// <summary>
@@ -46,6 +54,7 @@ public class Personnage : MonoBehaviour
                 break; // on sort de la condition
             case "seed": // si la ressources est "seed"
                 _ressourcesPlayer.seedAmount += valeur; // on change la quantite de graine du joueur
+                _txtSeed.text = _ressourcesPlayer.seedAmount.ToString();
                 break; // on sort de la condition
             case "naturePoint": // si la ressources est "naturePoint"
                 _ressourcesPlayer.naturePoint += valeur; // on change les naturePoint du _ressourcesPlayer selon la valeur
@@ -83,6 +92,28 @@ public class Personnage : MonoBehaviour
     void Update()
     {
         Mouvement(); // on appel Mouvement
+        if(Input.GetKeyDown(KeyCode.Space)){
+            if(_ressourcesPlayer.seedAmount >=1){
+                PlanterArbre();
+            }
+        }
+    }
+
+    private void PlanterArbre(){
+        int posX = Mathf.FloorToInt(transform.position.x);
+        int posY = Mathf.FloorToInt(transform.position.y);
+        Vector2 posPossible = new Vector2(posX, posY);
+
+        bool placePrise = Physics2D.Raycast(posPossible, Vector2.right, 0.1f, _layerTache);
+        if(!placePrise){
+            Instantiate(_goArbre, posPossible, Quaternion.identity);
+            AjusterPoint("seed", -1);
+            _taskManager.AjouterPoint(TypeTache.Arbre, 10);
+            AjusterPoint("naturePoint", 10 + (int)_basicStats.npGain);
+        }
+        else{
+            Debug.Log("Il y a deja un arbre a cet endroit");
+        }
     }
 
     /// <summary>

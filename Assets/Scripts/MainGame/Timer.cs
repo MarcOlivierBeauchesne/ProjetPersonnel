@@ -117,19 +117,4 @@ public class Timer : MonoBehaviour
         StartCoroutine(CoroutineTemps()); // on demarre la CoroutineCoroutineTemps
     }
 
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space)){
-            _basicStats.dayTime++;
-            ResetTimer();
-        }
-        else if(Input.GetKeyDown(KeyCode.E)){
-            StartTimer();
-            _champTimer.text = minute + ":00";
-            _dayWindowAnim.SetBool("EndDay", false);
-        }
-    }
 }

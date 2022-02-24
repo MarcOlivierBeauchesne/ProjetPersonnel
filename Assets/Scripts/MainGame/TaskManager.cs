@@ -20,14 +20,14 @@ public class TaskManager : MonoBehaviour
     /// <summary>
     /// Fonction public que les taches appelent pour attribuer des points au joueur
     /// </summary>
-    public void AjouterPoint(){
-        int type = Random.Range(0, 2); // temporaire
-        int valeur = Random.Range(0,15); // temporaire
-        if(type == 0){ // temporaire
-            _scoretaches += valeur;
-        }
-        else if(type == 1){
-            _scoreArbre += valeur;
+    public void AjouterPoint(TypeTache type, int valeur){
+        switch(type){
+            case TypeTache.Arbre :
+                _scoreArbre += valeur; 
+            break;
+            case TypeTache.Tache : 
+                _scoretaches += valeur;
+            break;
         }
     }
 
@@ -38,4 +38,10 @@ public class TaskManager : MonoBehaviour
         _scoreArbre = 0; // le _scoreArbre devient 0
         _scoretaches = 0; // le _scoreTaches devient 0
     }
+}
+
+public enum TypeTache
+{
+    Arbre,
+    Tache
 }

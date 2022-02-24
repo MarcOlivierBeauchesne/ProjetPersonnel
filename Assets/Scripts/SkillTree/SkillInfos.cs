@@ -46,7 +46,6 @@ public class SkillInfos : MonoBehaviour
     /// </summary>
     void Start()
     {
-        _skillCost = AjusterCoutSkill();
         _bouton = GetComponent<Button>(); // on va chercher le Button du gameObject et on le met dans _button
         img = GetComponent<Image>(); // on va chercher l'image du gameObject et on le met dans img
         CheckDepend(); // on appel CheckDepend
@@ -80,12 +79,22 @@ public class SkillInfos : MonoBehaviour
     private void VerifierRessources(){
         int realCost = _skillCost * (actualStack + 1); // on calcul le cout real du skill (temporaire)
         if(_playerRessources.naturePoint >= realCost){ // si les points de nature du joueur sont egal ou plus eleves que le cout real du skill
-            _perso.AjusterPoint("naturePoint", -(realCost-_skillCost)); // on demande au personnage d'ajuter ses points de nature
+            _perso.AjusterPoint("naturePoint", -realCost); // on demande au personnage d'ajuter ses points de nature
             actualStack++; // on augmente le niveau du skill actuel de 1
             _savedTotalStack++; // on augmente le niveau total du skill
             _boiteExplication.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = $"{actualStack}/{maxStack}"; // on met a jour le niveau affiche dans la boite d'explication
             if(actualStack != maxStack){ // si le niveau du skill actuel n'est pas egal a son maximum
-                _boiteExplication.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = (_skillCost * (actualStack + 1)).ToString(); // on met a jour l'affichage du cout reel du skill
+                TextMeshProUGUI textCout = _boiteExplication.transform.GetChild(3).GetComponent<TextMeshProUGUI>();
+                textCout.text = (_skillCost * (actualStack + 1)).ToString(); // on met a jour l'affichage du cout reel du skill
+                if(_playerRessources.naturePoint >= realCost){
+                    textCout.color = Color.green;
+                    Debug.Log("Le joueur a assez de ressource : " + _playerRessources.naturePoint);
+                }
+                else{
+                    textCout.color = Color.red;
+                    Debug.Log("Le joueur n'a pas assez de ressource : " + _playerRessources.naturePoint);
+
+                }
             }
             else{ // si le niveau actuel est egal a son maximum
                 _boiteExplication.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "Complet";

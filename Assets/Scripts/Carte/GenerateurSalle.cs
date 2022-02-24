@@ -5,10 +5,17 @@ using UnityEngine;
 public class GenerateurSalle : MonoBehaviour
 {
     [SerializeField] private GameObject _firstSalle; // gameObject de la premiere salle
+    [SerializeField] private TaskManager _taskManager;
+    public TaskManager taskManager{
+        get=>_taskManager;
+    }
     [SerializeField] private GameObject[] _tSalleForet; // tableau des salle de foret
     [SerializeField] private GameObject[] _tSalleCoupe; // tableau des salles de deforestation
     [SerializeField] private BasicStats _basicStats; // refenrence au BasicStats
     [SerializeField] private GameObject _perso; // reference du personnage
+    public GameObject perso {
+        get=> _perso;
+    }
     private float _pourcentage; // pourcentage de la carte couvert par al deforestation
     [SerializeField] private int _nbSalle = 10; // nombre de salle a generer
     private int _qteSalleForet = 10; // quantite de salle de foret a generer

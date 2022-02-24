@@ -59,6 +59,7 @@ public class MenuJeu : MonoBehaviour
         else if(Input.GetKeyDown(KeyCode.F)){
             if(_fenetreSkillTree.activeInHierarchy){
                 _fenetreSkillTree.SetActive(false);
+                _fenetreSkillTree.transform.GetChild(0).gameObject.SetActive(false);
             }
             else{
                 _fenetreSkillTree.SetActive(true);

@@ -87,7 +87,8 @@ public class Skilltree : MonoBehaviour
             _boiteExplication.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Absorber"; // on affiche le nom du skill
             _boiteExplication.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = _textAbsorbtion; // on affiche l'explication du du skill
             _boiteExplication.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = ""; // on affiche le niveau actuel sur le niveau maximum du skill
-            _boiteExplication.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = coutReel.ToString(); // on affiche le cout du skill
+            TextMeshProUGUI textCout = _boiteExplication.transform.GetChild(3).GetComponent<TextMeshProUGUI>();
+            textCout.text = coutReel.ToString(); // on affiche le cout du skill
         }
         else{ // si la boite est active
             _boiteExplication.SetActive(false); // on desactive la boite

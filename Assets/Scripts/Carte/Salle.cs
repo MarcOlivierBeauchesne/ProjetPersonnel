@@ -6,11 +6,15 @@ using UnityEngine.Tilemaps;
 public class Salle : MonoBehaviour
 {
     [SerializeField] private LayerMask _layerSol; // layer du sol d'une tache
+    [SerializeField] private LayerMask _layerTache; 
     [SerializeField] GameObject[] _tDetecteurs; // tableaux des detecteurs de la salle
     [SerializeField] Transform[] _tPosTaches; // tableau des positions possible des taches
     [SerializeField] Transform[] _tPosMimo; // tableau des positions possible des Mimos
+    [SerializeField] Transform[] _tPosSeed;
     [SerializeField] GameObject _goMimo; // gameObject d'un mimo
+    [SerializeField] GameObject _goSeed; 
     [SerializeField] GameObject[] _tGoTache; // tableau des taches possibles
+    [SerializeField] private int _chanceSeed = 30;
     private List<Vector2> _listFreePos = new List<Vector2> { }; // liste des position disponible pour instancier une salle
     private bool _toucheAuxBlocs; // bool qui determine si un detecteur touche a _layerTuile
     
@@ -43,6 +47,10 @@ public class Salle : MonoBehaviour
             GenererTaches(); // on appel GenererTache
         }
         SpawnMimo(); // on appel SpawnMimo
+        if(_tPosSeed.Length>0){
+            SpawnSeed();
+            StartCoroutine(CoroutineSpawnSeed());
+        }
     }
 
     /// <summary>
@@ -62,7 +70,7 @@ public class Salle : MonoBehaviour
     /// </summary>
     public void CreerDetecteurs()
     {
-        Tilemap laCarte = transform.GetChild(1).GetComponent<Tilemap>(); // Tilemap des cote de la salle
+        Tilemap laCarte = transform.GetChild(4).GetComponent<Tilemap>(); // Tilemap des cote de la salle
         foreach (GameObject detecteur in _tDetecteurs) // boucle pour chaque detecteur dans _tDetecteurs
         {
             Transform leParent = detecteur.transform.parent; // on accede au transform du parent
@@ -86,7 +94,33 @@ public class Salle : MonoBehaviour
         {
             int spawnMimo = Random.Range(0, 2); // on fait un hasard entre 0 et 1
             if(spawnMimo == 1){ // si le resultat est 1
-                Instantiate(_goMimo, posMimo.position, Quaternion.identity); // on genere un Mimo a la position PosMimo
+                GameObject mimo = Instantiate(_goMimo, posMimo.position, Quaternion.identity); // on genere un Mimo a la position PosMimo
+                mimo.transform.SetParent(transform);
+            }
+        }
+    }
+
+    private IEnumerator CoroutineSpawnSeed(){
+
+        yield return new WaitForSeconds(10);
+        SpawnSeed();
+        int chancePop = Random.Range(0,101);
+        if(chancePop >= 50){
+            StartCoroutine(CoroutineSpawnSeed());
+        }
+    }
+
+    private void SpawnSeed(){
+        foreach (Transform posSeed in _tPosSeed)
+        {
+            bool posOccupe = Physics2D.Raycast(posSeed.position, Vector2.right, 0.1f, _layerTache);
+            if(!posOccupe){
+                int chanceSeed = Random.Range(0,101);
+                if(chanceSeed >= _chanceSeed){
+                    GameObject seed = Instantiate(_goSeed, transform.position, Quaternion.identity);
+                    seed.transform.SetParent(transform);
+                    seed.transform.position = posSeed.position;
+                }
             }
         }
     }

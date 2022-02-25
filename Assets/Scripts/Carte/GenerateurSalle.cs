@@ -18,9 +18,11 @@ public class GenerateurSalle : MonoBehaviour
     }
     private float _pourcentage; // pourcentage de la carte couvert par al deforestation
     [SerializeField] private int _nbSalle = 10; // nombre de salle a generer
+    private int _nbSalleRef = 10; // nombre de salle a generer
     private int _qteSalleForet = 10; // quantite de salle de foret a generer
     private int _qteSalleCoupe = 10; // quantite de salle de deforestation a generer
     private bool _salleOuverte = false; // bool pour savoir si les salles sont ouvertes
+    private bool secondeVague = false;
 
     private List<GameObject> _listSalle = new List<GameObject> { }; // liste des salles generees
     private List<Vector2> _listPosDispo = new List<Vector2> { }; // liste des positions disponibles pour generer des salles
@@ -31,6 +33,7 @@ public class GenerateurSalle : MonoBehaviour
     /// </summary>
     void Start()
     {
+        _nbSalleRef = _nbSalle;
         _pourcentage = _basicStats.deforestLevel; // le pourcentage prend la valeur de deforestLevel du BasicStats
         GenererFirstSalle(); // on appel GenererFirstSalle
     }
@@ -49,6 +52,7 @@ public class GenerateurSalle : MonoBehaviour
         salle.GetComponent<Salle>().genSalle = this; // on attribue le genSalle de la salle pour le script actuel
         _listSalle.Add(salle); // on ajoute la premiere salle dans la liste des salles
         _perso.transform.position = salle.transform.position; // on place le perso au centre de la premiere salle
+        _perso.GetComponent<Plantage>().NettoyerArbre();
     }
 
     /// <summary>
@@ -109,7 +113,18 @@ public class GenerateurSalle : MonoBehaviour
             }
         }
         else{ // si la quantite total de salle a generer est inferieur a 1
-            OuvrirSalle(); // on appel OuvrirSalle
+            if(!secondeVague){
+                secondeVague = true;
+                _nbSalle = _nbSalleRef;
+                _qteSalleCoupe = Mathf.RoundToInt((_nbSalle * _pourcentage)/100); // le nombre de salle de deforestaation prend la valeur en pourcentage selon le total de salle a generer
+                _qteSalleForet = _nbSalle - _qteSalleCoupe; // la quantite de salle de forest est la balance du total de salle moins le nombre de salles de deforestation
+                _listSalle[_listSalle.Count-1].GetComponent<Salle>().Scan();
+                Debug.Log("on fait apparaitre d'autre salle");
+                return;
+            }
+            else{
+                OuvrirSalle(); // on appel OuvrirSalle
+            }
         }
     }
 

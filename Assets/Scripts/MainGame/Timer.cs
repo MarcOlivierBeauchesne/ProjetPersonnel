@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 /// <summary>
 /// Fonction qui controle et affiche le temps disponible par jour dans le jeu
@@ -9,6 +10,7 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
     [SerializeField] private Text _champTimer; // acces prive pour le champs de texte qui affiche le Timer
+    [SerializeField] private TextMeshProUGUI _champsJour;
     [SerializeField] private BasicStats _basicStats; // acces prive pour le BasicStats _basicStats
     [SerializeField] private Animator _dayWindowAnim; // acces prive pour l'animator de la fenetre de journee
     [SerializeField] private DayManager _dayManager; // reference au DayManager
@@ -50,6 +52,13 @@ public class Timer : MonoBehaviour
         ProchaineJournee(); // on appel ProchaineJournee
     }
 
+    private IEnumerator CoroutineChampsJour(){
+        _champsJour.text = "Jour " + _nbJour;
+        _champsJour.gameObject.GetComponent<Animator>().SetBool("NewDay", true);
+        yield return new WaitForSeconds(2f);
+        _champsJour.gameObject.GetComponent<Animator>().SetBool("NewDay", false);
+    }
+
     /// <summary>
     /// Coroutine qui controle la reducation du temps
     /// </summary>
@@ -68,6 +77,7 @@ public class Timer : MonoBehaviour
             _dayWindowAnim.SetBool("EndDay", true); // on met le bool de _dayWindowAnim a true
             StartCoroutine(CoroutineFinJournee()); // on demarre la coroutine CoroutineFinJournee
             Debug.Log("Fin de la journee");
+            _champsJour.gameObject.SetActive(false);
             // on termine la journee
             // verification si le joueur est revenu a sa zone de depart
         }
@@ -100,6 +110,7 @@ public class Timer : MonoBehaviour
         StartCoroutine(CoroutineTemps()); // on démarre la coroutine CoroutineTemps
         _taskManager.ResetScore(); // on demande au TaskManager de reinitialiser les scores de la journee
         _nbJour++;
+        StartCoroutine(CoroutineChampsJour());
     }
 
     /// <summary>

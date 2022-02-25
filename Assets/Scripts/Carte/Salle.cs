@@ -40,9 +40,6 @@ public class Salle : MonoBehaviour
     void Start()
     {
         Scan(); // on appel Scan
-        if(_listFreePos.Count > 0){ // s'il y a au moins 1 position disponible dans _listFreePos
-            _genSalle.GenererSalles(_listFreePos); // on demande a _genSalle de generer les salle selon les position disponibles
-        }
         if(_tPosTaches.Length > 0){ // si la liste des positions de tache n'est pas vide
             GenererTaches(); // on appel GenererTache
         }
@@ -56,12 +53,15 @@ public class Salle : MonoBehaviour
     /// <summary>
     /// Fonction qui verifie les positions disponibles pour generer une salle a proximite
     /// </summary>
-    private void Scan(){
+    public void Scan(){
         for (int i = 0; i < _listPositions.Count; i++){ // boucle selon la taille de la liste de positions a verifier
             bool detection = Physics2D.Raycast((Vector2)transform.position+_listPositions[i], _listPositions[i], 0.1f, _layerSol); // on lance un rayon pour toucher le _layerSol
             if(!detection){ // si le rayon n'a pas toucher de sol
                 _listFreePos.Add((Vector2)transform.position + _listPositions[i]); // on ajoute la position du laser dans la lsite des positions disponibles
             }
+        }
+        if(_listFreePos.Count > 0){ // s'il y a au moins 1 position disponible dans _listFreePos
+            _genSalle.GenererSalles(_listFreePos); // on demande a _genSalle de generer les salle selon les position disponibles
         }
     }
 

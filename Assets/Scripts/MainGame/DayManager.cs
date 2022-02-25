@@ -14,9 +14,14 @@ public class DayManager : MonoBehaviour
     [SerializeField] TaskManager _taskManager; // reference au TaskManager qui gere les taches
     [SerializeField] private GenerateurSalle _genSalle;
     private int _indexTableau = 0;
+
+    Deforestation _deforestation;
+    BasicStats _baseStats;
     // Start is called before the first frame update
     void Start()
     {
+        _baseStats = GetComponent<BasicStats>();
+        _deforestation = GetComponent<Deforestation>();
         ResetChamps(); // On appel ResetChamps
     }
 
@@ -47,7 +52,7 @@ public class DayManager : MonoBehaviour
                 _tChampsEndDay[3].SetActive(true); // on affiche la categorie Arbres plantes
                 _tChampsEndDay[3].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _taskManager.scoreArbre.ToString(); // la valeur affichee de la categorie prend la valeur du scoreArbre du _taskManager
                 _tChampsEndDay[4].SetActive(true); // on affiche la categorie Progression (deforestation)
-                _tChampsEndDay[4].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = GetComponent<BasicStats>().deforestAugment.ToString(); // la valeur affichee de la categorie prend la valeur du deforestAugment du BasicStats
+                _tChampsEndDay[4].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _baseStats.deforestAugment.ToString(); // la valeur affichee de la categorie prend la valeur du deforestAugment du BasicStats
                 break; // on sort de la condition
             }
             case 3 : { // si _indexTableau est de 3
@@ -57,15 +62,22 @@ public class DayManager : MonoBehaviour
             }
             case 4 : { // si _indexTableau est de 4
                 _tChampsEndDay[6].SetActive(true); // on affiche la categorie Total des scores
-                _tChampsEndDay[6].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = GetComponent<BasicStats>().deforestAugment.ToString(); // le valeur du total prend la valeur du deforestAugment du BasicStats
+                _tChampsEndDay[6].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _baseStats.deforestAugment.ToString(); // le valeur du total prend la valeur du deforestAugment du BasicStats
                 _tChampsEndDay[7].SetActive(true); // on affiche la categorie Total des scores
                 _tChampsEndDay[7].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_taskManager.scoreArbre + _taskManager.scoreTache).ToString(); // le valeur du total prend la valeur cumulee des arbres plantes et des taches accomplies
                 _genSalle.GenererFirstSalle();
                 Debug.Log("On recommence la carte");
                 break; // on sort de la condition
             }
-            case 5 : { // si _indexTableau est de 5
-                _tChampsEndDay[8].SetActive(true); // on affiche le bouton pour passer a la prochaine journee
+            case 5 : { // si _indexTableau est de 5¸
+                if(_deforestation.actualDefo + _baseStats.deforestAugment > _deforestation.maxDefo){
+                    _tChampsEndDay[8].SetActive(true);
+                    _tChampsEndDay[11].SetActive(true);
+                }
+                else{
+                    _tChampsEndDay[9].SetActive(true); // on affiche le bouton pour passer a la prochaine journee
+                    _tChampsEndDay[10].SetActive(true);
+                }
                 break; // on sort de la condition
             }
         }

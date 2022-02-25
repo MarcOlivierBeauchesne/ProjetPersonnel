@@ -10,14 +10,24 @@ public class BucheSeed : MonoBehaviour
     [SerializeField] private SpriteRenderer[] _tSeedVisual;
     [SerializeField] private Sprite _imgEmptySeed;
     [SerializeField] private Sprite _imgFullSeed;
+    [SerializeField] private Sprite _bucheFull;
     [SerializeField] private int _taskValue;
     private bool _isFull = false;
     private int _seedAmount = 0;
     private int _seedNeeded = 0;
     private bool _playerClose = false;
+
+    SpriteRenderer _sr;
+    GenerateurSalle _genSalle;
+    Personnage _perso;
+    PlayerRessources _resPlayer;
     // Start is called before the first frame update
     void Start()
     {
+        _genSalle = GetComponentInParent<GenerateurSalle>();
+        _perso = _genSalle.perso.GetComponent<Personnage>();
+        _resPlayer = _perso.ressourcesPlayer;
+        _sr = GetComponent<SpriteRenderer>();
         _seedNeeded = CalculerSeedNeeded();
         AjusterSeedNeeded();
         _btnInterraction.SetActive(false);
@@ -64,18 +74,17 @@ public class BucheSeed : MonoBehaviour
     }
 
     private void AjouterSeed(){
-        Personnage player = transform.GetComponentInParent<GenerateurSalle>().perso.GetComponent<Personnage>();
-        PlayerRessources resPlayer = player.ressourcesPlayer;
-        Debug.Log("nombre de graine du joueur : " + resPlayer.seedAmount);
-        if(resPlayer.seedAmount >= 1){
+        if(_resPlayer.seedAmount >= 1){
             _seedAmount++;
-            player.AjusterPoint("seed", -1);
+            _perso.AjusterPoint("seed", -1);
             AjusterSeedVisuel();
             if(_seedAmount == _seedNeeded){
-                Debug.Log("Le tronc est plein");
                 _isFull = true;
-                GetComponent<SpriteRenderer>().color = Color.green;
-                GetComponentInParent<GenerateurSalle>().taskManager.AjouterPoint(TypeTache.Tache, _taskValue);
+                _genSalle.taskManager.AjouterPoint(TypeTache.Tache, _taskValue);
+                _sr.sprite = _bucheFull; 
+                int totalPoint = (_seedAmount * _taskValue + (int)_perso.basicStats.npGain) + _seedAmount * (int)_perso.basicStats.npGain;
+                _perso.AjusterPoint("naturePoint", totalPoint);
+                _perso.taskManager.AjouterPoint(TypeTache.Tache, totalPoint);
             }
         }
         else{

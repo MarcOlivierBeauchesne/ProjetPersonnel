@@ -13,12 +13,16 @@ public class Personnage : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _txtSeed;
     [SerializeField] private PlayerRessources _ressourcesPlayer; // reference de PlayerRessources du joueur
     [SerializeField] private TaskManager _taskManager;
-    [SerializeField] private GameObject _goArbre;
+    public TaskManager taskManager{
+        get=>_taskManager;
+    }
     public PlayerRessources ressourcesPlayer{
         get=> _ressourcesPlayer;
     }
     [SerializeField] private BasicStats _basicStats; // reference au BasicStats
-    [SerializeField] private LayerMask _layerTache;
+    public BasicStats basicStats{
+        get=>_basicStats;
+    }
 
     private float _mouvementSpeed = 5; // acces prive pour _mouvementSpeed
     private float _axeX = 0f; // acces prive pour _axeX du Input Horizontal
@@ -27,9 +31,11 @@ public class Personnage : MonoBehaviour
     Rigidbody2D _rb; // on stoc le rigidBody2D
     Animator _anim;
     SpriteRenderer _sr;
+    Plantage _pl;
     // Start is called before the first frame update
     void Start()
     {
+        _pl = GetComponent<Plantage>();
         _anim = GetComponent<Animator>(); // anim s'associr au AnimatorController du perso
         _rb = GetComponent<Rigidbody2D>(); // _rb s'associe au RigidBody 2D du perso
         _sr = GetComponent<SpriteRenderer>(); // _sr s'associe au SpriteRenderer du perso
@@ -94,27 +100,12 @@ public class Personnage : MonoBehaviour
         Mouvement(); // on appel Mouvement
         if(Input.GetKeyDown(KeyCode.Space)){
             if(_ressourcesPlayer.seedAmount >=1){
-                PlanterArbre();
+                _pl.PlanterArbre();
             }
         }
     }
 
-    private void PlanterArbre(){
-        int posX = Mathf.FloorToInt(transform.position.x);
-        int posY = Mathf.FloorToInt(transform.position.y);
-        Vector2 posPossible = new Vector2(posX, posY);
 
-        bool placePrise = Physics2D.Raycast(posPossible, Vector2.right, 0.1f, _layerTache);
-        if(!placePrise){
-            Instantiate(_goArbre, posPossible, Quaternion.identity);
-            AjusterPoint("seed", -1);
-            _taskManager.AjouterPoint(TypeTache.Arbre, 10);
-            AjusterPoint("naturePoint", 10 + (int)_basicStats.npGain);
-        }
-        else{
-            Debug.Log("Il y a deja un arbre a cet endroit");
-        }
-    }
 
     /// <summary>
     /// This function is called every fixed framerate frame, if the MonoBehaviour is enabled.

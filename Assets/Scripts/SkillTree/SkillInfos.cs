@@ -37,6 +37,7 @@ public class SkillInfos : MonoBehaviour
     [SerializeField] SkillExplication _skillExplication; // ScriptableObject qui detient les informations a afficher du skill
     [SerializeField] GameObject _boiteExplication; // Reference pour la boite d'explication du skill
     private float _skillReset = 1;
+    private int realCost;
 
     public Image img; // acces public de l'Image du gameObject
     Button _bouton; // on stock le Button du gameObject
@@ -77,9 +78,10 @@ public class SkillInfos : MonoBehaviour
     /// Fonction qui verifier si le joueur possede les ressources pour acheter le skill
     /// </summary>
     private void VerifierRessources(){
-        int realCost = _skillCost * (actualStack + 1); // on calcul le cout real du skill (temporaire)
+        realCost = _skillCost * (actualStack + 1); // on calcul le cout real du skill (temporaire)
         if(_playerRessources.naturePoint >= realCost){ // si les points de nature du joueur sont egal ou plus eleves que le cout real du skill
             _perso.AjusterPoint("naturePoint", -realCost); // on demande au personnage d'ajuter ses points de nature
+            _arbre.CheckRessources();
             actualStack++; // on augmente le niveau du skill actuel de 1
             _savedTotalStack++; // on augmente le niveau total du skill
             _boiteExplication.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = $"{actualStack}/{maxStack}"; // on met a jour le niveau affiche dans la boite d'explication
@@ -88,12 +90,9 @@ public class SkillInfos : MonoBehaviour
                 textCout.text = (_skillCost * (actualStack + 1)).ToString(); // on met a jour l'affichage du cout reel du skill
                 if(_playerRessources.naturePoint >= realCost){
                     textCout.color = Color.green;
-                    Debug.Log("Le joueur a assez de ressource : " + _playerRessources.naturePoint);
                 }
                 else{
                     textCout.color = Color.red;
-                    Debug.Log("Le joueur n'a pas assez de ressource : " + _playerRessources.naturePoint);
-
                 }
             }
             else{ // si le niveau actuel est egal a son maximum
@@ -121,11 +120,24 @@ public class SkillInfos : MonoBehaviour
     public void ActiverBoite()
     {
         if(!_boiteExplication.activeInHierarchy){ // si la boite explicatioin n'est pas active
+            realCost = _skillCost * (actualStack + 1);
             _boiteExplication.SetActive(true); // on active la boite explicative
             _boiteExplication.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _skillExplication.nomSkill; // on affiche le nom du skill
             _boiteExplication.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = _skillExplication.explication; // on affiche l'explication du du skill
             _boiteExplication.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = $"{actualStack}/{maxStack}"; // on affiche le niveau actuel sur le niveau maximum du skill
-            _boiteExplication.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = (_skillCost * (actualStack + 1)).ToString(); // on affiche le cout du skill
+            TextMeshProUGUI textCout = _boiteExplication.transform.GetChild(3).GetComponent<TextMeshProUGUI>();
+            if(_actualStack != _maxStack){
+                textCout.text = (_skillCost * (actualStack + 1)).ToString(); // on affiche le cout du skill
+                if(_playerRessources.naturePoint >= realCost){
+                    textCout.color = Color.green;
+                }
+                else{
+                    textCout.color = Color.red;
+                }
+            }
+            else{ // si le niveau actuel est egal a son maximum
+                textCout.text = "Complet";
+            }
         }
         else{ // si la boite est active
             _boiteExplication.SetActive(false); // on desactive la boite

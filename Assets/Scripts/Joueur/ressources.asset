@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f341e8abc9bab1b47bf2721c4ae27787, type: 3}
   m_Name: ressources
   m_EditorClassIdentifier: 
-  _seedAmount: 10
-  _naturePoint: 3000
+  _seedAmount: 0
+  _naturePoint: 0
   _naturePower: 100

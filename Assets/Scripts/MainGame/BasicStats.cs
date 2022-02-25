@@ -62,15 +62,20 @@ public class BasicStats : MonoBehaviour
 
     [Header("Deforesation")] // Identification de la section des caracteristiques de la deforestation
     [SerializeField] private float _deforestAugmentRef = 10; // acces prive a la reference de l'augmentation de la deforestation par jour
+    public float deforestAugmentRef{
+        get=> _deforestAugmentRef;
+    }
+    
     [SerializeField] private float _deforestAugment = 10; // acces prive a l'augmentation de la deforestation par jour 
     public float deforestAugment{ // acces public a l'augmentation de la deforestation par jour 
         get => _deforestAugment; // par deforestAugment, on retourne la valeur _deforestAugment
         set{
             _deforestAugment = value; // par deforestAugment, on change la valeur _deforestAugment
-            if(_deforestAugment < _deforestAugmentRef){
-                _deforestAugment = _deforestAugmentRef;
-            }
+            // if(_deforestAugment < _deforestAugmentRef){
+            //     _deforestAugment = _deforestAugmentRef;
+            // }
             Debug.Log("defoAugment" + _deforestAugment);
+            _defoManager.AjusterNextDefoVisuel();
         }
     }
 

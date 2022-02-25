@@ -23,7 +23,6 @@ public class Skilltree : MonoBehaviour
         get => _absorbCount;
     }
 
-
     /// <summary>
     /// Start is called on the frame when a script is enabled just before
     /// any of the Update methods is called the first time.
@@ -41,11 +40,15 @@ public class Skilltree : MonoBehaviour
     public void VerifierFenetre() { 
         if(_goSkillTree.activeInHierarchy){ // si l'arbre des talent est actif
             _goSkillTree.SetActive(false); // on desactive l'arbre des talents
+            _boiteExplication.SetActive(false);
         }
         else{ // si l'arbre des talent n'est pas actif
             _goSkillTree.SetActive(true); // on active l'arbre des talents
+            Debug.Log(_ressourcePlayer.naturePoint + ": point du joueur");
+            CheckRessources();
         }
     }
+
 
     /// <summary>
     /// Fonction qui verifie si le joueur possede assez de resources pour abosrber l'arbre
@@ -89,6 +92,7 @@ public class Skilltree : MonoBehaviour
             _boiteExplication.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = ""; // on affiche le niveau actuel sur le niveau maximum du skill
             TextMeshProUGUI textCout = _boiteExplication.transform.GetChild(3).GetComponent<TextMeshProUGUI>();
             textCout.text = coutReel.ToString(); // on affiche le cout du skill
+            CheckRessources();
         }
         else{ // si la boite est active
             _boiteExplication.SetActive(false); // on desactive la boite

@@ -21,6 +21,9 @@ public class Skilltree : MonoBehaviour
     private float _absorbCount = 1;
     public float absorbCount{
         get => _absorbCount;
+        set{
+            _absorbCount = value;
+        }
     }
 
     /// <summary>
@@ -96,27 +99,6 @@ public class Skilltree : MonoBehaviour
         }
         else{ // si la boite est active
             _boiteExplication.SetActive(false); // on desactive la boite
-        }
-    }
-
-    /// <summary>
-    /// Fonction qui sauvegarde les skill dans le tableau _tSkills
-    /// </summary>
-    public void SaveSkill(){
-        foreach (SkillInfos skill in _tSkills) // pour chaque skill dans le tSkills
-        {
-            skill.SaveSkill(); // on sauvegarde les information du skill
-        }
-    }
-
-    /// <summary>
-    /// Fonction qui charge les informations sauvegardees des skills dans le tableau _tSkills 
-    /// </summary>
-    public void LoadSkill(){
-        foreach (SkillInfos skill in _tSkills) // pour chaque skill dans le tSkills
-        {
-            skill.LoadSkill(); // on charge les informations sauvegardees du skill
-            skill.CheckDepend(); // on verifie les dependances du skill
         }
     }
 }

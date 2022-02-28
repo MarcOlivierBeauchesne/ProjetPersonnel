@@ -28,9 +28,20 @@ public class MenuJeu : MonoBehaviour
     public void ActiverFenetreMenu(){
         if(!_fenetreMenu.activeInHierarchy){ // si la _fenetreMenu est inactive dans la hierarchie
             _fenetreMenu.SetActive(true); // on active _fenetreMenu
+            Time.timeScale = 0;
         }
         else{ // sinon (la _fenetreMenu est active dans la hierarchie)
             _fenetreMenu.SetActive(false); // on desactive la _fenetreMenu
+            Time.timeScale = 1;
+        }
+    }
+
+    public void ActiverFeneterConf(){
+        if(!_fenetreConfirmations.activeInHierarchy){ // si la _fenetreMenu est inactive dans la hierarchie
+            _fenetreConfirmations.SetActive(true); // on active _fenetreMenu
+        }
+        else{ // sinon (la _fenetreMenu est active dans la hierarchie)
+            _fenetreConfirmations.SetActive(false); // on desactive la _fenetreMenu
         }
     }
 

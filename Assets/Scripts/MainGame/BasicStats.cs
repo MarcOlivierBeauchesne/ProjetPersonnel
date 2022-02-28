@@ -9,6 +9,9 @@ using UnityEngine;
 public class BasicStats : MonoBehaviour
 {
     [SerializeField] PlayerRessources _playerRessources; // Reference pour le ScriptableObject PlayerRessources
+    public PlayerRessources playerRessources{
+        get=>_playerRessources;
+    }
     [SerializeField] Personnage _perso; // reference au Personnage du perso
     [SerializeField] private Deforestation _defoManager;
 
@@ -71,10 +74,9 @@ public class BasicStats : MonoBehaviour
         get => _deforestAugment; // par deforestAugment, on retourne la valeur _deforestAugment
         set{
             _deforestAugment = value; // par deforestAugment, on change la valeur _deforestAugment
-            // if(_deforestAugment < _deforestAugmentRef){
-            //     _deforestAugment = _deforestAugmentRef;
-            // }
-            Debug.Log("defoAugment" + _deforestAugment);
+            if(_deforestAugment < 0){
+                _deforestAugment = 0;
+            }
             _defoManager.AjusterNextDefoVisuel();
         }
     }
@@ -88,7 +90,6 @@ public class BasicStats : MonoBehaviour
             if(_deforestLevel < 0){
                 _deforestLevel = 0;
             }
-            Debug.Log("defoLevel" + _deforestLevel);
             _defoManager.AjusterDefoVisuel();
         }
     }
@@ -99,7 +100,6 @@ public class BasicStats : MonoBehaviour
         get => _deforestPool; // par deforestPool, on retourne la valeur _deforestPool
         set{
             _deforestPool = value; // par deforestPool, on change la valeur _deforestPool
-            Debug.Log("defoPool" + _deforestPool);
             _defoManager.AjusterDefoVisuel();
         } 
     }

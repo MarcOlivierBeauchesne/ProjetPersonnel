@@ -29,10 +29,16 @@ public class Collection : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("La collection est présente");
         _boiteObjet.SetActive(false);
         gameObject.SetActive(false);
         ActiverCollection();
+    }
+
+    public void ResetCollection(){
+        foreach (InfosCollection mimo in _tInfosCollection)
+        {
+            mimo.isFound = false;
+        }
     }
 
     private void ActiverCollection(){

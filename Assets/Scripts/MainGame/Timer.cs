@@ -20,6 +20,9 @@ public class Timer : MonoBehaviour
     [SerializeField] private int _nbJour = 0;
     public int nbJour{
         get => _nbJour;
+        set{
+            _nbJour = value;
+        }
     }
 
     [SerializeField] private float _minute = 5; // acces prive au nombre de minutes disponible par jour
@@ -30,6 +33,7 @@ public class Timer : MonoBehaviour
         {
             _minute = value; // par minute, on change la valeur de _minute
             _champTimer.text = minute + ":" + seconde; // on met a jour l'affichage du timer (minute:secondes)
+            Debug.Log("minute reçu : " + value);
         }
     }
     [SerializeField] private int _seconde = 0; // acces prive pour les secondes
@@ -41,6 +45,7 @@ public class Timer : MonoBehaviour
             _seconde = value; // par seconde, on change la valeur de _seconde
             if (_seconde < 10) { _champTimer.text = minute + ":0" + seconde; } // si _seconde est plus petit que 10, on ajout un 0 devant le chiffre des secondes
             else { _champTimer.text = minute + ":" + seconde; } // sinon (_seconde est plus grand que 10) on met a jour l'affichage du timer (minute:secondes)
+            Debug.Log("seconde reçu : " + value);
         }
     }
     /// <summary>
@@ -49,6 +54,7 @@ public class Timer : MonoBehaviour
     /// </summary>
     void Start()
     {
+        _minute =_basicStats.dayTime;
         ProchaineJournee(); // on appel ProchaineJournee
     }
 
@@ -76,10 +82,7 @@ public class Timer : MonoBehaviour
         {
             _dayWindowAnim.SetBool("EndDay", true); // on met le bool de _dayWindowAnim a true
             StartCoroutine(CoroutineFinJournee()); // on demarre la coroutine CoroutineFinJournee
-            Debug.Log("Fin de la journee");
-            _champsJour.gameObject.SetActive(false);
-            // on termine la journee
-            // verification si le joueur est revenu a sa zone de depart
+            _champsJour.text = "";
         }
         else if (minute > 0 || seconde >= 0) // si minute est plus grand que 0 ou seconde est plus grand ou egal a 0
         {
@@ -105,20 +108,19 @@ public class Timer : MonoBehaviour
         }
         _dayManager.ResetChamps(); // on demande au DayManager de fermer tous les champs
         _dayWindowAnim.SetBool("EndDay", false); // on met le bool de _dayWindowAnim a false
-        ResetTimer(); // on Apple ResetTimer
         _champTimer.text = minute + ":00"; // le texte du timer affiche les minute disponible + 00
+        _minute = _basicStats.dayTime;
         StartCoroutine(CoroutineTemps()); // on démarre la coroutine CoroutineTemps
         _taskManager.ResetScore(); // on demande au TaskManager de reinitialiser les scores de la journee
         _nbJour++;
+        _champTimer.text = minute + ":00"; // le texte du timer affiche les minute disponible + 00
         StartCoroutine(CoroutineChampsJour());
     }
 
-    /// <summary>
-    /// Fonction qui ajuste les minute de la journee selon le dayTime de _basicStats
-    /// </summary>
-    public void ResetTimer()
-    {
-        _minute = _basicStats.dayTime; // _minute prend la valeur du dayTime de _basicStats
+    public void SetupTime(int newJour, float newMinute, int newSeconde){
+        _nbJour = newJour;
+        minute = newMinute;
+        seconde = newSeconde;
     }
 
     /// <summary>

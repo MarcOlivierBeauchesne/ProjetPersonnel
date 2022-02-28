@@ -12,12 +12,12 @@ public class Personnage : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _txtNaturePower; // acces prive pour le champs de texte de la puissance naturelle du joueur
     [SerializeField] private TextMeshProUGUI _txtSeed;
     [SerializeField] private PlayerRessources _ressourcesPlayer; // reference de PlayerRessources du joueur
+    public PlayerRessources ressourcesPlayer{
+        get=> _ressourcesPlayer;
+    }
     [SerializeField] private TaskManager _taskManager;
     public TaskManager taskManager{
         get=>_taskManager;
-    }
-    public PlayerRessources ressourcesPlayer{
-        get=> _ressourcesPlayer;
     }
     [SerializeField] private BasicStats _basicStats; // reference au BasicStats
     public BasicStats basicStats{
@@ -35,6 +35,9 @@ public class Personnage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _ressourcesPlayer.seedAmount = 0;
+        _ressourcesPlayer.naturePoint = 0;
+        _ressourcesPlayer.naturePower = 0;
         _pl = GetComponent<Plantage>();
         _anim = GetComponent<Animator>(); // anim s'associr au AnimatorController du perso
         _rb = GetComponent<Rigidbody2D>(); // _rb s'associe au RigidBody 2D du perso

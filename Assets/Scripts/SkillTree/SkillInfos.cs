@@ -10,10 +10,19 @@ using TMPro;
 public class SkillInfos : MonoBehaviour
 {
     [SerializeField] string _nom = "Nom du skill"; // acces prive pour le nom du skill
+    public string nom{
+        get=>_nom;
+    }
     [SerializeField] float _modifier = 0; // acces prive pour le modificateur du skill
     [SerializeField] TypeStats _typeStats; // Reference au enum du type de stats
     [SerializeField] int _skillCostRef = 200; // cout de reference du skill
     [SerializeField] int _skillCost = 200; // cout actuel du skill
+    public int skillCost{
+        get=>_skillCost;
+        set{
+            _skillCost = value;
+        }
+    }
     [SerializeField] int _savedTotalStack = 0; // total de niveau enregistres dans le skill
     [SerializeField] int _actualStack = 0; // acces prive pour le nombre de niveau actuel pour le skill
     public int actualStack{ // acces public pour le nombre de niveau actuel pour le skill
@@ -182,29 +191,12 @@ public class SkillInfos : MonoBehaviour
     /// Fonction qui change l'image du skill selon son niveau
     /// </summary>
     private void CheckStack(){
+        _boiteExplication.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = $"{actualStack}/{maxStack}"; // on affiche le niveau actuel sur le niveau maximum du skill
         if(actualStack<maxStack){ // si le niveau actuel du skill est plus petit que son maximum
             img.sprite = _iconBase; // l'image est celle de base
         }
         else if(actualStack == maxStack){ // si le niveau actuel du skill est egal a son maximum
             img.sprite = _iconFullStack; // l'image est celle du skill maximum
         }
-    }
-
-    /// <summary>
-    /// Fonction qui sauvegarde l'etat actuel du skill
-    /// </summary>
-    public void SaveSkill(){
-        PlayerPrefs.SetInt(_nom + "total", _savedTotalStack); // on cree un PlayerPrefs avec le nom du skill + total et on sauvegarde son niveau total acquis
-        PlayerPrefs.SetInt(_nom + "actual", _actualStack); // on cree un PlayerPrefs avec le nom du skill + actual et on sauvegarde le niveau actuel du skill
-        Debug.Log("total sauvegardé: "+ _savedTotalStack + "/ actuel sauvegardé: " + _actualStack); // temporaire
-    }
-
-    /// <summary>
-    /// Fonction qui charge les information sauvegardees du skill
-    /// </summary>
-    public void LoadSkill(){
-        _savedTotalStack = PlayerPrefs.GetInt(_nom + "total"); // _saveTotalStack prend la valeur sauvegardee
-        _actualStack = PlayerPrefs.GetInt(_nom + "actual"); // _actualStack prend la valeur sauvegardee
-        _basicStats.ChangerStats(_typeStats, (_modifier*_savedTotalStack), true); // on met les informations du BasicStats a jour selon les stats sauvegardees
     }
 }

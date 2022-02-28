@@ -119,7 +119,6 @@ public class GenerateurSalle : MonoBehaviour
                 _qteSalleCoupe = Mathf.RoundToInt((_nbSalle * _pourcentage)/100); // le nombre de salle de deforestaation prend la valeur en pourcentage selon le total de salle a generer
                 _qteSalleForet = _nbSalle - _qteSalleCoupe; // la quantite de salle de forest est la balance du total de salle moins le nombre de salles de deforestation
                 _listSalle[_listSalle.Count-1].GetComponent<Salle>().Scan();
-                Debug.Log("on fait apparaitre d'autre salle");
                 return;
             }
             else{

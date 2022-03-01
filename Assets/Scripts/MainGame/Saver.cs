@@ -51,15 +51,15 @@ public class Saver : MonoBehaviour
         LoadStats();
         LoadTree();
         LoadSkill();
-        StartCoroutine(CoroutineLoadTime());
+        LoadTime();
     }
 
-    private IEnumerator CoroutineLoadTime(){
+    private void LoadTime(){
         TimeData data = SaveSystem.LoadTime();
-        _timer.nbJour = Mathf.Clamp(data.nbJour-1, 0, 100);
-        yield return new WaitForSeconds(1f);
         _timer.SetupTime(data.nbJour, data.minute, data.seconde);
-
+        Debug.Log("jour save : " + data.nbJour);
+        Debug.Log("minute save : " + data.minute);
+        Debug.Log("seconde : " + data.seconde);
     }
 
     private void LoadPlayer(){

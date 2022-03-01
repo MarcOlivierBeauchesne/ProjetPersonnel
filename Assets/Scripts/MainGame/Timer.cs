@@ -17,7 +17,7 @@ public class Timer : MonoBehaviour
     [SerializeField] private TaskManager _taskManager; // reference au TaskManager
     [SerializeField] private Deforestation _defoManager;
     [SerializeField] private float _endDayWaitTime = 2f; // temps d'attente a la fin de la journee
-    [SerializeField] private int _nbJour = 0;
+    [SerializeField] private int _nbJour = 1;
     public int nbJour{
         get => _nbJour;
         set{
@@ -25,7 +25,7 @@ public class Timer : MonoBehaviour
         }
     }
 
-    [SerializeField] private float _minute = 5; // acces prive au nombre de minutes disponible par jour
+    [SerializeField] private float _minute = 1; // acces prive au nombre de minutes disponible par jour
     public float minute // acces public au nombre de minutes disponible par jour
     {
         get => _minute; // par minute, on retourne la valeur _minute
@@ -33,7 +33,6 @@ public class Timer : MonoBehaviour
         {
             _minute = value; // par minute, on change la valeur de _minute
             _champTimer.text = minute + ":" + seconde; // on met a jour l'affichage du timer (minute:secondes)
-            Debug.Log("minute reçu : " + value);
         }
     }
     [SerializeField] private int _seconde = 0; // acces prive pour les secondes
@@ -45,7 +44,6 @@ public class Timer : MonoBehaviour
             _seconde = value; // par seconde, on change la valeur de _seconde
             if (_seconde < 10) { _champTimer.text = minute + ":0" + seconde; } // si _seconde est plus petit que 10, on ajout un 0 devant le chiffre des secondes
             else { _champTimer.text = minute + ":" + seconde; } // sinon (_seconde est plus grand que 10) on met a jour l'affichage du timer (minute:secondes)
-            Debug.Log("seconde reçu : " + value);
         }
     }
     /// <summary>
@@ -54,15 +52,23 @@ public class Timer : MonoBehaviour
     /// </summary>
     void Start()
     {
-        _minute =_basicStats.dayTime;
-        ProchaineJournee(); // on appel ProchaineJournee
+        StartCoroutine(CoroutineDebut());
     }
 
     private IEnumerator CoroutineChampsJour(){
         _champsJour.text = "Jour " + _nbJour;
         _champsJour.gameObject.GetComponent<Animator>().SetBool("NewDay", true);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         _champsJour.gameObject.GetComponent<Animator>().SetBool("NewDay", false);
+    }
+
+    private IEnumerator CoroutineDebut(){
+        _dayWindowAnim.SetBool("EndDay", false); // on met le bool de _dayWindowAnim a false
+        // minute = _basicStats.dayTime;
+        yield return new WaitForSeconds(1f);
+        _champTimer.text = minute + ":00"; // le texte du timer affiche les minute disponible + 00
+        StartCoroutine(CoroutineTemps()); // on demarre la coroutine CoroutineTemps
+        StartCoroutine(CoroutineChampsJour());
     }
 
     /// <summary>
@@ -108,12 +114,10 @@ public class Timer : MonoBehaviour
         }
         _dayManager.ResetChamps(); // on demande au DayManager de fermer tous les champs
         _dayWindowAnim.SetBool("EndDay", false); // on met le bool de _dayWindowAnim a false
-        _champTimer.text = minute + ":00"; // le texte du timer affiche les minute disponible + 00
         _minute = _basicStats.dayTime;
         StartCoroutine(CoroutineTemps()); // on démarre la coroutine CoroutineTemps
         _taskManager.ResetScore(); // on demande au TaskManager de reinitialiser les scores de la journee
         _nbJour++;
-        _champTimer.text = minute + ":00"; // le texte du timer affiche les minute disponible + 00
         StartCoroutine(CoroutineChampsJour());
     }
 

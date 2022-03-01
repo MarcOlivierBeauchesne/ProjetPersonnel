@@ -85,6 +85,7 @@ public class BucheSeed : MonoBehaviour
                 int totalPoint = (_seedAmount * _taskValue + (int)_perso.basicStats.npGain) + _seedAmount * (int)_perso.basicStats.npGain;
                 _perso.AjusterPoint("naturePoint", totalPoint);
                 _perso.taskManager.AjouterPoint(TypeTache.Tache, totalPoint);
+                _genSalle.taskManager.CreatePopUpPoints(transform.position, totalPoint);
             }
         }
         else{

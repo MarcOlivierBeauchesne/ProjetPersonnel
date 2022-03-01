@@ -7,6 +7,7 @@ using UnityEngine;
 /// </summary>
 public class TaskManager : MonoBehaviour
 {
+    [SerializeField] GameObject _goNpPoints;
     [SerializeField] private int _scoretaches; // acces prive pour le score obtenu pour les taches
     public int scoreTache{ // acces public pour le score obtenu pour les taches
         get => _scoretaches; // par scoreTache, on retourne _scoreTache
@@ -37,6 +38,11 @@ public class TaskManager : MonoBehaviour
     public void ResetScore(){
         _scoreArbre = 0; // le _scoreArbre devient 0
         _scoretaches = 0; // le _scoreTaches devient 0
+    }
+
+    public void CreatePopUpPoints(Vector2 pos, int amount){
+        GameObject pointsPopUp = Instantiate(_goNpPoints, pos, Quaternion.identity);
+        pointsPopUp.GetComponent<PopUpPoints>().Setup(amount);
     }
 }
 

@@ -137,6 +137,7 @@ public class Salle : MonoBehaviour
                 GameObject tache = Instantiate(_tGoTache[randomTache], transform.position, Quaternion.identity); // on instantie la tache a la position de la salle
                 tache.transform.SetParent(transform); // la salle devient le parent de la tache
                 tache.transform.position = pos.position; // on change la position de la tache pour la position de pos
+                tache.GetComponent<Tache>().perso = _genSalle.perso.GetComponent<Personnage>();
             }
             else{ // si le chiffre est 1
                 // Debug.Log("Aucune tache instanciée");

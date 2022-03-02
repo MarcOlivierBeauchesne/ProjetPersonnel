@@ -11,7 +11,7 @@ public class MenuJeu : MonoBehaviour
     [SerializeField] private GameObject _fenetreSkillTree; // acces prive a la fenetre de l'arbre des talents
     [SerializeField] private GameObject _fenetreOptions; // acces prive a la fenetre des options
     [SerializeField] private GameObject _fenetreConfirmations; // acces prive a la fenetre de confirmation de sauvegarde
-    [SerializeField] private Collection _fenetreCollection;
+    [SerializeField] private GameObject _fenetreCollection;
 
     /// <summary>
     /// Start is called on the frame when a script is enabled just before
@@ -60,12 +60,15 @@ public class MenuJeu : MonoBehaviour
             else if(_fenetreConfirmations.activeInHierarchy){ // si la _fenetreConfirmations est active dans la hierarchie
                 _fenetreConfirmations.SetActive(false); // on desactive la _fenetreConfirmations
             }
+            else if(_fenetreCollection.activeInHierarchy){
+                _fenetreCollection.SetActive(false);
+            }
             else{
                 ActiverFenetreMenu(); // on appel ActiverFenetreMenu
             }
         }
         if(Input.GetKeyDown(KeyCode.C)){
-            _fenetreCollection.ActiverBoite();
+            _fenetreCollection.GetComponent<Collection>().ActiverBoite();
         }
         else if(Input.GetKeyDown(KeyCode.F)){
             if(_fenetreSkillTree.activeInHierarchy){

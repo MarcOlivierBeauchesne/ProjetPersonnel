@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 /// <summary>
 /// Fonction qui controle et affiche le temps disponible par jour dans le jeu
@@ -10,12 +9,13 @@ using TMPro;
 public class Timer : MonoBehaviour
 {
     [SerializeField] private Text _champTimer; // acces prive pour le champs de texte qui affiche le Timer
-    [SerializeField] private TextMeshProUGUI _champsJour;
+    [SerializeField] private Text _champsJour;
     [SerializeField] private BasicStats _basicStats; // acces prive pour le BasicStats _basicStats
     [SerializeField] private Animator _dayWindowAnim; // acces prive pour l'animator de la fenetre de journee
     [SerializeField] private DayManager _dayManager; // reference au DayManager
     [SerializeField] private TaskManager _taskManager; // reference au TaskManager
     [SerializeField] private Deforestation _defoManager;
+    [SerializeField] private Tutoriel _tuto;
     [SerializeField] private float _endDayWaitTime = 2f; // temps d'attente a la fin de la journee
     [SerializeField] private int _nbJour = 1;
     public int nbJour{
@@ -69,6 +69,9 @@ public class Timer : MonoBehaviour
         _champTimer.text = minute + ":00"; // le texte du timer affiche les minute disponible + 00
         StartCoroutine(CoroutineTemps()); // on demarre la coroutine CoroutineTemps
         StartCoroutine(CoroutineChampsJour());
+        yield return new WaitForSeconds(2f);
+        _tuto.gameObject.SetActive(true);
+        _tuto.AfficherTips();
     }
 
     /// <summary>
@@ -118,6 +121,8 @@ public class Timer : MonoBehaviour
         StartCoroutine(CoroutineTemps()); // on démarre la coroutine CoroutineTemps
         _taskManager.ResetScore(); // on demande au TaskManager de reinitialiser les scores de la journee
         _nbJour++;
+        _tuto.gameObject.SetActive(true);
+        _tuto.AfficherTips();
         StartCoroutine(CoroutineChampsJour());
     }
 

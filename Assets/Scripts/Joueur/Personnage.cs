@@ -1,16 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.UI;
 
 /// <summary>
 /// Script qui controle le deplacement du perso et met a jour ses ressources
 /// </summary>
 public class Personnage : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _txtNaturePoint; // acces prive pour le champs de texte des points de nature du joueur
-    [SerializeField] private TextMeshProUGUI _txtNaturePower; // acces prive pour le champs de texte de la puissance naturelle du joueur
-    [SerializeField] private TextMeshProUGUI _txtSeed;
+    [SerializeField] private Text _txtNaturePoint; // acces prive pour le champs de texte des points de nature du joueur
+    [SerializeField] private Text _txtNaturePower; // acces prive pour le champs de texte de la puissance naturelle du joueur
+    [SerializeField] private Text _txtSeed;
     [SerializeField] private PlayerRessources _ressourcesPlayer; // reference de PlayerRessources du joueur
     public PlayerRessources ressourcesPlayer{
         get=> _ressourcesPlayer;

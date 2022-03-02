@@ -10,7 +10,7 @@ public class Deforestation : MonoBehaviour
     [SerializeField] private Slider _nextDefoSlider;
     [SerializeField] private BasicStats _basicStats;
     [SerializeField] private Timer _timer;
-    [SerializeField] private TextMeshProUGUI _textDefo;
+    [SerializeField] private Text _textDefo;
     private float _actualDefo = 0;
     public float actualDefo{
         get=>_actualDefo;

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 /// <summary>
 /// Script qui controle l'affichage des differents score a la fin d'une journee
@@ -50,21 +49,21 @@ public class DayManager : MonoBehaviour
             }
             case 2 : { // si _indexTableau est de 2
                 _tChampsEndDay[3].SetActive(true); // on affiche la categorie Arbres plantes
-                _tChampsEndDay[3].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _taskManager.scoreArbre.ToString(); // la valeur affichee de la categorie prend la valeur du scoreArbre du _taskManager
+                _tChampsEndDay[3].transform.GetChild(0).GetComponent<Text>().text = _taskManager.scoreArbre.ToString(); // la valeur affichee de la categorie prend la valeur du scoreArbre du _taskManager
                 _tChampsEndDay[4].SetActive(true); // on affiche la categorie Progression (deforestation)
-                _tChampsEndDay[4].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _baseStats.deforestAugment.ToString(); // la valeur affichee de la categorie prend la valeur du deforestAugment du BasicStats
+                _tChampsEndDay[4].transform.GetChild(0).GetComponent<Text>().text = _baseStats.deforestAugment.ToString(); // la valeur affichee de la categorie prend la valeur du deforestAugment du BasicStats
                 break; // on sort de la condition
             }
             case 3 : { // si _indexTableau est de 3
                 _tChampsEndDay[5].SetActive(true); // on affiche la categorie taches effectuees
-                _tChampsEndDay[5].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _taskManager.scoreTache.ToString(); // la valeur affichee de la categorie prend la valeur du scoreTache du _taskManager 
+                _tChampsEndDay[5].transform.GetChild(0).GetComponent<Text>().text = _taskManager.scoreTache.ToString(); // la valeur affichee de la categorie prend la valeur du scoreTache du _taskManager 
                 break; // on sort de la condition
             }
             case 4 : { // si _indexTableau est de 4
                 _tChampsEndDay[6].SetActive(true); // on affiche la categorie Total des scores
-                _tChampsEndDay[6].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _baseStats.deforestAugment.ToString(); // le valeur du total prend la valeur du deforestAugment du BasicStats
+                _tChampsEndDay[6].transform.GetChild(0).GetComponent<Text>().text = _baseStats.deforestAugment.ToString(); // le valeur du total prend la valeur du deforestAugment du BasicStats
                 _tChampsEndDay[7].SetActive(true); // on affiche la categorie Total des scores
-                _tChampsEndDay[7].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_taskManager.scoreArbre + _taskManager.scoreTache).ToString(); // le valeur du total prend la valeur cumulee des arbres plantes et des taches accomplies
+                _tChampsEndDay[7].transform.GetChild(0).GetComponent<Text>().text = (_taskManager.scoreArbre + _taskManager.scoreTache).ToString(); // le valeur du total prend la valeur cumulee des arbres plantes et des taches accomplies
                 _genSalle.GenererFirstSalle();
                 Debug.Log("On recommence la carte");
                 break; // on sort de la condition

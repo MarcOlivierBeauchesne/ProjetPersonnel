@@ -20,7 +20,7 @@ public class Plantage : MonoBehaviour
         int posY = Mathf.FloorToInt(transform.position.y);
         Vector2 posPossible = new Vector2(posX, posY);
 
-        bool placePrise = Physics2D.Raycast(posPossible, Vector2.right, 0.1f, _layerTache);
+        bool placePrise = Physics2D.Raycast(posPossible, Vector2.down, 0.1f, _layerTache);
         if(!placePrise){
             GameObject arbre = Instantiate(_goArbre, posPossible, Quaternion.identity);
             _perso.AjusterPoint("seed", -1);

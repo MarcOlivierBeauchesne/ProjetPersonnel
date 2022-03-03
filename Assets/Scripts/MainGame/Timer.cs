@@ -16,6 +16,8 @@ public class Timer : MonoBehaviour
     [SerializeField] private TaskManager _taskManager; // reference au TaskManager
     [SerializeField] private Deforestation _defoManager;
     [SerializeField] private Tutoriel _tuto;
+    [SerializeField] private Animator _animDaylight;
+    [SerializeField] private Personnage _perso;
     [SerializeField] private float _endDayWaitTime = 2f; // temps d'attente a la fin de la journee
     [SerializeField] private int _nbJour = 1;
     public int nbJour{
@@ -57,21 +59,19 @@ public class Timer : MonoBehaviour
 
     private IEnumerator CoroutineChampsJour(){
         _champsJour.text = "Jour " + _nbJour;
-        _champsJour.gameObject.GetComponent<Animator>().SetBool("NewDay", true);
-        yield return new WaitForSeconds(1f);
-        _champsJour.gameObject.GetComponent<Animator>().SetBool("NewDay", false);
+        _champsJour.gameObject.GetComponent<Animator>().SetBool("NewJour", true);
+        yield return new WaitForSeconds(2f);
+        _champsJour.gameObject.GetComponent<Animator>().SetBool("NewJour", false);
     }
 
     private IEnumerator CoroutineDebut(){
-        _dayWindowAnim.SetBool("EndDay", false); // on met le bool de _dayWindowAnim a false
-        // minute = _basicStats.dayTime;
         yield return new WaitForSeconds(1f);
         _champTimer.text = minute + ":00"; // le texte du timer affiche les minute disponible + 00
         StartCoroutine(CoroutineTemps()); // on demarre la coroutine CoroutineTemps
         StartCoroutine(CoroutineChampsJour());
         yield return new WaitForSeconds(2f);
         _tuto.gameObject.SetActive(true);
-        _tuto.AfficherTips();
+        _tuto.AfficherTips(true);
     }
 
     /// <summary>
@@ -87,9 +87,13 @@ public class Timer : MonoBehaviour
             seconde = 59; // seconde est egal a 59
             minute--; // on reduit minute de 1
         }
+        if(seconde == 30 && minute == 0){
+            _dayWindowAnim.SetTrigger("NearEnd");
+        }
         if (minute == 0 && seconde == 0) // si minute et seconde sont egals a 0
         {
-            _dayWindowAnim.SetBool("EndDay", true); // on met le bool de _dayWindowAnim a true
+            _perso.ChangerEtat(false);
+            _dayWindowAnim.SetTrigger("EndDay");
             StartCoroutine(CoroutineFinJournee()); // on demarre la coroutine CoroutineFinJournee
             _champsJour.text = "";
         }
@@ -121,9 +125,18 @@ public class Timer : MonoBehaviour
         StartCoroutine(CoroutineTemps()); // on démarre la coroutine CoroutineTemps
         _taskManager.ResetScore(); // on demande au TaskManager de reinitialiser les scores de la journee
         _nbJour++;
-        _tuto.gameObject.SetActive(true);
-        _tuto.AfficherTips();
+        if(nbJour<4){
+            StartCoroutine(CoroutineTips());
+        }
         StartCoroutine(CoroutineChampsJour());
+        _dayWindowAnim.SetTrigger("NewDay");
+        _perso.ChangerEtat(true);
+    }
+
+    private IEnumerator CoroutineTips(){
+        yield return new WaitForSeconds(3f);
+        _tuto.gameObject.SetActive(true);
+        _tuto.AfficherTips(true);
     }
 
     public void SetupTime(int newJour, float newMinute, int newSeconde){

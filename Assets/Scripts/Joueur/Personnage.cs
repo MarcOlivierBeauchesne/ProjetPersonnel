@@ -24,6 +24,13 @@ public class Personnage : MonoBehaviour
         get=>_basicStats;
     }
 
+    private bool _peutBouger = true;
+    public bool peutBouger{
+        get => _peutBouger;
+        set{
+            _peutBouger = value;
+        }
+    }
     private float _mouvementSpeed = 5; // acces prive pour _mouvementSpeed
     private float _axeX = 0f; // acces prive pour _axeX du Input Horizontal
     private float _axeY = 0f; // acces prive pour _axeY du Input Vertical
@@ -72,6 +79,30 @@ public class Personnage : MonoBehaviour
         }
     }
 
+    public void ChangerEtat(bool etat){
+        StartCoroutine(CoroutineChangerEtat(etat));
+    }
+
+    public IEnumerator CoroutineChangerEtat(bool etat){
+        float waitTime = 0f;
+        if(etat){
+            _anim.SetTrigger("GoMove");
+            waitTime = 1.5f;
+        }
+        else{
+            waitTime = 0f;
+            _rb.velocity = Vector2.zero;
+            _peutBouger = etat;
+        }
+        yield return new WaitForSeconds(waitTime);
+        if(!etat){
+            _anim.SetTrigger("StopMove");
+        }
+        else{
+            _peutBouger = etat;
+        }
+    }
+
     /// <summary>
     /// Fonction public pour mettre a jour la vitesse de deplacement du joueur
     /// </summary>
@@ -100,7 +131,9 @@ public class Personnage : MonoBehaviour
     /// </summary>
     void Update()
     {
-        Mouvement(); // on appel Mouvement
+        if(_peutBouger){
+            Mouvement(); // on appel Mouvement
+        }
         if(Input.GetKeyDown(KeyCode.Space)){
             if(_ressourcesPlayer.seedAmount >=1){
                 _pl.PlanterArbre();
@@ -115,7 +148,9 @@ public class Personnage : MonoBehaviour
     /// </summary>
     void FixedUpdate()
     {
-        _rb.velocity = new Vector2(_axeX * _mouvementSpeed, _axeY * _mouvementSpeed); // on bouge le RigidBody2D du perso ave un Vector2 de _axeX et _axeY multiplie par la _mouvementSpeed
+        if(_peutBouger){
+            _rb.velocity = new Vector2(_axeX * _mouvementSpeed, _axeY * _mouvementSpeed); // on bouge le RigidBody2D du perso ave un Vector2 de _axeX et _axeY multiplie par la _mouvementSpeed
+        }
     }
 
 }

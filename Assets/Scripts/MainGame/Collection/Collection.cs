@@ -8,6 +8,8 @@ public class Collection : MonoBehaviour
     [SerializeField] private GameObject _boiteObjet;
     [SerializeField] private InfosCollection[] _tInfosCollection;
     [SerializeField] private GameObject[] _tObjetCol;
+    [SerializeField] private GameObject _goNewMimo;
+    [SerializeField] private GameObject _goCanvas;
     // Start is called before the first frame update
     private static Collection _instance;
     public static Collection instance => _instance;
@@ -61,7 +63,7 @@ public class Collection : MonoBehaviour
         switch(gameObject.activeInHierarchy){
             case true :
                 gameObject.SetActive(false);
-                transform.GetChild(3).gameObject.SetActive(false);
+                transform.GetChild(2).gameObject.SetActive(false);
                 break;
             case false:
                 gameObject.SetActive(true);
@@ -78,14 +80,25 @@ public class Collection : MonoBehaviour
                     Debug.Log("mimo deja trouvé");
                 }
                 else{
+                    InfosCollection infoMimo = _tObjetCol[i].GetComponent<ObjetCollection>().infosObjet;
                     _tObjetCol[i].GetComponent<ObjetCollection>().infosObjet.isFound = true;
                     Image imageObj = _tObjetCol[i].transform.GetChild(0).GetComponent<Image>();
                     imageObj.sprite = _tInfosCollection[i].imageObjet;
                     imageObj.color = new Color (1f,1f,1f,1f);
-                    Debug.Log("Nouveau mimo trouvé! il s'appel" + nomObjet);
+                    gameObject.SetActive(true);
+                    CreateNewMimo(infoMimo);
+                    gameObject.SetActive(false);
                     return;
                 }
             }
         }
+    }
+
+    private void CreateNewMimo(InfosCollection infoMimo){
+        GameObject newMimo = Instantiate(_goNewMimo, Vector2.zero, Quaternion.identity);
+        newMimo.transform.SetParent(_goCanvas.transform);
+        newMimo.transform.position = transform.position;
+        newMimo.GetComponent<Image>().sprite = infoMimo.imageObjet;
+        newMimo.transform.GetChild(1).GetComponent<Text>().text = infoMimo.nomMimo;
     }
 }

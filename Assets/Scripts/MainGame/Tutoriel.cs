@@ -9,8 +9,8 @@ public class Tutoriel : MonoBehaviour
     private int _tips = 0;
     private int _limiteTips = 0;
 
-    public void AfficherTips(){
-        StartCoroutine(CoroutineTips());
+    public void AfficherTips(bool debut){
+        StartCoroutine(CoroutineTips(debut));
     }
 
     public void NextTips(){
@@ -26,15 +26,22 @@ public class Tutoriel : MonoBehaviour
         }
     }
 
-    private IEnumerator CoroutineTips(){
-        yield return null;
+    private IEnumerator CoroutineTips(bool debut){
+        int waitTime = 0;
+        if(debut){
+            waitTime = 0;
+        }
+        else{
+            waitTime = 3;
+        }
+        yield return new WaitForSeconds(waitTime);
         Time.timeScale = 0;
         int jour = _timer.nbJour;
         Debug.Log("nombre de jour : " + jour);
         switch(jour){
             case 1:
                 _limiteTips = 4;
-                _tGoTips[_tips].SetActive(true);
+                _tGoTips[0].SetActive(true);
                 Debug.Log("on active :" + _tGoTips[_tips].name);
             break;
             case 2:

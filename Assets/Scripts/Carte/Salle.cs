@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 public class Salle : MonoBehaviour
 {
@@ -11,10 +12,20 @@ public class Salle : MonoBehaviour
     [SerializeField] Transform[] _tPosTaches; // tableau des positions possible des taches
     [SerializeField] Transform[] _tPosMimo; // tableau des positions possible des Mimos
     [SerializeField] Transform[] _tPosSeed;
+    [SerializeField] List<Transform> _listPosEnnemi;
     [SerializeField] GameObject _goMimo; // gameObject d'un mimo
     [SerializeField] GameObject _goSeed; 
     [SerializeField] GameObject[] _tGoTache; // tableau des taches possibles
+    [SerializeField] GameObject _goEnnemiForet;
     [SerializeField] private int _chanceSeed = 30;
+    private List<GameObject> _listEnnemi = new List<GameObject>();
+    private int _actualDayEnnemi;
+    private int _nbEnnemi;
+    private int _ennemiPresent;
+    private int _ennemiTaskValue;
+
+    private bool _peutGenererEnnemi = true;
+    private GameObject _champsEnnemi;
     private List<Vector2> _listFreePos = new List<Vector2> { }; // liste des position disponible pour instancier une salle
     private bool _toucheAuxBlocs; // bool qui determine si un detecteur touche a _layerTuile
     
@@ -142,6 +153,70 @@ public class Salle : MonoBehaviour
             else{ // si le chiffre est 1
                 // Debug.Log("Aucune tache instanciée");
             }
+        }
+    }
+
+    public void GenererEnnemi(int taskValue){
+        if(_peutGenererEnnemi){
+            _ennemiTaskValue = taskValue;
+            _actualDayEnnemi = Mathf.Clamp(5 * genSalle.timer.nbJour, 5, _listPosEnnemi.Count);
+            _nbEnnemi += _actualDayEnnemi;
+            GameObject champsEnnemi = _genSalle.canvas.transform.GetChild(0).gameObject;
+            champsEnnemi.SetActive(true);
+            champsEnnemi.transform.GetChild(0).GetComponent<Text>().text = _nbEnnemi.ToString();
+            _champsEnnemi = champsEnnemi;
+            _ennemiPresent = _nbEnnemi;
+            SpawnEnnemiForet();
+
+        }
+    }
+
+    public void RetirerEnnemi(){
+        _nbEnnemi--;
+        _champsEnnemi.transform.GetChild(0).GetComponent<Text>().text = _nbEnnemi.ToString();
+        _listEnnemi.RemoveAt(0);
+        if(_nbEnnemi == 0){
+            _champsEnnemi.SetActive(false);
+            int totalPoint = (_actualDayEnnemi * _ennemiTaskValue) + ((int)_genSalle.basicStats.npGain * _actualDayEnnemi);
+            _genSalle.perso.GetComponent<Personnage>().AjusterPoint("naturePoint", totalPoint);
+            _genSalle.taskManager.AjouterPoint(TypeTache.Tache, totalPoint);
+            _genSalle.taskManager.CreatePopUpPoints(_genSalle.perso.transform.position, totalPoint);
+            if(_listEnnemi.Count > 0){
+                DetuireEnnemis();
+            }
+        }
+    }
+
+    public void AugmenterDeforestation(float amount){
+        _genSalle.deforestation.AugmentationEnnemi(amount * _genSalle.timer.nbJour);
+    }
+
+    public void DetuireEnnemis(){
+        if(_listEnnemi.Count > 0){
+            foreach (GameObject ennemi in _listEnnemi)
+            {
+                Destroy(ennemi);
+            }
+        }
+    }
+
+    private void SpawnEnnemiForet(){
+        Debug.Log(_ennemiPresent);
+        foreach (Transform pos in _listPosEnnemi)
+        {
+            if(_ennemiPresent>0){
+                int chance = Random.Range(1,3);
+                if(chance == 1){
+                    _ennemiPresent--;
+                    GameObject ennemi = Instantiate(_goEnnemiForet, pos.position, Quaternion.identity);
+                    ennemi.transform.SetParent(transform);
+                    _listEnnemi.Add(ennemi);
+                }
+            
+            }
+        }
+        if(_ennemiPresent > 0){
+            SpawnEnnemiForet();
         }
     }
 }

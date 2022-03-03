@@ -11,6 +11,9 @@ public class Deforestation : MonoBehaviour
     [SerializeField] private BasicStats _basicStats;
     [SerializeField] private Timer _timer;
     [SerializeField] private Text _textDefo;
+    [SerializeField] private GameObject _goTxtAugmentDefo;
+    [SerializeField] private Transform _posAugment;
+    [SerializeField] private GameObject _canvas;
     private float _actualDefo = 0;
     public float actualDefo{
         get=>_actualDefo;
@@ -42,12 +45,26 @@ public class Deforestation : MonoBehaviour
     public void AjusterDefoLevel(){
         _basicStats.deforestLevel += _basicStats.deforestAugment;
         _actualDefo = _basicStats.deforestLevel;
-        Debug.Log("ref : " + _basicStats.deforestAugmentRef + " jour : " + _timer.nbJour);
-        Debug.Log("total augment: " + _basicStats.deforestAugmentRef*_timer.nbJour);
         _basicStats.deforestAugment = (_basicStats.deforestAugmentRef * _timer.nbJour) - (_basicStats.npGain-100);
         _maxDefo = _basicStats.deforestPool;
         AjusterDefoVisuel();
         AjusterNextDefoVisuel();
+    }
+
+    public void AugmentationEnnemi(float amount){
+        StartCoroutine(CoroutineAugmentation(amount));
+        _basicStats.deforestLevel+= amount;
+        AjusterDefoVisuel();
+    }
+
+    private IEnumerator CoroutineAugmentation(float amount){
+        GameObject augmentation = Instantiate(_goTxtAugmentDefo, transform.position, Quaternion.identity);
+        augmentation.transform.SetParent(_canvas.transform.GetChild(1));
+        RectTransform pos = augmentation.GetComponent<RectTransform>();
+        pos.anchoredPosition = new Vector3(0f, -500f, 0f);
+        augmentation.GetComponent<Text>().text = "+ " + amount.ToString();
+        yield return new WaitForSeconds(2f);
+        Destroy(augmentation);
     }
 
     public void AjusterNextDefoVisuel(){

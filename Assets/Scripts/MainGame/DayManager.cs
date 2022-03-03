@@ -12,6 +12,9 @@ public class DayManager : MonoBehaviour
     [SerializeField] Animator _animFenetre; // animator de la fenetre de fin de journee
     [SerializeField] TaskManager _taskManager; // reference au TaskManager qui gere les taches
     [SerializeField] private GenerateurSalle _genSalle;
+    public GenerateurSalle genSalle{
+        get=>_genSalle;
+    }
     private int _indexTableau = 0;
 
     Deforestation _deforestation;

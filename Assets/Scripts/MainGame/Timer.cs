@@ -96,6 +96,7 @@ public class Timer : MonoBehaviour
             _dayWindowAnim.SetTrigger("EndDay");
             StartCoroutine(CoroutineFinJournee()); // on demarre la coroutine CoroutineFinJournee
             _champsJour.text = "";
+            _dayManager.genSalle.ClearTache();
         }
         else if (minute > 0 || seconde >= 0) // si minute est plus grand que 0 ou seconde est plus grand ou egal a 0
         {

@@ -6,6 +6,7 @@ public class Tache : MonoBehaviour
 {
     [SerializeField] GameObject _goTache;
     [SerializeField] GameObject _btnInterraction;
+    [SerializeField] int _tacheValue;
     private Personnage _perso;
     public Personnage perso{
         get => _perso;
@@ -15,6 +16,7 @@ public class Tache : MonoBehaviour
     }
     private bool _playerClose = false;
     private bool _isDone = false;
+    private bool _peutGenererEnnemi = true;
 
     /// <summary>
     /// Start is called on the frame when a script is enabled just before
@@ -43,18 +45,30 @@ public class Tache : MonoBehaviour
     }
 
     private void OuvrirTache(){
-        if(_goTache.activeInHierarchy){
-            _goTache.SetActive(false);
-            GetComponent<BoxCollider2D>().isTrigger = false;
+        if(_goTache != null){
+            if(_goTache.activeInHierarchy){
+                _goTache.SetActive(false);
+                GetComponent<BoxCollider2D>().isTrigger = false;
+            }
+            else{
+                _goTache.SetActive(true);
+                GetComponent<BoxCollider2D>().isTrigger = true;
+            }
         }
         else{
-            _goTache.SetActive(true);
-            GetComponent<BoxCollider2D>().isTrigger = true;
-        }
+            if(_peutGenererEnnemi){
+                GetComponentInParent<Salle>().GenererEnnemi(_tacheValue);
+                _peutGenererEnnemi = false;
+                _isDone = true;
+                _btnInterraction.SetActive(false);
+            }
+        }   
     }
 
     public void FinirTache(int points){
-        StartCoroutine(CoroutineFinTache(points));
+        BasicStats basicStats = GetComponentInParent<Salle>().genSalle.basicStats;
+        float totalPoint = (points + (basicStats.deforestLevel * basicStats.npGain))/2;
+        StartCoroutine(CoroutineFinTache((int)totalPoint));
     }
 
     private IEnumerator CoroutineFinTache(int points){

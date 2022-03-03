@@ -6,8 +6,12 @@ public class Tutoriel : MonoBehaviour
 {
     [SerializeField] private GameObject[] _tGoTips;
     [SerializeField] private Timer _timer;
+    [SerializeField] private int _nbTipsJ1 = 5;
+    [SerializeField] private int _nbTipsJ2 = 1;
+    [SerializeField] private int _nbTipsJ3 = 1;
     private int _tips = 0;
     private int _limiteTips = 0;
+    
 
     public void AfficherTips(bool debut){
         StartCoroutine(CoroutineTips(debut));
@@ -37,19 +41,17 @@ public class Tutoriel : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         Time.timeScale = 0;
         int jour = _timer.nbJour;
-        Debug.Log("nombre de jour : " + jour);
         switch(jour){
             case 1:
-                _limiteTips = 4;
+                _limiteTips = _nbTipsJ1;
                 _tGoTips[0].SetActive(true);
-                Debug.Log("on active :" + _tGoTips[_tips].name);
             break;
             case 2:
-                _limiteTips = 1;
+                _limiteTips = _nbTipsJ2;
                 _tGoTips[_tips].SetActive(true);
             break;
             case 3:
-                _limiteTips = 1;
+                _limiteTips = _nbTipsJ3;
                 _tGoTips[_tips].SetActive(true);
             break;
         }

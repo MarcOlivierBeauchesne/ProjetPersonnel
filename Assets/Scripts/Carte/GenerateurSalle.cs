@@ -5,13 +5,28 @@ using UnityEngine;
 public class GenerateurSalle : MonoBehaviour
 {
     [SerializeField] private GameObject _firstSalle; // gameObject de la premiere salle
+    [SerializeField] private GameObject _canvas;
+    public GameObject canvas{
+        get=>_canvas;
+    }
+    [SerializeField] private Timer _timer;
+    public Timer timer{
+        get=>_timer;
+    }
     [SerializeField] private TaskManager _taskManager;
     public TaskManager taskManager{
         get=>_taskManager;
     }
+    [SerializeField] private Deforestation _deforestation;
+    public Deforestation deforestation{
+        get=>_deforestation;
+    }
     [SerializeField] private GameObject[] _tSalleForet; // tableau des salle de foret
     [SerializeField] private GameObject[] _tSalleCoupe; // tableau des salles de deforestation
-    [SerializeField] private BasicStats _basicStats; // refenrence au BasicStats
+    [SerializeField] private BasicStats _basicStats; // reference au BasicStats
+    public BasicStats basicStats{
+        get=>_basicStats;
+    }
     [SerializeField] private GameObject _perso; // reference du personnage
     public GameObject perso {
         get=> _perso;
@@ -63,6 +78,12 @@ public class GenerateurSalle : MonoBehaviour
             Destroy(salle); // on detruit la salle
         }
         _listSalle.Clear(); // par securite, on vide la liste
+    }
+
+    public void ClearTache(){
+        foreach(GameObject salle in _listSalle){ // pour chaque salle dans la liste de _listeSalle
+            salle.GetComponent<Salle>().DetuireEnnemis();
+        }
     }
 
     /// <summary>

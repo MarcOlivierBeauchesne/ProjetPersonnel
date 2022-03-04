@@ -6,12 +6,14 @@ public class EnnemiForet : MonoBehaviour
 {
     [SerializeField] private int _minWaitTime = 2;
     [SerializeField] private int _maxWaitTime = 5;
-
+    [SerializeField] private Sprite _imgMort;
     [SerializeField] private float _cutValue;
     Salle _salle;
+    SpriteRenderer _sr;
 
     private void Start()
-    {   
+    {
+        _sr = GetComponent<SpriteRenderer>();
         _salle = GetComponentInParent<Salle>();
         StartCoroutine(CoroutineCoupe());
     }
@@ -28,7 +30,13 @@ public class EnnemiForet : MonoBehaviour
         if(other.gameObject.CompareTag("Player")){
             _salle.RetirerEnnemi();
             StopAllCoroutines();
-            Destroy(gameObject);
+            StartCoroutine(CoroutineEnnemiMort());
         }
+    }
+
+    private IEnumerator CoroutineEnnemiMort(){
+        _sr.sprite = _imgMort;
+        yield return new WaitForSeconds(3f);
+        Destroy(gameObject);
     }
 }

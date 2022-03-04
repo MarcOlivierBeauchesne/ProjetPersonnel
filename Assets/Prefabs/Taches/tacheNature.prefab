@@ -1087,8 +1087,8 @@ SpriteRenderer:
   m_SortingLayerID: 123501307
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 330551e47b3d0394c84454a5c93b91df, type: 3}
-  m_Color: {r: 0.8081706, g: 1, b: 0.504717, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 9b877f78cca12904f8347a41cc87db7c, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1112,6 +1112,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _goTache: {fileID: 2047097582}
   _btnInterraction: {fileID: 8527829688412416376}
+  _imageDone: {fileID: 21300000, guid: e02ebbacdf70f754aa40ff1652c5fb50, type: 3}
+  _tacheValue: 0
 --- !u!61 &724363948
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1129,7 +1131,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1.6, y: 1.6}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

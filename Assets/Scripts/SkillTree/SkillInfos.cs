@@ -131,10 +131,10 @@ public class SkillInfos : MonoBehaviour
         if(!_boiteExplication.activeInHierarchy){ // si la boite explicatioin n'est pas active
             realCost = _skillCost * (actualStack + 1);
             _boiteExplication.SetActive(true); // on active la boite explicative
-            _boiteExplication.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _skillExplication.nomSkill; // on affiche le nom du skill
-            _boiteExplication.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = _skillExplication.explication; // on affiche l'explication du du skill
-            _boiteExplication.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = $"{actualStack}/{maxStack}"; // on affiche le niveau actuel sur le niveau maximum du skill
-            TextMeshProUGUI textCout = _boiteExplication.transform.GetChild(3).GetComponent<TextMeshProUGUI>();
+            _boiteExplication.transform.GetChild(0).GetComponent<Text>().text = _skillExplication.nomSkill; // on affiche le nom du skill
+            _boiteExplication.transform.GetChild(1).GetComponent<Text>().text = _skillExplication.explication; // on affiche l'explication du du skill
+            _boiteExplication.transform.GetChild(2).GetComponent<Text>().text = $"{actualStack}/{maxStack}"; // on affiche le niveau actuel sur le niveau maximum du skill
+            Text textCout = _boiteExplication.transform.GetChild(3).GetComponent<Text>();
             if(_actualStack != _maxStack){
                 textCout.text = (_skillCost * (actualStack + 1)).ToString(); // on affiche le cout du skill
                 if(_playerRessources.naturePoint >= realCost){

@@ -13,16 +13,18 @@ public class Salle : MonoBehaviour
     [SerializeField] Transform[] _tPosMimo; // tableau des positions possible des Mimos
     [SerializeField] Transform[] _tPosSeed;
     [SerializeField] List<Transform> _listPosEnnemi;
+    private List<Transform> _listPosEnnemiTemp = new List<Transform>();
+    private List<Transform> _listPosEnnemiSpawn = new List<Transform>();
     [SerializeField] GameObject _goMimo; // gameObject d'un mimo
     [SerializeField] GameObject _goSeed; 
     [SerializeField] GameObject[] _tGoTache; // tableau des taches possibles
     [SerializeField] GameObject _goEnnemiForet;
     [SerializeField] private int _chanceSeed = 30;
     private List<GameObject> _listEnnemi = new List<GameObject>();
-    private int _actualDayEnnemi;
-    private int _nbEnnemi;
-    private int _ennemiPresent;
+    private int _actualRoomEnnemi;
+    private int _ennemiToSpawn;
     private int _ennemiTaskValue;
+    private int _spawnedEnnemy;
 
     private bool _peutGenererEnnemi = true;
     private GameObject _champsEnnemi;
@@ -59,6 +61,7 @@ public class Salle : MonoBehaviour
             SpawnSeed();
             StartCoroutine(CoroutineSpawnSeed());
         }
+        _champsEnnemi = genSalle.canvas.transform.GetChild(0).gameObject;
     }
 
     /// <summary>
@@ -158,29 +161,31 @@ public class Salle : MonoBehaviour
 
     public void GenererEnnemi(int taskValue){
         if(_peutGenererEnnemi){
+            _listPosEnnemiTemp.Clear();
+            _listPosEnnemiSpawn.Clear();
             _ennemiTaskValue = taskValue;
-            _actualDayEnnemi = Mathf.Clamp(5 * genSalle.timer.nbJour, 5, _listPosEnnemi.Count);
-            _nbEnnemi += _actualDayEnnemi;
+            _ennemiToSpawn = (5 * genSalle.timer.nbJour);
+            _spawnedEnnemy = _ennemiToSpawn;
+            _actualRoomEnnemi += _ennemiToSpawn;
             GameObject champsEnnemi = _genSalle.canvas.transform.GetChild(0).gameObject;
             champsEnnemi.SetActive(true);
-            champsEnnemi.transform.GetChild(0).GetComponent<Text>().text = _nbEnnemi.ToString();
-            _champsEnnemi = champsEnnemi;
-            _ennemiPresent = _nbEnnemi;
+            _genSalle.canvas.transform.GetChild(2).gameObject.SetActive(true);
+            champsEnnemi.transform.GetChild(0).GetComponent<Text>().text = _actualRoomEnnemi.ToString();
             SpawnEnnemiForet();
-
         }
     }
 
     public void RetirerEnnemi(){
-        _nbEnnemi--;
-        _champsEnnemi.transform.GetChild(0).GetComponent<Text>().text = _nbEnnemi.ToString();
+        _actualRoomEnnemi--;
+        _champsEnnemi.transform.GetChild(0).GetComponent<Text>().text = _actualRoomEnnemi.ToString();
         _listEnnemi.RemoveAt(0);
-        if(_nbEnnemi == 0){
+        if(_actualRoomEnnemi == 0){
             _champsEnnemi.SetActive(false);
-            int totalPoint = (_actualDayEnnemi * _ennemiTaskValue) + ((int)_genSalle.basicStats.npGain * _actualDayEnnemi);
+            int totalPoint = (_spawnedEnnemy * _ennemiTaskValue) + ((int)_genSalle.basicStats.npGain * _spawnedEnnemy);
             _genSalle.perso.GetComponent<Personnage>().AjusterPoint("naturePoint", totalPoint);
             _genSalle.taskManager.AjouterPoint(TypeTache.Tache, totalPoint);
             _genSalle.taskManager.CreatePopUpPoints(_genSalle.perso.transform.position, totalPoint);
+            _genSalle.canvas.transform.GetChild(2).gameObject.SetActive(false);
             if(_listEnnemi.Count > 0){
                 DetuireEnnemis();
             }
@@ -201,22 +206,26 @@ public class Salle : MonoBehaviour
     }
 
     private void SpawnEnnemiForet(){
-        Debug.Log(_ennemiPresent);
-        foreach (Transform pos in _listPosEnnemi)
+        for (int i = 0; i < 20; i++)
         {
-            if(_ennemiPresent>0){
-                int chance = Random.Range(1,3);
-                if(chance == 1){
-                    _ennemiPresent--;
-                    GameObject ennemi = Instantiate(_goEnnemiForet, pos.position, Quaternion.identity);
-                    ennemi.transform.SetParent(transform);
-                    _listEnnemi.Add(ennemi);
-                }
-            
-            }
+            _listPosEnnemiTemp.Add(_listPosEnnemi[i]);
+            Debug.Log(_listPosEnnemiTemp[i]);
         }
-        if(_ennemiPresent > 0){
-            SpawnEnnemiForet();
+        for (int i = 0; i < _ennemiToSpawn; i++)
+        {
+            int posRandom = Random.Range(0, _listPosEnnemiTemp.Count);
+            _listPosEnnemiSpawn.Add(_listPosEnnemiTemp[posRandom]);
+            _listPosEnnemiTemp.RemoveAt(posRandom);
+        }
+        //Debug.Log("la liste des position est de : " + _listPosEnnemiSpawn.Count + " positions");
+        int refEnnemi = _ennemiToSpawn;
+        for (int i = 0; i < refEnnemi; i++)
+        {
+            _ennemiToSpawn--;
+            GameObject ennemi = Instantiate(_goEnnemiForet, _listPosEnnemiSpawn[i].position, Quaternion.identity);
+            ennemi.transform.SetParent(transform);
+            _listEnnemi.Add(ennemi);
+            Debug.Log("on genere un ennemi");
         }
     }
 }

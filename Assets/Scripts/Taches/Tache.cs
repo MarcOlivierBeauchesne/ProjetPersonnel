@@ -6,6 +6,7 @@ public class Tache : MonoBehaviour
 {
     [SerializeField] GameObject _goTache;
     [SerializeField] GameObject _btnInterraction;
+    [SerializeField] Sprite _imageDone;
     [SerializeField] int _tacheValue;
     private Personnage _perso;
     public Personnage perso{
@@ -18,12 +19,15 @@ public class Tache : MonoBehaviour
     private bool _isDone = false;
     private bool _peutGenererEnnemi = true;
 
+    SpriteRenderer _sr;
+
     /// <summary>
     /// Start is called on the frame when a script is enabled just before
     /// any of the Update methods is called the first time.
     /// </summary>
     void Start()
     {
+        _sr = GetComponent<SpriteRenderer>();
         _goTache.SetActive(false);
         _btnInterraction.SetActive(false);
     }
@@ -60,6 +64,8 @@ public class Tache : MonoBehaviour
                 GetComponentInParent<Salle>().GenererEnnemi(_tacheValue);
                 _peutGenererEnnemi = false;
                 _isDone = true;
+                Animator anim = GetComponent<Animator>();
+                anim.SetTrigger("FinTache");
                 _btnInterraction.SetActive(false);
             }
         }   
@@ -74,6 +80,7 @@ public class Tache : MonoBehaviour
     private IEnumerator CoroutineFinTache(int points){
         yield return new WaitForSeconds(1f);
         _isDone = true;
+        _sr.sprite = _imageDone;
         _perso.AjusterPoint("naturePoint", points);
         _perso.taskManager.AjouterPoint(TypeTache.Tache, points);
         _perso.taskManager.CreatePopUpPoints(transform.position, points);

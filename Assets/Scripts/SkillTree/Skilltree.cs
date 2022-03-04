@@ -67,7 +67,7 @@ public class Skilltree : MonoBehaviour
         int coutReel = CalculerCout(absorbCost, _absorbCount);
         _perso.AjusterPoint("naturePoint", -coutReel);
         _absorbCount += 0.1f;
-        _boiteExplication.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = CalculerCout(absorbCost, _absorbCount).ToString(); // on affiche le cout du skill
+        _boiteExplication.transform.GetChild(3).GetComponent<Text>().text = CalculerCout(absorbCost, _absorbCount).ToString(); // on affiche le cout du skill
         foreach (SkillInfos skill in _tSkills) // pour chaque skill dans le tSkills
         {
             skill.ResetSkill(); // on reinitialise le skill
@@ -90,11 +90,17 @@ public class Skilltree : MonoBehaviour
         int coutReel = CalculerCout(absorbCost, _absorbCount);
         if(!_boiteExplication.activeInHierarchy){ // si la boite explicatioin n'est pas active
             _boiteExplication.SetActive(true); // on active la boite explicative
-            _boiteExplication.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Absorber"; // on affiche le nom du skill
-            _boiteExplication.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = _textAbsorbtion; // on affiche l'explication du du skill
-            _boiteExplication.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = ""; // on affiche le niveau actuel sur le niveau maximum du skill
-            TextMeshProUGUI textCout = _boiteExplication.transform.GetChild(3).GetComponent<TextMeshProUGUI>();
+            _boiteExplication.transform.GetChild(0).GetComponent<Text>().text = "Absorber"; // on affiche le nom du skill
+            _boiteExplication.transform.GetChild(1).GetComponent<Text>().text = _textAbsorbtion; // on affiche l'explication du du skill
+            _boiteExplication.transform.GetChild(2).GetComponent<Text>().text = ""; // on affiche le niveau actuel sur le niveau maximum du skill
+            Text textCout = _boiteExplication.transform.GetChild(3).GetComponent<Text>();
             textCout.text = coutReel.ToString(); // on affiche le cout du skill
+            if(coutReel < _ressourcePlayer.naturePoint){
+                textCout.color = Color.green;
+            }
+            else{
+                textCout.color = Color.red;
+            }
             CheckRessources();
         }
         else{ // si la boite est active

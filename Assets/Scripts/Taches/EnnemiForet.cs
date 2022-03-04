@@ -29,6 +29,7 @@ public class EnnemiForet : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player")){
             _salle.RetirerEnnemi();
+            GetComponent<CircleCollider2D>().enabled = false;
             StopAllCoroutines();
             StartCoroutine(CoroutineEnnemiMort());
         }

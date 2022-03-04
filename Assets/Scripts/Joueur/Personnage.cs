@@ -67,6 +67,12 @@ public class Personnage : MonoBehaviour
             case "naturePower": // si la ressource est "naturePower"
                 _ressourcesPlayer.naturePower += valeur; // on change le naturePower des _ressourcesPlayer selon la valeur
                 _txtNaturePower.text = _ressourcesPlayer.naturePower.ToString(); // on met a jour l'affichage des point de nature
+                if(_ressourcesPlayer.naturePoint > 10000){
+                    _txtNaturePoint.fontSize = 12;
+                }
+                else{
+                    _txtNaturePoint.fontSize = 14;
+                }
                 break; // on sort de la condition
             case "seed": // si la ressources est "seed"
                 _ressourcesPlayer.seedAmount += valeur; // on change la quantite de graine du joueur

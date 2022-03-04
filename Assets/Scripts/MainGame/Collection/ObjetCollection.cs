@@ -22,6 +22,10 @@ public class ObjetCollection : MonoBehaviour
     /// </summary>
     void Start()
     {
+
+    }
+
+    public void NommerObjet(){
         gameObject.name = _infosObjet.nomMimo;
     }
 

@@ -28,7 +28,9 @@ public class Tache : MonoBehaviour
     void Start()
     {
         _sr = GetComponent<SpriteRenderer>();
-        _goTache.SetActive(false);
+        if(_goTache != null){
+            _goTache.SetActive(false);
+        }
         _btnInterraction.SetActive(false);
     }
 
@@ -45,6 +47,9 @@ public class Tache : MonoBehaviour
         if(other.gameObject.CompareTag("Player")){
             _playerClose = false;
             _btnInterraction.SetActive(false);
+            if(_goTache != null){
+                _goTache.SetActive(false);
+            }
         }   
     }
 
@@ -67,6 +72,7 @@ public class Tache : MonoBehaviour
                 Animator anim = GetComponent<Animator>();
                 anim.SetTrigger("FinTache");
                 _btnInterraction.SetActive(false);
+                GetComponent<BoxCollider2D>().isTrigger = true;
             }
         }   
     }

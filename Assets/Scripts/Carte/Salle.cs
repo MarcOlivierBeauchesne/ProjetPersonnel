@@ -165,7 +165,7 @@ public class Salle : MonoBehaviour
             _listPosEnnemiSpawn.Clear();
             _ennemiTaskValue = taskValue;
             _ennemiToSpawn = (5 * genSalle.timer.nbJour);
-            _spawnedEnnemy = _ennemiToSpawn;
+            _spawnedEnnemy += _ennemiToSpawn;
             _actualRoomEnnemi += _ennemiToSpawn;
             GameObject champsEnnemi = _genSalle.canvas.transform.GetChild(0).gameObject;
             champsEnnemi.SetActive(true);
@@ -177,6 +177,7 @@ public class Salle : MonoBehaviour
 
     public void RetirerEnnemi(){
         _actualRoomEnnemi--;
+        Debug.Log(_actualRoomEnnemi + ": ennemi dans la piece");
         _champsEnnemi.transform.GetChild(0).GetComponent<Text>().text = _actualRoomEnnemi.ToString();
         _listEnnemi.RemoveAt(0);
         if(_actualRoomEnnemi == 0){

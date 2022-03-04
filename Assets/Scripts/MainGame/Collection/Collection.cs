@@ -31,10 +31,19 @@ public class Collection : MonoBehaviour
 
     void Start()
     {
-        _boiteObjet.SetActive(false);
-        gameObject.SetActive(false);
         ActiverCollection();
+        _boiteObjet.SetActive(false);
+        NommerMimo();
+        gameObject.SetActive(false);
     }
+
+    private void NommerMimo(){
+        foreach (GameObject mimo in _tObjetCol)
+        {
+            mimo.GetComponent<ObjetCollection>().NommerObjet();
+        }
+    }
+
 
     public void ResetCollection(){
         foreach (InfosCollection mimo in _tInfosCollection)

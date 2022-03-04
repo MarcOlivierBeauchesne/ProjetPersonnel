@@ -14,6 +14,8 @@ public class Timer : MonoBehaviour
     [SerializeField] private Animator _dayWindowAnim; // acces prive pour l'animator de la fenetre de journee
     [SerializeField] private DayManager _dayManager; // reference au DayManager
     [SerializeField] private TaskManager _taskManager; // reference au TaskManager
+    [SerializeField] private GameObject _champsEnnemis;
+    [SerializeField] private GameObject _champsExpliEnnemi;
     [SerializeField] private Deforestation _defoManager;
     [SerializeField] private Tutoriel _tuto;
     [SerializeField] private Animator _animDaylight;
@@ -97,6 +99,8 @@ public class Timer : MonoBehaviour
             StartCoroutine(CoroutineFinJournee()); // on demarre la coroutine CoroutineFinJournee
             _champsJour.text = "";
             _dayManager.genSalle.ClearTache();
+            _champsEnnemis.SetActive(false);
+            _champsExpliEnnemi.SetActive(false);
         }
         else if (minute > 0 || seconde >= 0) // si minute est plus grand que 0 ou seconde est plus grand ou egal a 0
         {

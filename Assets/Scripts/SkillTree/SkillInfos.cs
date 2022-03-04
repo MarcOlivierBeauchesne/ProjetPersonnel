@@ -45,7 +45,6 @@ public class SkillInfos : MonoBehaviour
     [SerializeField] Skilltree _arbre; // Reference pour le SkillTree
     [SerializeField] SkillExplication _skillExplication; // ScriptableObject qui detient les informations a afficher du skill
     [SerializeField] GameObject _boiteExplication; // Reference pour la boite d'explication du skill
-    private float _skillReset = 1;
     private int realCost;
 
     public Image img; // acces public de l'Image du gameObject
@@ -93,9 +92,9 @@ public class SkillInfos : MonoBehaviour
             _arbre.CheckRessources();
             actualStack++; // on augmente le niveau du skill actuel de 1
             _savedTotalStack++; // on augmente le niveau total du skill
-            _boiteExplication.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = $"{actualStack}/{maxStack}"; // on met a jour le niveau affiche dans la boite d'explication
+            _boiteExplication.transform.GetChild(2).GetComponent<Text>().text = $"{actualStack}/{maxStack}"; // on met a jour le niveau affiche dans la boite d'explication
             if(actualStack != maxStack){ // si le niveau du skill actuel n'est pas egal a son maximum
-                TextMeshProUGUI textCout = _boiteExplication.transform.GetChild(3).GetComponent<TextMeshProUGUI>();
+                Text textCout = _boiteExplication.transform.GetChild(3).GetComponent<Text>();
                 textCout.text = (_skillCost * (actualStack + 1)).ToString(); // on met a jour l'affichage du cout reel du skill
                 if(_playerRessources.naturePoint >= realCost){
                     textCout.color = Color.green;
@@ -105,7 +104,7 @@ public class SkillInfos : MonoBehaviour
                 }
             }
             else{ // si le niveau actuel est egal a son maximum
-                _boiteExplication.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "Complet";
+                _boiteExplication.transform.GetChild(3).GetComponent<Text>().text = "Complet";
             }
             _basicStats.ChangerStats(_typeStats, _modifier, false); // on change la stat approprie dans BasicStats
             _arbre.CheckRessources(); // on demande au SkillTree de mettre a jour la disponibilite du bouton Absorber
@@ -117,6 +116,7 @@ public class SkillInfos : MonoBehaviour
                     {
                         heritier._bouton.interactable = true; // on rend l'heritier cliquable
                         heritier.img.color = new Color(1f, 1f, 1f, 1f); // on remet sa couleur pleine opacite
+                        Debug.Log("on debloque " + heritier.name);
                     }
                 }
             }
@@ -191,7 +191,7 @@ public class SkillInfos : MonoBehaviour
     /// Fonction qui change l'image du skill selon son niveau
     /// </summary>
     private void CheckStack(){
-        _boiteExplication.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = $"{actualStack}/{maxStack}"; // on affiche le niveau actuel sur le niveau maximum du skill
+        _boiteExplication.transform.GetChild(2).GetComponent<Text>().text = $"{actualStack}/{maxStack}"; // on affiche le niveau actuel sur le niveau maximum du skill
         if(actualStack<maxStack){ // si le niveau actuel du skill est plus petit que son maximum
             img.sprite = _iconBase; // l'image est celle de base
         }

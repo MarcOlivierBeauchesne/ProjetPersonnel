@@ -37,6 +37,11 @@ public class Tache : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.CompareTag("Player") && !_isDone){
+            GenerateurSalle _gensalle = GetComponentInParent<Salle>().genSalle;
+            if(_gensalle.tuto.dictTips["TipsTache"] == false){
+                _gensalle.tuto.gameObject.SetActive(true);
+                _gensalle.tuto.OuvrirTips(4);
+            }
             _playerClose = true;
             _btnInterraction.SetActive(true);
         }

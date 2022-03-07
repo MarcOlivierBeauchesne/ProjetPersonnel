@@ -56,6 +56,11 @@ public class Timer : MonoBehaviour
     /// </summary>
     void Start()
     {
+        StartCoroutine(CoroutineDemarrerJournee());
+    }
+
+    public IEnumerator CoroutineDemarrerJournee(){
+        yield return new WaitForSeconds(1f);
         StartCoroutine(CoroutineDebut());
     }
 
@@ -72,8 +77,7 @@ public class Timer : MonoBehaviour
         StartCoroutine(CoroutineTemps()); // on demarre la coroutine CoroutineTemps
         StartCoroutine(CoroutineChampsJour());
         yield return new WaitForSeconds(2f);
-        _tuto.gameObject.SetActive(true);
-        _tuto.AfficherTips(true);
+        StartCoroutine(CoroutineTips(1));
     }
 
     /// <summary>
@@ -130,18 +134,27 @@ public class Timer : MonoBehaviour
         StartCoroutine(CoroutineTemps()); // on démarre la coroutine CoroutineTemps
         _taskManager.ResetScore(); // on demande au TaskManager de reinitialiser les scores de la journee
         _nbJour++;
-        if(nbJour<4){
-            StartCoroutine(CoroutineTips());
-        }
         StartCoroutine(CoroutineChampsJour());
         _dayWindowAnim.SetTrigger("NewDay");
         _perso.ChangerEtat(true);
     }
 
-    private IEnumerator CoroutineTips(){
-        yield return new WaitForSeconds(3f);
+    private IEnumerator CoroutineTips(int waitTime){
+        yield return new WaitForSeconds(waitTime);
         _tuto.gameObject.SetActive(true);
-        _tuto.AfficherTips(true);
+        _tuto.OuvrirTips(1);
+        yield return new WaitForSeconds(1f);
+        _tuto.gameObject.SetActive(true);
+        _tuto.OuvrirTips(0);
+        yield return new WaitForSeconds(1f);
+        _tuto.gameObject.SetActive(true);
+        _tuto.OuvrirTips(2);
+        yield return new WaitForSeconds(2f);
+        _tuto.gameObject.SetActive(true);
+        _tuto.OuvrirTips(3);
+        yield return new WaitForSeconds(2f);
+        _tuto.gameObject.SetActive(true);
+        _tuto.OuvrirTips(6);
     }
 
     public void SetupTime(int newJour, float newMinute, int newSeconde){

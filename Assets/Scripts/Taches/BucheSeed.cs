@@ -53,6 +53,10 @@ public class BucheSeed : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.CompareTag("Player") && !_isFull){
+            if(_genSalle.tuto.dictTips["TipsSouche"] == false){
+                _genSalle.tuto.gameObject.SetActive(true);
+                _genSalle.tuto.OuvrirTips(5);
+            }
             _playerClose = true;
             _btnInterraction.SetActive(true);
         }

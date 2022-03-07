@@ -6,54 +6,74 @@ public class Tutoriel : MonoBehaviour
 {
     [SerializeField] private GameObject[] _tGoTips;
     [SerializeField] private Timer _timer;
-    [SerializeField] private int _nbTipsJ1 = 5;
-    [SerializeField] private int _nbTipsJ2 = 1;
-    [SerializeField] private int _nbTipsJ3 = 1;
-    private int _tips = 0;
-    private int _limiteTips = 0;
-    
+    private Dictionary<string, bool> _dictTips = new Dictionary<string, bool>(){
+        
+    };
+    public Dictionary<string, bool> dictTips{
+        get=>_dictTips;
+    }
+    List<string> keyList = new List<string>();
+    private GameObject _activeTips;
 
-    public void AfficherTips(bool debut){
-        StartCoroutine(CoroutineTips(debut));
+    private void Start()
+    {
+        SetupDict();
+        keyList = new List<string>(_dictTips.Keys);
+        gameObject.SetActive(false);
+    }    
+
+    private void SetupDict(){
+        _dictTips.Add("TipsDefo", false);
+        _dictTips.Add("TipsDeplacement", false);
+        _dictTips.Add("TipsNoix", false);
+        _dictTips.Add("TipsTree", false);
+        _dictTips.Add("TipsTache", false);
+        _dictTips.Add("TipsSouche", false);
+        _dictTips.Add("TipsCollection", false);
     }
 
-    public void NextTips(){
-        _tGoTips[_tips].SetActive(false);
-        _tips++;
-        _limiteTips--;
-        if(_limiteTips >0){
-            _tGoTips[_tips].SetActive(true);
+    public void OuvrirTips(int indexTips){
+        Debug.Log(indexTips);
+        string key = keyList[indexTips];
+        Debug.Log(key);
+        Debug.Log(_dictTips[key]);
+        if(!_dictTips[key]){
+            _dictTips[key] = true;
+            Time.timeScale = 0;
+            GameObject tips = transform.GetChild(indexTips).gameObject;
+            tips.SetActive(true);
+            _activeTips = tips;
         }
         else{
-            Time.timeScale = 1;
-            gameObject.SetActive(false);
+            Debug.Log("Le tips a deja été vu");
         }
     }
 
-    private IEnumerator CoroutineTips(bool debut){
-        int waitTime = 0;
-        if(debut){
-            waitTime = 0;
+    public void FermerTips(){
+        Time.timeScale = 1;
+        _activeTips.SetActive(false);
+        gameObject.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.F)){
+            bool tipTree = transform.GetChild(3).gameObject.activeInHierarchy;
+            if(tipTree){
+                FermerTips();
+            }
         }
-        else{
-            waitTime = 3;
+        else if(Input.GetKeyDown(KeyCode.Space)){
+            bool tipTree = transform.GetChild(2).gameObject.activeInHierarchy;
+            if(tipTree){
+                FermerTips();
+            }
         }
-        yield return new WaitForSeconds(waitTime);
-        Time.timeScale = 0;
-        int jour = _timer.nbJour;
-        switch(jour){
-            case 1:
-                _limiteTips = _nbTipsJ1;
-                _tGoTips[0].SetActive(true);
-            break;
-            case 2:
-                _limiteTips = _nbTipsJ2;
-                _tGoTips[_tips].SetActive(true);
-            break;
-            case 3:
-                _limiteTips = _nbTipsJ3;
-                _tGoTips[_tips].SetActive(true);
-            break;
+        else if(Input.GetKeyDown(KeyCode.C)){
+            bool tipTree = transform.GetChild(6).gameObject.activeInHierarchy;
+            if(tipTree){
+                FermerTips();
+            }
         }
     }
 }

@@ -5,6 +5,10 @@ using UnityEngine;
 public class GenerateurSalle : MonoBehaviour
 {
     [SerializeField] private GameObject _firstSalle; // gameObject de la premiere salle
+    [SerializeField] private Tutoriel _tuto;
+    public Tutoriel tuto{
+        get=> _tuto;
+    }
     [SerializeField] private GameObject _canvas;
     public GameObject canvas{
         get=>_canvas;
@@ -24,6 +28,7 @@ public class GenerateurSalle : MonoBehaviour
     [SerializeField] private GameObject[] _tSalleForet; // tableau des salle de foret
     [SerializeField] private GameObject[] _tSalleCoupe; // tableau des salles de deforestation
     [SerializeField] private BasicStats _basicStats; // reference au BasicStats
+    [SerializeField] private Animator _animLoading;
     public BasicStats basicStats{
         get=>_basicStats;
     }
@@ -48,6 +53,12 @@ public class GenerateurSalle : MonoBehaviour
     /// </summary>
     void Start()
     {
+        //_animLoading.SetBool("IsLoading", true);
+        StartCoroutine(CoroutineDemarrerJournee());
+    }
+
+    public IEnumerator CoroutineDemarrerJournee(){
+        yield return new WaitForSeconds(1f);
         _nbSalleRef = _nbSalle;
         _pourcentage = _basicStats.deforestLevel; // le pourcentage prend la valeur de deforestLevel du BasicStats
         GenererFirstSalle(); // on appel GenererFirstSalle
@@ -57,6 +68,8 @@ public class GenerateurSalle : MonoBehaviour
     /// Fonction qui genere la premiere salle et etablit la quantite de chaque salle a generer
     /// </summary>
     public void GenererFirstSalle(){
+        _animLoading.SetBool("IsLoading", true);
+        secondeVague = false;
         _salleOuverte = false; // les salles ne sont pas ouverte
         _pourcentage = _basicStats.deforestLevel; // le pourcentage prend la valeur de deforestLevel du BasicStats
         ClearRooms(); // on appel ClearRooms
@@ -144,6 +157,7 @@ public class GenerateurSalle : MonoBehaviour
             }
             else{
                 OuvrirSalle(); // on appel OuvrirSalle
+                _animLoading.SetBool("IsLoading", false);
             }
         }
     }

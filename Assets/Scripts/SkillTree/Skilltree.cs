@@ -47,7 +47,6 @@ public class Skilltree : MonoBehaviour
         }
         else{ // si l'arbre des talent n'est pas actif
             _goSkillTree.SetActive(true); // on active l'arbre des talents
-            Debug.Log(_ressourcePlayer.naturePoint + ": point du joueur");
             CheckRessources();
         }
     }

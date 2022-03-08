@@ -167,10 +167,9 @@ public class Salle : MonoBehaviour
             _ennemiToSpawn = Mathf.Clamp(5 * genSalle.timer.nbJour, 5, _listPosEnnemi.Count);
             _spawnedEnnemy += _ennemiToSpawn;
             _actualRoomEnnemi += _ennemiToSpawn;
-            GameObject champsEnnemi = _genSalle.canvas.transform.GetChild(0).gameObject;
-            champsEnnemi.SetActive(true);
+           _champsEnnemi.SetActive(true);
             _genSalle.canvas.transform.GetChild(2).gameObject.SetActive(true);
-            champsEnnemi.transform.GetChild(0).GetComponent<Text>().text = _actualRoomEnnemi.ToString();
+            _champsEnnemi.transform.GetChild(0).GetComponent<Text>().text = _actualRoomEnnemi.ToString();
             SpawnEnnemiForet();
         }
     }

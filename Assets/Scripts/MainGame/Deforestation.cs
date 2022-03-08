@@ -23,6 +23,13 @@ public class Deforestation : MonoBehaviour
         get=>_maxDefo;
     }
     private float _nextDefo = 0;
+
+
+    private bool _actualPoint = true;
+    private bool _nextPoint = true;
+    private float nextVisual = 0f;
+    float t = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,16 +37,6 @@ public class Deforestation : MonoBehaviour
         _actualDefo = _basicStats.deforestLevel;
         _nextDefo = _actualDefo + _basicStats.deforestAugment;
         AjusterDefoVisuel();
-        AjusterNextDefoVisuel();
-    }
-
-    public void AjusterDefoVisuel(){
-        _maxDefo = _basicStats.deforestPool;
-        _actualDefo = _basicStats.deforestLevel;
-        float actualVisual = (1 * _actualDefo) / _maxDefo;
-        _defoSlider.value = actualVisual;
-        _textDefo.text = $"{_actualDefo}/{_maxDefo}";
-        AjusterNextDefoVisuel();
     }
 
     public void AjusterDefoLevel(){
@@ -51,10 +48,29 @@ public class Deforestation : MonoBehaviour
         AjusterNextDefoVisuel();
     }
 
+    public void AjusterDefoVisuel(){
+        _maxDefo = _basicStats.deforestPool;
+        _actualDefo = _basicStats.deforestLevel;
+        _actualPoint = false;
+        float actualVisual = (1 * _actualDefo) / _maxDefo;
+        _actualDefo = actualVisual;
+        //_defoSlider.value = actualVisual;
+        _textDefo.text = actualDefo.ToString("f1") + "/"+ maxDefo;
+        AjusterNextDefoVisuel();
+    }
+
     public void AugmentationEnnemi(float amount){
         StartCoroutine(CoroutineAugmentation(amount));
         _basicStats.deforestLevel+= amount;
         AjusterDefoVisuel();
+    }
+
+    public void AjusterNextDefoVisuel(){
+        _maxDefo = _basicStats.deforestPool;
+        _nextDefo = _basicStats.deforestAugment;
+        nextVisual = (1 * _actualDefo + _basicStats.deforestAugment) / _maxDefo;
+        _nextPoint = false;
+        //_nextDefoSlider.value = actualVisual;
     }
 
     private IEnumerator CoroutineAugmentation(float amount){
@@ -67,10 +83,25 @@ public class Deforestation : MonoBehaviour
         Destroy(augmentation);
     }
 
-    public void AjusterNextDefoVisuel(){
-        _maxDefo = _basicStats.deforestPool;
-        _nextDefo = _actualDefo + _basicStats.deforestAugment;
-        float actualVisual = (1 * _actualDefo + _basicStats.deforestAugment) / _maxDefo;
-        _nextDefoSlider.value = actualVisual;
+    private void Update()
+    {
+        if(!_actualPoint){
+            _defoSlider.value = Mathf.Lerp(_defoSlider.value, _actualDefo, t);
+            _textDefo.text = actualDefo.ToString("f1") + "/"+ maxDefo;
+            t += (0.2f * Time.deltaTime);
+            if(t>1){
+                _actualPoint = true;
+                t = 0f;
+            }
+            Debug.Log("on ajuste la defo");
+        }
+        else if(!_nextPoint){
+            _nextDefoSlider.value = Mathf.Lerp(_nextDefoSlider.value, nextVisual, t);
+            t += (0.2f * Time.deltaTime);
+            if(t>1){
+                _nextPoint = false;
+                t = 0f;
+            }
+        }
     }
 }

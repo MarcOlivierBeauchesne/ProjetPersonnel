@@ -103,6 +103,5 @@ public class Saver : MonoBehaviour
 
     public void DeleteSave(){
         SaveSystem.DeleteSave();
-        _collection.ResetCollection();
     }
 }

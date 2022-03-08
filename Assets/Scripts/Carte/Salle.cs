@@ -164,7 +164,7 @@ public class Salle : MonoBehaviour
             _listPosEnnemiTemp.Clear();
             _listPosEnnemiSpawn.Clear();
             _ennemiTaskValue = taskValue;
-            _ennemiToSpawn = (5 * genSalle.timer.nbJour);
+            _ennemiToSpawn = Mathf.Clamp(5 * genSalle.timer.nbJour, 5, _listPosEnnemi.Count);
             _spawnedEnnemy += _ennemiToSpawn;
             _actualRoomEnnemi += _ennemiToSpawn;
             GameObject champsEnnemi = _genSalle.canvas.transform.GetChild(0).gameObject;

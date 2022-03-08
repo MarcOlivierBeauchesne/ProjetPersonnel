@@ -16,4 +16,4 @@ MonoBehaviour:
   _imageObjet: {fileID: 21300000, guid: 07b6441917fc2294cba209d6c6956f1c, type: 3}
   _textObjet: "Cette marmotte \xE0 vu son ombre plus t\xF4t que pr\xE9vu, ce n'est
     pas bon signe!"
-  _isFound: 1
+  _isFound: 0

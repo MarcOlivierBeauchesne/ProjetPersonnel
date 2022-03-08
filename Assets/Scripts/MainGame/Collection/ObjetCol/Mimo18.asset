@@ -17,4 +17,4 @@ MonoBehaviour:
   _textObjet: "Cette grenouille est sorti de la rivi\xE8re et ne la retrouve plus.
     Elle aurait pourtant jur\xE9 l'avoir laiss\xE9e \xE0 la m\xEAme place que la
     derni\xE8re fois."
-  _isFound: 1
+  _isFound: 0

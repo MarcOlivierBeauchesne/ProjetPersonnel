@@ -20,6 +20,9 @@ public class PlayerRessources : ScriptableObject
         get => _naturePoint; // par naturePoint, on retourne la valeur prive _naturePoint
         set{
             _naturePoint = value; // par naturePoint, on change la valeur de _naturePoint
+            if(_naturePoint < 0){
+                _naturePoint = 0;
+            }
         }
     }
     [SerializeField]private int _naturePower = 100; // acces prive pour la quantite de puissance de nature que possede le joueur
@@ -27,6 +30,9 @@ public class PlayerRessources : ScriptableObject
         get => _naturePower; // par naturePower, on retourne la valeur prive _naturePower
         set{
             _naturePower = value; // par naturePower, on change la valeur de _naturePower
+            if(_naturePower < 0){
+                _naturePower = 0;
+            }
         }
     }
 }

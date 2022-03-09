@@ -15,6 +15,7 @@ public class Timer : MonoBehaviour
     [SerializeField] private DayManager _dayManager; // reference au DayManager
     [SerializeField] private TaskManager _taskManager; // reference au TaskManager
     [SerializeField] private GameObject _champsEnnemis;
+    [SerializeField] private GameObject _champsProjectiles;
     [SerializeField] private GameObject _champsExpliEnnemi;
     [SerializeField] private Deforestation _defoManager;
     [SerializeField] private Tutoriel _tuto;
@@ -98,6 +99,8 @@ public class Timer : MonoBehaviour
         }
         if (minute == 0 && seconde == 0) // si minute et seconde sont egals a 0
         {
+            _perso.ResetRot();
+            _perso.ChangerRot(false);
             _perso.ChangerEtat(false);
             _dayWindowAnim.SetTrigger("EndDay");
             StartCoroutine(CoroutineFinJournee()); // on demarre la coroutine CoroutineFinJournee

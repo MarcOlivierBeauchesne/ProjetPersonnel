@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Projectile
+  - Tache
   layers:
   - Default
   - TransparentFX
@@ -12,7 +14,7 @@ TagManager:
   - Water
   - UI
   - sol
-  - 
+  - solDefo
   - Perso
   - taches
   - 
@@ -46,4 +48,10 @@ TagManager:
     locked: 0
   - name: Tache
     uniqueID: 123501307
+    locked: 0
+  - name: Btn
+    uniqueID: 1688240951
+    locked: 0
+  - name: TacheOver
+    uniqueID: 3343565903
     locked: 0

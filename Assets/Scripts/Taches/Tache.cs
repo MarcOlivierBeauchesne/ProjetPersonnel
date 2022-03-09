@@ -8,6 +8,9 @@ public class Tache : MonoBehaviour
     [SerializeField] GameObject _btnInterraction;
     [SerializeField] Sprite _imageDone;
     [SerializeField] int _tacheValue;
+    public int tacheValue{
+        get=>_tacheValue;
+    }
     [SerializeField] private TypeTache _typeTache;
     private Personnage _perso;
     public Personnage perso{
@@ -86,6 +89,8 @@ public class Tache : MonoBehaviour
                 case TypeTache.Centre :
                     Transform sallePos = transform.GetComponentInParent<Salle>().gameObject.transform;
                     perso.ChangerPos(sallePos);
+                    perso.ChangerRot(true);
+                    GetComponent<TacheCentre>().DemarrerSpawn();
                     break;
             }
         }   
@@ -101,9 +106,8 @@ public class Tache : MonoBehaviour
         yield return new WaitForSeconds(1f);
         _isDone = true;
         _sr.sprite = _imageDone;
-        _perso.AjusterPoint("naturePoint", points);
+        _perso.AjusterPoint("naturePoint", points, TypeTache.Tache);
         _perso.taskManager.AjouterPoint(TypeTache.Tache, points);
-        _perso.taskManager.CreatePopUpPoints(transform.position, points);
         _goTache.SetActive(false);
         GetComponent<BoxCollider2D>().isTrigger = false;
     }
@@ -114,4 +118,5 @@ public class Tache : MonoBehaviour
             OuvrirTache();
         }
     }
+    
 }

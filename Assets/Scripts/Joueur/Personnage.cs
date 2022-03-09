@@ -11,6 +11,10 @@ public class Personnage : MonoBehaviour
     [SerializeField] private Text _txtNaturePoint; // acces prive pour le champs de texte des points de nature du joueur
     [SerializeField] private Text _txtNaturePower; // acces prive pour le champs de texte de la puissance naturelle du joueur
     [SerializeField] private Text _txtSeed;
+    [SerializeField] Timer _timer;
+    public Timer timer{
+        get=>_timer;
+    }
     [SerializeField] private PlayerRessources _ressourcesPlayer; // reference de PlayerRessources du joueur
     public PlayerRessources ressourcesPlayer{
         get=> _ressourcesPlayer;
@@ -61,7 +65,7 @@ public class Personnage : MonoBehaviour
     /// </summary>
     /// <param name="ressources">Type de ressources que l'on modifie</param>
     /// <param name="valeur">valeur que l'on doit ajuster a la ressources</param>
-    public void AjusterPoint(string ressources , int valeur){
+    public void AjusterPoint(string ressources , int valeur, TypeTache type){
         switch (ressources) // selon le type de ressource
         {
             case "naturePower": // si la ressource est "naturePower"
@@ -81,6 +85,8 @@ public class Personnage : MonoBehaviour
             case "naturePoint": // si la ressources est "naturePoint"
                 _ressourcesPlayer.naturePoint += valeur; // on change les naturePoint du _ressourcesPlayer selon la valeur
                 _txtNaturePoint.text = _ressourcesPlayer.naturePoint.ToString();
+                _taskManager.AjouterPoint(type, valeur);
+                _taskManager.CreatePopUpPoints(transform.position, valeur);
                 break; // on sort de la condition
         }
     }
@@ -89,8 +95,18 @@ public class Personnage : MonoBehaviour
         StartCoroutine(CoroutineChangerEtat(etat));
     }
 
+    public void ChangerRot(bool tourne){
+        peutBouger = !tourne;
+        GetComponent<ControleCentre>().peutTourner = tourne;
+    }
+
     public void ChangerPos(Transform newPos){
         transform.position = newPos.position;
+        _rb.velocity = Vector2.zero;
+    }
+
+    public void ResetRot(){
+        transform.rotation = Quaternion.Euler(0f,0f,0f);
     }
 
     public IEnumerator CoroutineChangerEtat(bool etat){
@@ -144,14 +160,12 @@ public class Personnage : MonoBehaviour
         if(_peutBouger){
             Mouvement(); // on appel Mouvement
         }
-        if(Input.GetKeyDown(KeyCode.Space)){
+        if(Input.GetKeyDown(KeyCode.Space) && _peutBouger){
             if(_ressourcesPlayer.seedAmount >=1){
                 _pl.PlanterArbre();
             }
         }
     }
-
-
 
     /// <summary>
     /// This function is called every fixed framerate frame, if the MonoBehaviour is enabled.

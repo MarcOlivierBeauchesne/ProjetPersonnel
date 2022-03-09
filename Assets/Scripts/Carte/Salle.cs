@@ -28,6 +28,7 @@ public class Salle : MonoBehaviour
 
     private bool _peutGenererEnnemi = true;
     private GameObject _champsEnnemi;
+    private GameObject _champsProjectiles;
     private List<Vector2> _listFreePos = new List<Vector2> { }; // liste des position disponible pour instancier une salle
     private bool _toucheAuxBlocs; // bool qui determine si un detecteur touche a _layerTuile
     
@@ -61,7 +62,8 @@ public class Salle : MonoBehaviour
             SpawnSeed();
             StartCoroutine(CoroutineSpawnSeed());
         }
-        _champsEnnemi = genSalle.canvas.transform.GetChild(0).gameObject;
+        _champsEnnemi = genSalle.boiteEnnemis;
+        _champsProjectiles = genSalle.boiteProjectiles;
     }
 
     /// <summary>
@@ -169,22 +171,20 @@ public class Salle : MonoBehaviour
             _actualRoomEnnemi += _ennemiToSpawn;
            _champsEnnemi.SetActive(true);
             _genSalle.canvas.transform.GetChild(2).gameObject.SetActive(true);
-            _champsEnnemi.transform.GetChild(0).GetComponent<Text>().text = _actualRoomEnnemi.ToString();
+            _champsEnnemi.transform.GetChild(0).transform.GetChild(0).GetComponentInChildren<Text>().text = _actualRoomEnnemi.ToString();
             SpawnEnnemiForet();
         }
     }
 
     public void RetirerEnnemi(){
         _actualRoomEnnemi--;
-        Debug.Log(_actualRoomEnnemi + ": ennemi dans la piece");
-        _champsEnnemi.transform.GetChild(0).GetComponent<Text>().text = _actualRoomEnnemi.ToString();
+        _champsEnnemi.transform.GetChild(0).transform.GetChild(0).GetComponentInChildren<Text>().text = _actualRoomEnnemi.ToString();
         _listEnnemi.RemoveAt(0);
         if(_actualRoomEnnemi == 0){
             _champsEnnemi.SetActive(false);
             int totalPoint = (_spawnedEnnemy * _ennemiTaskValue) + ((int)_genSalle.basicStats.npGain * _spawnedEnnemy);
-            _genSalle.perso.GetComponent<Personnage>().AjusterPoint("naturePoint", totalPoint);
+            _genSalle.perso.GetComponent<Personnage>().AjusterPoint("naturePoint", totalPoint, TypeTache.Tache);
             _genSalle.taskManager.AjouterPoint(TypeTache.Tache, totalPoint);
-            _genSalle.taskManager.CreatePopUpPoints(_genSalle.perso.transform.position, totalPoint);
             _genSalle.canvas.transform.GetChild(2).gameObject.SetActive(false);
             if(_listEnnemi.Count > 0){
                 DetuireEnnemis();
@@ -228,4 +228,16 @@ public class Salle : MonoBehaviour
             Debug.Log("on genere un ennemi");
         }
     }
+
+    public void AfficherTacheProjectile(){
+        _champsProjectiles.SetActive(true);
+    }
+
+    public void AjusterAffichageProjectiles(int nbProjectile){
+        _champsProjectiles.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = nbProjectile.ToString();
+        if(nbProjectile == 0){
+            _champsProjectiles.SetActive(false);
+        }
+    }
+
 }

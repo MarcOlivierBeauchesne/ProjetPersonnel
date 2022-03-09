@@ -13,8 +13,6 @@ public class DayManager : MonoBehaviour
     [SerializeField] Timer _timer;
     [SerializeField] TaskManager _taskManager; // reference au TaskManager qui gere les taches
     [SerializeField] private GenerateurSalle _genSalle;
-    [SerializeField] private Color _winColor;
-    [SerializeField] private Color _LoseColor;
     public GenerateurSalle genSalle{
         get=>_genSalle;
     }
@@ -22,7 +20,6 @@ public class DayManager : MonoBehaviour
 
     Deforestation _deforestation;
     BasicStats _baseStats;
-    Image _imgFond;
     Deforestation _defoManager;
 
     // Start is called before the first frame update
@@ -30,7 +27,6 @@ public class DayManager : MonoBehaviour
     {
         _baseStats = GetComponent<BasicStats>();
         _deforestation = GetComponent<Deforestation>();
-        _imgFond =  _animFenetre.gameObject.GetComponent<Image>();
         _defoManager = GetComponent<Deforestation>();
         ResetChamps(); // On appel ResetChamps
     }
@@ -40,10 +36,10 @@ public class DayManager : MonoBehaviour
     /// </summary>
     public void AfficherPoint(){
         if(_baseStats.deforestLevel + _baseStats.deforestAugment >= _baseStats.deforestPool){
-            _imgFond.color = _LoseColor;
+            Debug.Log("la couleur est brune");
         }
         else{
-            _imgFond.color = _winColor;
+            Debug.Log("la couleur est bleu");
         }
         StartCoroutine(CoroutineAfficherPoint()); // on demarre la coroutine CoroutineAfficherPoint
     }
@@ -89,7 +85,7 @@ public class DayManager : MonoBehaviour
                 break; // on sort de la condition
             }
             case 5 : { // si _indexTableau est de 5¸
-                if(_deforestation.actualDefo + _baseStats.deforestAugment > _deforestation.maxDefo){
+                if(_deforestation.actualDefo > _deforestation.maxDefo){
                     _tChampsEndDay[8].SetActive(true);
                     _tChampsEndDay[11].SetActive(true);
                 }

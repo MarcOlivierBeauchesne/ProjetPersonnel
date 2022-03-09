@@ -5,6 +5,14 @@ using UnityEngine;
 public class GenerateurSalle : MonoBehaviour
 {
     [SerializeField] private GameObject _firstSalle; // gameObject de la premiere salle
+    [SerializeField] GameObject _boiteProjectiles;
+    public GameObject boiteProjectiles{
+        get=>_boiteProjectiles;
+    }
+    [SerializeField] GameObject _boiteEnnemis;
+    public GameObject boiteEnnemis{
+        get=>_boiteEnnemis;
+    }
     [SerializeField] private Tutoriel _tuto;
     public Tutoriel tuto{
         get=> _tuto;

@@ -80,16 +80,15 @@ public class BucheSeed : MonoBehaviour
     private void AjouterSeed(){
         if(_resPlayer.seedAmount >= 1){
             _seedAmount++;
-            _perso.AjusterPoint("seed", -1);
+            _perso.AjusterPoint("seed", -1, TypeTache.Aucun);
             AjusterSeedVisuel();
             if(_seedAmount == _seedNeeded){
                 _isFull = true;
                 _genSalle.taskManager.AjouterPoint(TypeTache.Tache, _taskValue);
                 _sr.sprite = _bucheFull; 
                 int totalPoint = (_seedAmount * _taskValue + (int)_perso.basicStats.npGain) + _seedAmount * (int)_perso.basicStats.npGain;
-                _perso.AjusterPoint("naturePoint", totalPoint);
+                _perso.AjusterPoint("naturePoint", totalPoint, TypeTache.Tache);
                 _perso.taskManager.AjouterPoint(TypeTache.Tache, totalPoint);
-                _genSalle.taskManager.CreatePopUpPoints(transform.position, totalPoint);
             }
         }
         else{

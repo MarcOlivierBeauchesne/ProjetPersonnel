@@ -7,7 +7,7 @@ public class Seed : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.CompareTag("Player")){
-            other.gameObject.GetComponent<Personnage>().AjusterPoint("seed", 1);
+            other.gameObject.GetComponent<Personnage>().AjusterPoint("seed", 1, TypeTache.Aucun);
             Destroy(gameObject);
         }
     }

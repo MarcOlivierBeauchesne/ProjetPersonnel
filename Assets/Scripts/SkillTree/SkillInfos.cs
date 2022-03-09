@@ -88,7 +88,7 @@ public class SkillInfos : MonoBehaviour
     private void VerifierRessources(){
         realCost = _skillCost * (actualStack + 1); // on calcul le cout real du skill (temporaire)
         if(_playerRessources.naturePoint >= realCost){ // si les points de nature du joueur sont egal ou plus eleves que le cout real du skill
-            _perso.AjusterPoint("naturePoint", -realCost); // on demande au personnage d'ajuter ses points de nature
+            _perso.AjusterPoint("naturePoint", -realCost, TypeTache.Aucun); // on demande au personnage d'ajuter ses points de nature
             _arbre.CheckRessources();
             actualStack++; // on augmente le niveau du skill actuel de 1
             _savedTotalStack++; // on augmente le niveau total du skill

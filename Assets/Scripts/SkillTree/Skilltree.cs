@@ -64,7 +64,7 @@ public class Skilltree : MonoBehaviour
     /// </summary>
     public void AbsorbSkills(){
         int coutReel = CalculerCout(absorbCost, _absorbCount);
-        _perso.AjusterPoint("naturePoint", -coutReel);
+        _perso.AjusterPoint("naturePoint", -coutReel, TypeTache.Aucun);
         _absorbCount += 0.1f;
         _boiteExplication.transform.GetChild(3).GetComponent<Text>().text = CalculerCout(absorbCost, _absorbCount).ToString(); // on affiche le cout du skill
         foreach (SkillInfos skill in _tSkills) // pour chaque skill dans le tSkills

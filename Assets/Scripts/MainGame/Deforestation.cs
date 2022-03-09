@@ -24,8 +24,6 @@ public class Deforestation : MonoBehaviour
     }
     private float _nextDefo = 0;
 
-
-    private bool _actualPoint = true;
     private bool _nextPoint = true;
     private float actualVisual = 0f;
     private float nextVisual = 0f;
@@ -51,8 +49,6 @@ public class Deforestation : MonoBehaviour
     public void AjusterDefoVisuel(){
         _maxDefo = _basicStats.deforestPool;
         _actualDefo = _basicStats.deforestLevel;
-        _actualPoint = false;
-        _nextPoint = false;
         actualVisual = (1 * _actualDefo) / _maxDefo;
         _textDefo.text = actualDefo.ToString("f1") + "/"+ maxDefo;
         AjusterNextDefoVisuel();
@@ -82,22 +78,12 @@ public class Deforestation : MonoBehaviour
 
     private void Update()
     {
-        if(!_actualPoint){
-            _defoSlider.value = Mathf.Lerp(_defoSlider.value, actualVisual, t);
-            _textDefo.text = actualDefo.ToString("f1") + "/"+ maxDefo;
-            t += (0.1f * Time.deltaTime);
-            if(t>1){
-                _actualPoint = true;
-                t = 0f;
-            }
-        }
-        else if(!_nextPoint){
-            _nextDefoSlider.value = Mathf.Lerp(_nextDefoSlider.value, nextVisual, t);
-            t += (0.1f * Time.deltaTime);
-            if(t>1){
-                _nextPoint = false;
-                t = 0f;
-            }
+        _defoSlider.value = Mathf.Lerp(_defoSlider.value, actualVisual, t);
+        _nextDefoSlider.value = Mathf.Lerp(_nextDefoSlider.value, nextVisual, t);
+        _textDefo.text = actualDefo.ToString("f1") + "/"+ maxDefo;
+        t += (0.1f * Time.deltaTime);
+        if(t>0.9f){
+            t = 0f;
         }
     }
 }

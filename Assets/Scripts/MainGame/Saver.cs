@@ -64,9 +64,9 @@ public class Saver : MonoBehaviour
 
     private void LoadPlayer(){
         PlayerData data = SaveSystem.LoadPlayer();
-        _player.AjusterPoint("seed", data.seed);
-        _player.AjusterPoint("naturePoint", data.naturePoints);
-        _player.AjusterPoint("naturePower", data.naturePower);
+        _player.AjusterPoint("seed", data.seed, TypeTache.Aucun);
+        _player.AjusterPoint("naturePoint", data.naturePoints, TypeTache.Aucun);
+        _player.AjusterPoint("naturePower", data.naturePower, TypeTache.Aucun);
     }
 
     private void LoadStats(){

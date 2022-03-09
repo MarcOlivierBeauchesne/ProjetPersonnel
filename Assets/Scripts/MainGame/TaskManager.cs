@@ -51,5 +51,6 @@ public enum TypeTache
     Arbre,
     Tache,
     Centre,
-    Ennemis
+    Ennemis,
+    Aucun
 }

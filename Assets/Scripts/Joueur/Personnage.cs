@@ -89,6 +89,10 @@ public class Personnage : MonoBehaviour
         StartCoroutine(CoroutineChangerEtat(etat));
     }
 
+    public void ChangerPos(Transform newPos){
+        transform.position = newPos.position;
+    }
+
     public IEnumerator CoroutineChangerEtat(bool etat){
         float waitTime = 0f;
         if(etat){

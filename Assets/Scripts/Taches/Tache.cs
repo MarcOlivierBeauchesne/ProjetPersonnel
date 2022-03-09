@@ -8,6 +8,7 @@ public class Tache : MonoBehaviour
     [SerializeField] GameObject _btnInterraction;
     [SerializeField] Sprite _imageDone;
     [SerializeField] int _tacheValue;
+    [SerializeField] private TypeTache _typeTache;
     private Personnage _perso;
     public Personnage perso{
         get => _perso;
@@ -70,14 +71,22 @@ public class Tache : MonoBehaviour
             }
         }
         else{
-            if(_peutGenererEnnemi){
-                GetComponentInParent<Salle>().GenererEnnemi(_tacheValue);
-                _peutGenererEnnemi = false;
-                _isDone = true;
-                Animator anim = GetComponent<Animator>();
-                anim.SetTrigger("FinTache");
-                _btnInterraction.SetActive(false);
-                GetComponent<BoxCollider2D>().isTrigger = true;
+            switch(_typeTache){
+                case TypeTache.Ennemis :
+                    if(_peutGenererEnnemi){
+                        GetComponentInParent<Salle>().GenererEnnemi(_tacheValue);
+                        _peutGenererEnnemi = false;
+                        _isDone = true;
+                        Animator anim = GetComponent<Animator>();
+                        anim.SetTrigger("FinTache");
+                        _btnInterraction.SetActive(false);
+                        GetComponent<BoxCollider2D>().isTrigger = true;
+                    }
+                    break;
+                case TypeTache.Centre :
+                    Transform sallePos = transform.GetComponentInParent<Salle>().gameObject.transform;
+                    perso.ChangerPos(sallePos);
+                    break;
             }
         }   
     }

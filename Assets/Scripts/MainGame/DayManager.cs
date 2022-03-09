@@ -10,8 +10,11 @@ public class DayManager : MonoBehaviour
 {
     [SerializeField] GameObject[] _tChampsEndDay; // tableau des differents champs de la page de fin de journee
     [SerializeField] Animator _animFenetre; // animator de la fenetre de fin de journee
+    [SerializeField] Timer _timer;
     [SerializeField] TaskManager _taskManager; // reference au TaskManager qui gere les taches
     [SerializeField] private GenerateurSalle _genSalle;
+    [SerializeField] private Color _winColor;
+    [SerializeField] private Color _LoseColor;
     public GenerateurSalle genSalle{
         get=>_genSalle;
     }
@@ -19,11 +22,16 @@ public class DayManager : MonoBehaviour
 
     Deforestation _deforestation;
     BasicStats _baseStats;
+    Image _imgFond;
+    Deforestation _defoManager;
+
     // Start is called before the first frame update
     void Start()
     {
         _baseStats = GetComponent<BasicStats>();
         _deforestation = GetComponent<Deforestation>();
+        _imgFond =  _animFenetre.gameObject.GetComponent<Image>();
+        _defoManager = GetComponent<Deforestation>();
         ResetChamps(); // On appel ResetChamps
     }
 
@@ -31,6 +39,12 @@ public class DayManager : MonoBehaviour
     /// Fonction qui demarre la coroutine d'affichage des points
     /// </summary>
     public void AfficherPoint(){
+        if(_baseStats.deforestLevel + _baseStats.deforestAugment >= _baseStats.deforestPool){
+            _imgFond.color = _LoseColor;
+        }
+        else{
+            _imgFond.color = _winColor;
+        }
         StartCoroutine(CoroutineAfficherPoint()); // on demarre la coroutine CoroutineAfficherPoint
     }
 
@@ -60,6 +74,9 @@ public class DayManager : MonoBehaviour
             case 3 : { // si _indexTableau est de 3
                 _tChampsEndDay[5].SetActive(true); // on affiche la categorie taches effectuees
                 _tChampsEndDay[5].transform.GetChild(0).GetComponent<Text>().text = _taskManager.scoreTache.ToString(); // la valeur affichee de la categorie prend la valeur du scoreTache du _taskManager 
+                if(_timer.nbJour > 0){
+                    _defoManager.AjusterDefoLevel();
+                }
                 break; // on sort de la condition
             }
             case 4 : { // si _indexTableau est de 4

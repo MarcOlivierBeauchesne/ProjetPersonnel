@@ -104,6 +104,7 @@ MonoBehaviour:
   _btnInterraction: {fileID: 8527829688412416376}
   _imageDone: {fileID: 0}
   _tacheValue: 500
+  _typeTache: 3
 --- !u!61 &724363948
 BoxCollider2D:
   m_ObjectHideFlags: 0

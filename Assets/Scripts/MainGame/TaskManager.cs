@@ -49,5 +49,7 @@ public class TaskManager : MonoBehaviour
 public enum TypeTache
 {
     Arbre,
-    Tache
+    Tache,
+    Centre,
+    Ennemis
 }

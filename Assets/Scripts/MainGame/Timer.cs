@@ -125,9 +125,9 @@ public class Timer : MonoBehaviour
     /// Fonction qui reinitialise les champs afin de demarrer une nouvelle journee
     /// </summary>
     public void ProchaineJournee(){
-        if(_nbJour > 0){
-            _defoManager.AjusterDefoLevel();
-        }
+        // if(_nbJour > 0){
+        //     _defoManager.AjusterDefoLevel();
+        // }
         _dayManager.ResetChamps(); // on demande au DayManager de fermer tous les champs
         _dayWindowAnim.SetBool("EndDay", false); // on met le bool de _dayWindowAnim a false
         _minute = _basicStats.dayTime;

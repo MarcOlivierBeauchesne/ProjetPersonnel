@@ -27,6 +27,7 @@ public class Deforestation : MonoBehaviour
 
     private bool _actualPoint = true;
     private bool _nextPoint = true;
+    private float actualVisual = 0f;
     private float nextVisual = 0f;
     float t = 0f;
 
@@ -44,7 +45,6 @@ public class Deforestation : MonoBehaviour
         _actualDefo = _basicStats.deforestLevel;
         _basicStats.deforestAugment = (_basicStats.deforestAugmentRef * _timer.nbJour) - (_basicStats.npGain-100);
         _maxDefo = _basicStats.deforestPool;
-        AjusterDefoVisuel();
         AjusterNextDefoVisuel();
     }
 
@@ -52,9 +52,8 @@ public class Deforestation : MonoBehaviour
         _maxDefo = _basicStats.deforestPool;
         _actualDefo = _basicStats.deforestLevel;
         _actualPoint = false;
-        float actualVisual = (1 * _actualDefo) / _maxDefo;
-        _actualDefo = actualVisual;
-        //_defoSlider.value = actualVisual;
+        _nextPoint = false;
+        actualVisual = (1 * _actualDefo) / _maxDefo;
         _textDefo.text = actualDefo.ToString("f1") + "/"+ maxDefo;
         AjusterNextDefoVisuel();
     }
@@ -69,8 +68,6 @@ public class Deforestation : MonoBehaviour
         _maxDefo = _basicStats.deforestPool;
         _nextDefo = _basicStats.deforestAugment;
         nextVisual = (1 * _actualDefo + _basicStats.deforestAugment) / _maxDefo;
-        _nextPoint = false;
-        //_nextDefoSlider.value = actualVisual;
     }
 
     private IEnumerator CoroutineAugmentation(float amount){
@@ -86,18 +83,17 @@ public class Deforestation : MonoBehaviour
     private void Update()
     {
         if(!_actualPoint){
-            _defoSlider.value = Mathf.Lerp(_defoSlider.value, _actualDefo, t);
+            _defoSlider.value = Mathf.Lerp(_defoSlider.value, actualVisual, t);
             _textDefo.text = actualDefo.ToString("f1") + "/"+ maxDefo;
-            t += (0.2f * Time.deltaTime);
+            t += (0.1f * Time.deltaTime);
             if(t>1){
                 _actualPoint = true;
                 t = 0f;
             }
-            Debug.Log("on ajuste la defo");
         }
         else if(!_nextPoint){
             _nextDefoSlider.value = Mathf.Lerp(_nextDefoSlider.value, nextVisual, t);
-            t += (0.2f * Time.deltaTime);
+            t += (0.1f * Time.deltaTime);
             if(t>1){
                 _nextPoint = false;
                 t = 0f;

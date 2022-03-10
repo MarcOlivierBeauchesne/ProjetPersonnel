@@ -38,6 +38,8 @@ public class Personnage : MonoBehaviour
     private float _mouvementSpeed = 5; // acces prive pour _mouvementSpeed
     private float _axeX = 0f; // acces prive pour _axeX du Input Horizontal
     private float _axeY = 0f; // acces prive pour _axeY du Input Vertical
+    Vector3 normalOri = new Vector3(0.2f,0.2f,0.2f);
+    Vector3 reversedOri = new Vector3(-0.2f,0.2f,0.2f);
 
     Rigidbody2D _rb; // on stoc le rigidBody2D
     Animator _anim;
@@ -145,10 +147,10 @@ public class Personnage : MonoBehaviour
         bool enMouvement = _axeX != 0 || _axeY != 0; // enMouvement est true si le personnage bouge
         _anim.SetBool("Move", enMouvement); // on met le bool "Move" selon enMouvement
         if(_axeX < 0){ // si _axeX est plus petit que 0
-            _sr.flipX = true; // on inverse l'orientation du perso en X
+            transform.localScale = reversedOri; // on inverse l'orientation du perso en X
         }
         else if(_axeX > 0){ // si _axeX est plus grand que 0
-            _sr.flipX = false; // on inverse pas l'orientation du perso en x
+            transform.localScale = normalOri; // on inverse pas l'orientation du perso en x
         }
     }
 

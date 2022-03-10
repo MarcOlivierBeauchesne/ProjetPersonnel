@@ -25,9 +25,12 @@ public class Deforestation : MonoBehaviour
     private float _nextDefo = 0;
 
     private bool _nextPoint = true;
+    bool _actualPoint = true;
     private float actualVisual = 0f;
     private float nextVisual = 0f;
     float t = 0f;
+    float b = 0f;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -79,11 +82,13 @@ public class Deforestation : MonoBehaviour
     private void Update()
     {
         _defoSlider.value = Mathf.Lerp(_defoSlider.value, actualVisual, t);
-        _nextDefoSlider.value = Mathf.Lerp(_nextDefoSlider.value, nextVisual, t);
+        _nextDefoSlider.value = Mathf.Lerp(_nextDefoSlider.value, nextVisual, b);
         _textDefo.text = actualDefo.ToString("f1") + "/"+ maxDefo;
         t += (0.1f * Time.deltaTime);
-        if(t>0.9f){
+        b += (0.1f * Time.deltaTime);
+        if(t>0.99f){
             t = 0f;
+            b = 0f;
         }
     }
 }

@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d790801b8544e2641bff1a28814dd132, type: 3}
   m_Name: Mimo10
   m_EditorClassIdentifier: 
-  _nomMimo: 
-  _imageObjet: {fileID: 21300000, guid: 32bb8ec27e05f27408f93d92e5af9f95, type: 3}
-  _textObjet: Troisieme animal de la liste
+  _nomMimo: Corbeau
+  _imageObjet: {fileID: 21300000, guid: ad8b854dd0d3c5148abecd0a79dc8c2a, type: 3}
+  _textObjet: "QUand ce corbeau vous regarde, vous avez l'impression qu'il n'y a
+    pas qu'un simple animal derri\xE8re ce regard. Comme si quelque chose ou quelqu'un
+    vous regardais au travers de ses yeux."
   _isFound: 0

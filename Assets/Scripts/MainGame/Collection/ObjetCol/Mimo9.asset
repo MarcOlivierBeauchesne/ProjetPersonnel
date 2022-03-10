@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d790801b8544e2641bff1a28814dd132, type: 3}
   m_Name: Mimo9
   m_EditorClassIdentifier: 
-  _nomMimo: 
-  _imageObjet: {fileID: 21300000, guid: 32bb8ec27e05f27408f93d92e5af9f95, type: 3}
-  _textObjet: Troisieme animal de la liste
+  _nomMimo: Canard
+  _imageObjet: {fileID: 21300000, guid: 2a0a1cf8d352c9d4080189e2f26ccb41, type: 3}
+  _textObjet: 'L''odeur d''une orange effraie ce canard. '
   _isFound: 0

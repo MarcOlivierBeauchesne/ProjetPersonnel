@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d790801b8544e2641bff1a28814dd132, type: 3}
   m_Name: Mimo21
   m_EditorClassIdentifier: 
-  _nomMimo: 
-  _imageObjet: {fileID: 21300000, guid: 32bb8ec27e05f27408f93d92e5af9f95, type: 3}
-  _textObjet: Troisieme animal de la liste
+  _nomMimo: Ours
+  _imageObjet: {fileID: 21300000, guid: 05e88cafc1524a748a02eb7bdd96dc6c, type: 3}
+  _textObjet: "Cet ours \xE0 toujours eu l'impression d'avoir \xE9t\xE9 un humain,
+    il y a longtemps. Le seul souvenir qu'il lui reste se manifeste sous la forme
+    d'innombrables couleurs dans le ciel."
   _isFound: 0

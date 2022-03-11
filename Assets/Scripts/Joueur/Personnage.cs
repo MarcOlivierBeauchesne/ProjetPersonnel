@@ -88,7 +88,7 @@ public class Personnage : MonoBehaviour
                 _ressourcesPlayer.naturePoint += valeur; // on change les naturePoint du _ressourcesPlayer selon la valeur
                 _txtNaturePoint.text = _ressourcesPlayer.naturePoint.ToString();
                 _taskManager.AjouterPoint(type, valeur);
-                _taskManager.CreatePopUpPoints(transform.position, valeur);
+                _taskManager.CreatePopUpPoints(transform.position, valeur, "tache");
                 break; // on sort de la condition
         }
     }

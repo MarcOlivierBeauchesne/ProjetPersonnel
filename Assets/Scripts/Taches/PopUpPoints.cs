@@ -19,6 +19,9 @@ public class PopUpPoints : MonoBehaviour
 
     public void Setup(int points){
         _textPoints.SetText(points.ToString());
+        if(points<0){
+            _color = Color.red;
+        }
         StartCoroutine(CoroutineDestroyPopUp());
     }
 

@@ -8,6 +8,7 @@ using UnityEngine;
 public class TaskManager : MonoBehaviour
 {
     [SerializeField] GameObject _goNpPoints;
+    [SerializeField] GameObject _goNoixGain;
     [SerializeField] private int _scoretaches; // acces prive pour le score obtenu pour les taches
     public int scoreTache{ // acces public pour le score obtenu pour les taches
         get => _scoretaches; // par scoreTache, on retourne _scoreTache
@@ -40,9 +41,15 @@ public class TaskManager : MonoBehaviour
         _scoretaches = 0; // le _scoreTaches devient 0
     }
 
-    public void CreatePopUpPoints(Vector2 pos, int amount){
-        GameObject pointsPopUp = Instantiate(_goNpPoints, pos, Quaternion.identity);
-        pointsPopUp.GetComponent<PopUpPoints>().Setup(amount);
+    public void CreatePopUpPoints(Vector2 pos, int amount, string type){
+        if(type == "tache"){
+            GameObject pointsPopUp = Instantiate(_goNpPoints, pos, Quaternion.identity);
+            pointsPopUp.GetComponent<PopUpPoints>().Setup(amount);
+        }
+        else if(type == "noix"){
+            GameObject noixPopUp = Instantiate(_goNoixGain, pos, Quaternion.identity);
+            noixPopUp.GetComponent<PopUpPoints>().Setup((int)_basicStats.seedDrop);
+        }
     }
 }
 

@@ -10,6 +10,7 @@ public class Collection : MonoBehaviour
     [SerializeField] private GameObject[] _tObjetCol;
     [SerializeField] private GameObject _goNewMimo;
     [SerializeField] private GameObject _goCanvas;
+    [SerializeField] Personnage _perso;
     // Start is called before the first frame update
     private static Collection _instance;
     public static Collection instance => _instance;
@@ -85,8 +86,10 @@ public class Collection : MonoBehaviour
         {
             if(_tObjetCol[i].name == nomObjet){
                 bool estTrouve = _tObjetCol[i].GetComponent<ObjetCollection>().infosObjet.isFound;
+                int valeurMimo = _tObjetCol[i].GetComponent<ObjetCollection>().infosObjet.mimoValue;
                 if(estTrouve){
-                    Debug.Log("mimo deja trouvé");
+                    _perso.AjusterPoint("naturePoint",valeurMimo, TypeTache.Mimo);
+                    // ajout puissance nat
                 }
                 else{
                     InfosCollection infoMimo = _tObjetCol[i].GetComponent<ObjetCollection>().infosObjet;
@@ -96,6 +99,7 @@ public class Collection : MonoBehaviour
                     imageObj.color = new Color (1f,1f,1f,1f);
                     gameObject.SetActive(true);
                     CreateNewMimo(infoMimo);
+                    _perso.AjusterPoint("naturePoint",valeurMimo, TypeTache.Mimo);
                     gameObject.SetActive(false);
                     return;
                 }

@@ -23,6 +23,14 @@ public class Tache : MonoBehaviour
     private bool _isDone = false;
     private bool _peutGenererEnnemi = true;
 
+    Tutoriel _tuto;
+    public Tutoriel tuto{
+        get=>_tuto;
+        set{
+            _tuto = value;
+        }
+    }
+
     SpriteRenderer _sr;
 
     /// <summary>
@@ -77,6 +85,10 @@ public class Tache : MonoBehaviour
             switch(_typeTache){
                 case TypeTache.Ennemis :
                     if(_peutGenererEnnemi){
+                        if(_tuto.dictTips["TipsDestruction"] == false){
+                            _tuto.gameObject.SetActive(true);
+                            _tuto.OuvrirTips(7);
+                        }
                         GetComponentInParent<Salle>().GenererEnnemi(_tacheValue);
                         _peutGenererEnnemi = false;
                         _isDone = true;
@@ -87,6 +99,10 @@ public class Tache : MonoBehaviour
                     }
                     break;
                 case TypeTache.Centre :
+                        if(_tuto.dictTips["TipsCentre"] == false){
+                            _tuto.gameObject.SetActive(true);
+                            _tuto.OuvrirTips(8);
+                        }
                     Transform sallePos = transform.GetComponentInParent<Salle>().gameObject.transform;
                     perso.ChangerPos(sallePos);
                     perso.ChangerRot(true);

@@ -59,5 +59,6 @@ public enum TypeTache
     Tache,
     Centre,
     Ennemis,
-    Aucun
+    Aucun,
+    Mimo
 }

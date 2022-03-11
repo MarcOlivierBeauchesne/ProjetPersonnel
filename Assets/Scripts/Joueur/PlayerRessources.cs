@@ -8,6 +8,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ressourcesPlayer", menuName = "ressourcesPlayer")]
 public class PlayerRessources : ScriptableObject
 {
+    int _naturePowerPool = 100;
+    public int naturePowerPool{
+        get => _naturePowerPool;
+        set{
+            _naturePowerPool = value;
+        }
+    }
+
     [SerializeField]private int _seedAmount = 4; // acces prive pour le nombre de graines que possede le joueur
     public int seedAmount{ // acces public pour le nombre de graines que possede le joueur
         get => _seedAmount; // par seedAmount, on retourne la valeur prive _seedAmount
@@ -29,10 +37,7 @@ public class PlayerRessources : ScriptableObject
     public int naturePower{ // acces public pour la quantite de puissance de nature que possede le joueur
         get => _naturePower; // par naturePower, on retourne la valeur prive _naturePower
         set{
-            _naturePower = value; // par naturePower, on change la valeur de _naturePower
-            if(_naturePower < 0){
-                _naturePower = 0;
-            }
+            _naturePower = Mathf.Clamp(value, 0, _naturePowerPool); // par naturePower, on change la valeur de _naturePower 
         }
     }
 }

@@ -6,6 +6,14 @@ public class Seed : MonoBehaviour
 {
     [SerializeField] GameObject _particleNoix;
 
+    Tutoriel _tuto;
+    public Tutoriel tuto{
+        get=>_tuto;
+        set{
+            _tuto = value;
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.CompareTag("Player")){
@@ -13,6 +21,10 @@ public class Seed : MonoBehaviour
             perso.AjusterPoint("seed", 1, TypeTache.Aucun);
             perso.taskManager.CreatePopUpPoints(transform.position, 1, "noix");
             StartCoroutine(CoroutineNoix());
+            if(_tuto.dictTips["TipsNoix"] == false){
+                _tuto.gameObject.SetActive(true);
+                _tuto.OuvrirTips(2);
+            }
         }
     }
 

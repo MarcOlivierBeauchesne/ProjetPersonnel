@@ -45,12 +45,17 @@ public class Personnage : MonoBehaviour
     Animator _anim;
     SpriteRenderer _sr;
     Plantage _pl;
+    Light _leafLight;
+    Light _areaLight;
     // Start is called before the first frame update
     void Start()
     {
         _ressourcesPlayer.seedAmount = 0;
         _ressourcesPlayer.naturePoint = 0;
-        _ressourcesPlayer.naturePower = 0;
+        _ressourcesPlayer.naturePower = 1000;
+        _ressourcesPlayer.naturePowerPool = (int)_basicStats.npMaxPool;
+        _areaLight = transform.GetChild(1).gameObject.GetComponent<Light>();
+        _leafLight = transform.GetChild(2).gameObject.GetComponent<Light>();
         _pl = GetComponent<Plantage>();
         _anim = GetComponent<Animator>(); // anim s'associr au AnimatorController du perso
         _rb = GetComponent<Rigidbody2D>(); // _rb s'associe au RigidBody 2D du perso
@@ -73,12 +78,13 @@ public class Personnage : MonoBehaviour
             case "naturePower": // si la ressource est "naturePower"
                 _ressourcesPlayer.naturePower += valeur; // on change le naturePower des _ressourcesPlayer selon la valeur
                 _txtNaturePower.text = _ressourcesPlayer.naturePower.ToString(); // on met a jour l'affichage des point de nature
-                if(_ressourcesPlayer.naturePoint > 10000){
-                    _txtNaturePoint.fontSize = 12;
+                if(_ressourcesPlayer.naturePower > 10000){
+                    _txtNaturePower.fontSize = 12;
                 }
                 else{
-                    _txtNaturePoint.fontSize = 14;
+                    _txtNaturePower.fontSize = 14;
                 }
+                Debug.Log("on change la puissance naturelle");
                 break; // on sort de la condition
             case "seed": // si la ressources est "seed"
                 _ressourcesPlayer.seedAmount += valeur; // on change la quantite de graine du joueur
@@ -89,8 +95,15 @@ public class Personnage : MonoBehaviour
                 _txtNaturePoint.text = _ressourcesPlayer.naturePoint.ToString();
                 _taskManager.AjouterPoint(type, valeur);
                 _taskManager.CreatePopUpPoints(transform.position, valeur, "tache");
+                if(type == TypeTache.Mimo){
+                    AjusterPoint("naturePower", valeur/10, TypeTache.Aucun);
+                }
                 break; // on sort de la condition
         }
+    }
+
+    public void AjusterNaturePowerPool(){
+        _ressourcesPlayer.naturePowerPool = (int)_basicStats.npMaxPool;
     }
 
     public void ChangerEtat(bool etat){

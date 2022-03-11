@@ -10,6 +10,7 @@ using TMPro;
 public class Skilltree : MonoBehaviour
 {
     [SerializeField] SkillInfos[] _tSkills; // tableau pour stocker les skills de l'Arbre
+    [SerializeField] Transform _canvasPos;
     [SerializeField] Button _boutonAbsorber; // reference pour le bouton Absorber de l'arbre
     [SerializeField] PlayerRessources _ressourcePlayer; // reference du PlayerRessources
     [SerializeField] Personnage _perso; // reference au personnage
@@ -49,6 +50,17 @@ public class Skilltree : MonoBehaviour
             _goSkillTree.SetActive(true); // on active l'arbre des talents
             CheckRessources();
         }
+    }
+
+    public void CreateSkillPopUp(GameObject popUp){
+        StartCoroutine(CoroutinePopUp(popUp));
+    }
+
+    IEnumerator CoroutinePopUp(GameObject popUp){
+        GameObject PopUp = Instantiate(popUp, transform.position, Quaternion.identity);
+        PopUp.transform.SetParent(_canvasPos);
+        yield return new WaitForSeconds(2f);
+        Destroy(PopUp);
     }
 
 

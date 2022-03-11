@@ -41,6 +41,7 @@ public class BasicStats : MonoBehaviour
         get => _npMaxPool; // par npMaxPool, on retourne la valeur _npMaxPool 
         set{
             _npMaxPool = value; // par npMaxPool, on change la valeur de _npMaxPool
+            _perso.AjusterNaturePowerPool();
         }
     }
 

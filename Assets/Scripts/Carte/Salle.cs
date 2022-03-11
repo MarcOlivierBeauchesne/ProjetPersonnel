@@ -112,6 +112,7 @@ public class Salle : MonoBehaviour
             if(spawnMimo == 1){ // si le resultat est 1
                 GameObject mimo = Instantiate(_goMimo, posMimo.position, Quaternion.identity); // on genere un Mimo a la position PosMimo
                 mimo.transform.SetParent(transform);
+                mimo.transform.GetChild(0).GetComponent<Collectible>().tuto = _genSalle.tuto;
             }
         }
     }
@@ -136,6 +137,7 @@ public class Salle : MonoBehaviour
                     GameObject seed = Instantiate(_goSeed, transform.position, Quaternion.identity);
                     seed.transform.SetParent(transform);
                     seed.transform.position = posSeed.position;
+                    seed.GetComponent<Seed>().tuto = _genSalle.tuto;
                 }
             }
         }
@@ -147,13 +149,14 @@ public class Salle : MonoBehaviour
     private void GenererTaches(){
         foreach (Transform pos in _tPosTaches) // pour chaque Transform dans _tPosTaches
         {
-            int chanceTache = Random.Range(0,2); // on genere un chiffre entre 0 et 1
-            if(chanceTache == 0){ // si le chiffre est 0
+            int chanceTache = Random.Range(0,4); // on genere un chiffre entre 0 et 1
+            if(chanceTache < 3){ // si le chiffre est 0
                 int randomTache = Random.Range(0, _tGoTache.Length); // on genere un chiffre entre 0 et la longueur du tableau des GameObject des taches
                 GameObject tache = Instantiate(_tGoTache[randomTache], transform.position, Quaternion.identity); // on instantie la tache a la position de la salle
                 tache.transform.SetParent(transform); // la salle devient le parent de la tache
                 tache.transform.position = pos.position; // on change la position de la tache pour la position de pos
                 tache.GetComponent<Tache>().perso = _genSalle.perso.GetComponent<Personnage>();
+                tache.GetComponent<Tache>().tuto = _genSalle.tuto;
             }
             else{ // si le chiffre est 1
                 // Debug.Log("Aucune tache instanciée");
@@ -169,8 +172,8 @@ public class Salle : MonoBehaviour
             _ennemiToSpawn = Mathf.Clamp(5 * genSalle.timer.nbJour, 5, _listPosEnnemi.Count);
             _spawnedEnnemy += _ennemiToSpawn;
             _actualRoomEnnemi += _ennemiToSpawn;
-           _champsEnnemi.SetActive(true);
-            _genSalle.canvas.transform.GetChild(2).gameObject.SetActive(true);
+            _champsEnnemi.SetActive(true);
+            _champsEnnemi.transform.GetChild(1).gameObject.SetActive(true);
             _champsEnnemi.transform.GetChild(0).transform.GetChild(0).GetComponentInChildren<Text>().text = _actualRoomEnnemi.ToString();
             SpawnEnnemiForet();
         }
@@ -239,5 +242,4 @@ public class Salle : MonoBehaviour
             _champsProjectiles.SetActive(false);
         }
     }
-
 }

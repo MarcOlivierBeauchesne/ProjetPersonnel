@@ -143,18 +143,12 @@ public class Timer : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         _tuto.gameObject.SetActive(true);
         _tuto.OuvrirTips(1);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(5f);
         _tuto.gameObject.SetActive(true);
         _tuto.OuvrirTips(0);
-        yield return new WaitForSeconds(1f);
-        _tuto.gameObject.SetActive(true);
-        _tuto.OuvrirTips(2);
         yield return new WaitForSeconds(2f);
         _tuto.gameObject.SetActive(true);
         _tuto.OuvrirTips(3);
-        yield return new WaitForSeconds(2f);
-        _tuto.gameObject.SetActive(true);
-        _tuto.OuvrirTips(6);
     }
 
     public void SetupTime(int newJour, float newMinute, int newSeconde){

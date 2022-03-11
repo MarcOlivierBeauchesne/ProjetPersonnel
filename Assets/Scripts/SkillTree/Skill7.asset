@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Skill7
   m_EditorClassIdentifier: 
   _nomSkill: Replanter
-  _explication: "R\xE9duit le niveau de d\xE9forestation actuel (-5 par cumul)."
+  _explication: "R\xE9duit le niveau de d\xE9forestation actuel (-15 par cumul)."

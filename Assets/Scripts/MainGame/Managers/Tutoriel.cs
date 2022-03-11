@@ -30,6 +30,8 @@ public class Tutoriel : MonoBehaviour
         _dictTips.Add("TipsTache", false);
         _dictTips.Add("TipsSouche", false);
         _dictTips.Add("TipsCollection", false);
+        _dictTips.Add("TipsDestruction", false);
+        _dictTips.Add("TipsCentre", false);
     }
 
     public void OuvrirTips(int indexTips){

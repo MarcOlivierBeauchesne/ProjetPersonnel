@@ -45,6 +45,7 @@ public class SkillInfos : MonoBehaviour
     [SerializeField] Skilltree _arbre; // Reference pour le SkillTree
     [SerializeField] SkillExplication _skillExplication; // ScriptableObject qui detient les informations a afficher du skill
     [SerializeField] GameObject _boiteExplication; // Reference pour la boite d'explication du skill
+    [SerializeField] GameObject _skillPopUp;
     private int realCost;
 
     public Image img; // acces public de l'Image du gameObject
@@ -89,6 +90,7 @@ public class SkillInfos : MonoBehaviour
         realCost = _skillCost * (actualStack + 1); // on calcul le cout real du skill (temporaire)
         if(_playerRessources.naturePoint >= realCost){ // si les points de nature du joueur sont egal ou plus eleves que le cout real du skill
             _perso.AjusterPoint("naturePoint", -realCost, TypeTache.Aucun); // on demande au personnage d'ajuter ses points de nature
+            _arbre.CreateSkillPopUp(_skillPopUp);
             _arbre.CheckRessources();
             actualStack++; // on augmente le niveau du skill actuel de 1
             _savedTotalStack++; // on augmente le niveau total du skill

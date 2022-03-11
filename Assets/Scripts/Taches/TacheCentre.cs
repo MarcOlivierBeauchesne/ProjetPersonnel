@@ -63,7 +63,7 @@ public class TacheCentre : MonoBehaviour
     private IEnumerator CoroutineSpawnEnnemi(){
 
         Vector2 posPerso = GetComponent<Tache>().perso.gameObject.transform.position;
-        float randomWaitTime = Random.Range(0, 2);
+        float randomWaitTime = Random.Range(0, 1.2f);
         yield return new WaitForSeconds(randomWaitTime);
         GameObject ennemi = Instantiate(_goEnnemis, transform.position, Quaternion.identity);
         _nbProjectile++;

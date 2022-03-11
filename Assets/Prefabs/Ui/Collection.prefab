@@ -5522,6 +5522,7 @@ MonoBehaviour:
   - {fileID: 6971220795865382996}
   _goNewMimo: {fileID: 7742653072742578722, guid: f5802a7f009142443a17135c2f6b7b4e, type: 3}
   _goCanvas: {fileID: 0}
+  _perso: {fileID: 0}
 --- !u!1 &6971220795679885047
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,7 +17,7 @@ TagManager:
   - solDefo
   - Perso
   - taches
-  - 
+  - Cote
   - 
   - 
   - 
@@ -54,4 +54,7 @@ TagManager:
     locked: 0
   - name: TacheOver
     uniqueID: 3343565903
+    locked: 0
+  - name: Environnement
+    uniqueID: 1109995509
     locked: 0

@@ -27,4 +27,11 @@ public class InfosCollection : ScriptableObject
             _isFound = value;
         }
     }
+    [SerializeField] int _mimoValue = 0;
+    public int mimoValue{
+        get=> _mimoValue;
+        set{
+            _mimoValue = value;
+        }
+    }
 }

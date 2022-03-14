@@ -46,6 +46,8 @@ public class Deforestation : MonoBehaviour
         _actualDefo = _basicStats.deforestLevel;
         _basicStats.deforestAugment = (_basicStats.deforestAugmentRef * _timer.nbJour) - (_basicStats.npGain-100);
         _maxDefo = _basicStats.deforestPool;
+        t = 0f;
+        b = 0f;
         AjusterNextDefoVisuel();
     }
 

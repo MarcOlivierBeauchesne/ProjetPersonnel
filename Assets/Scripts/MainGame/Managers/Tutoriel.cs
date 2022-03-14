@@ -35,10 +35,7 @@ public class Tutoriel : MonoBehaviour
     }
 
     public void OuvrirTips(int indexTips){
-        Debug.Log(indexTips);
         string key = keyList[indexTips];
-        Debug.Log(key);
-        Debug.Log(_dictTips[key]);
         if(!_dictTips[key]){
             _dictTips[key] = true;
             Time.timeScale = 0;
@@ -47,7 +44,7 @@ public class Tutoriel : MonoBehaviour
             _activeTips = tips;
         }
         else{
-            Debug.Log("Le tips a deja été vu");
+            
         }
     }
 

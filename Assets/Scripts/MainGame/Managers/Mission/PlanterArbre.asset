@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c02fa6f96b62ce4bbf0ef34749e830c, type: 3}
+  m_Name: PlanterArbre
+  m_EditorClassIdentifier: 
+  _typeMission: 2
+  _nomMission: "Nouvelle g\xE9n\xE9ration"
+  _missionAmount: 10
+  _descriptionMission: "Ramasser des noix dans la for\xEAt puis diriger vous dans
+    une zone de d\xE9forestation pour planter des arbres."
+  _rewardValue: 1500

@@ -101,7 +101,6 @@ public class Timer : MonoBehaviour
             _perso.ResetRot();
             _perso.ChangerRot(false);
             _perso.ChangerEtat(false);
-            _dayWindowAnim.SetTrigger("EndDay");
             StartCoroutine(CoroutineFinJournee()); // on demarre la coroutine CoroutineFinJournee
             _champsJour.text = "";
             _dayManager.genSalle.ClearTache();

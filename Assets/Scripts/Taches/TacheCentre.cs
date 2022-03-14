@@ -53,9 +53,11 @@ public class TacheCentre : MonoBehaviour
         _nbProjectile--;
         _salle.AjusterAffichageProjectiles(_nbProjectile);
         if(_nbProjectile <=0){
-            GetComponent<Tache>().perso.ChangerPos(_originPos);
-            GetComponent<Tache>().perso.ChangerRot(false);
-            GetComponent<Tache>().perso.ResetRot();
+            Tache tache = GetComponent<Tache>();
+            tache.perso.ChangerPos(_originPos);
+            tache.perso.ChangerRot(false);
+            tache.perso.ResetRot();
+            tache.perso.ChangerPourTour(false);
             Debug.Log("joueur peut bouger");
         }
     }

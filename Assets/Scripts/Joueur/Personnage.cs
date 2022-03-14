@@ -111,8 +111,25 @@ public class Personnage : MonoBehaviour
     }
 
     public void ChangerRot(bool tourne){
-        peutBouger = !tourne;
         GetComponent<ControleCentre>().peutTourner = tourne;
+    }
+
+    public void ChangerPourTour(bool versTour){
+        StartCoroutine(CoroutineVersTour(versTour));
+    }
+
+    IEnumerator CoroutineVersTour(bool versTour){
+        if(versTour){
+            _peutBouger = false;
+            _anim.SetTrigger("ToTower");
+        }
+        else{
+            _anim.SetTrigger("FromTower");
+        }
+        yield return new WaitForSeconds(0.5f);
+        if(!versTour){
+            _peutBouger = true;
+        }
     }
 
     public void ChangerPos(Transform newPos){

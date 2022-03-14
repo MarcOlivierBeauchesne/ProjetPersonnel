@@ -165,6 +165,7 @@ public class GenerateurSalle : MonoBehaviour
             }
             else{
                 OuvrirSalle(); // on appel OuvrirSalle
+
                 _animLoading.SetBool("IsLoading", false);
             }
         }
@@ -184,6 +185,7 @@ public class GenerateurSalle : MonoBehaviour
             foreach (GameObject salle in _listSalle) // pour chaque salle dans _listSalle
             {
                 salle.GetComponent<Salle>().CreerDetecteurs(); // on demande a Salle de Creer des detecteur pour ouvrir les portes
+                salle.GetComponent<Salle>().PlacerTransition();
             }
         }
     }

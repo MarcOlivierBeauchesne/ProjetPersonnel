@@ -52,5 +52,6 @@ public class EnnemiVersCentre : MonoBehaviour
             _refTache.RetirerProjectile();
             Destroy(gameObject);
         }
+        transform.Rotate(new Vector3(0f,0f,100f));
     }
 }

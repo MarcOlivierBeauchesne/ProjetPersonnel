@@ -10,6 +10,7 @@ public class DayManager : MonoBehaviour
 {
     [SerializeField] GameObject[] _tChampsEndDay; // tableau des differents champs de la page de fin de journee
     [SerializeField] Animator _animFenetre; // animator de la fenetre de fin de journee
+    [SerializeField] Animator _animDefoDefaite;
     [SerializeField] Timer _timer;
     [SerializeField] TaskManager _taskManager; // reference au TaskManager qui gere les taches
     [SerializeField] private GenerateurSalle _genSalle;
@@ -36,12 +37,24 @@ public class DayManager : MonoBehaviour
     /// </summary>
     public void AfficherPoint(){
         if(_baseStats.deforestLevel + _baseStats.deforestAugment >= _baseStats.deforestPool){
-            Debug.Log("la couleur est brune");
+            StartCoroutine(CoroutineDefaite());
         }
         else{
-            Debug.Log("la couleur est bleu");
+            _animFenetre.SetTrigger("EndDay");
+            StartCoroutine(CoroutineAfficherPoint()); // on demarre la coroutine CoroutineAfficherPoint
         }
-        StartCoroutine(CoroutineAfficherPoint()); // on demarre la coroutine CoroutineAfficherPoint
+    }
+
+    IEnumerator CoroutineDefaite(){
+        _animFenetre.SetTrigger("EndGame");
+        _animDefoDefaite.SetTrigger("DefoDefaite");
+        yield return new WaitForSeconds(3f);
+        _defoManager.AjusterDefoLevel();
+        yield return new WaitForSeconds(2f);
+        _tChampsEndDay[11].SetActive(true);
+        yield return new WaitForSeconds(1f);
+        _tChampsEndDay[8].SetActive(true);
+        _tChampsEndDay[12].SetActive(true);
     }
 
     /// <summary>
@@ -65,11 +78,11 @@ public class DayManager : MonoBehaviour
                 _tChampsEndDay[3].transform.GetChild(0).GetComponent<Text>().text = _taskManager.scoreArbre.ToString(); // la valeur affichee de la categorie prend la valeur du scoreArbre du _taskManager
                 _tChampsEndDay[4].SetActive(true); // on affiche la categorie Progression (deforestation)
                 _tChampsEndDay[4].transform.GetChild(0).GetComponent<Text>().text = _baseStats.deforestAugment.ToString(); // la valeur affichee de la categorie prend la valeur du deforestAugment du BasicStats
+                _tChampsEndDay[5].transform.GetChild(0).GetComponent<Text>().text = _taskManager.scoreTache.ToString(); // la valeur affichee de la categorie prend la valeur du scoreTache du _taskManager 
                 break; // on sort de la condition
             }
             case 3 : { // si _indexTableau est de 3
                 _tChampsEndDay[5].SetActive(true); // on affiche la categorie taches effectuees
-                _tChampsEndDay[5].transform.GetChild(0).GetComponent<Text>().text = _taskManager.scoreTache.ToString(); // la valeur affichee de la categorie prend la valeur du scoreTache du _taskManager 
                 if(_timer.nbJour > 0){
                     _defoManager.AjusterDefoLevel();
                 }
@@ -80,8 +93,10 @@ public class DayManager : MonoBehaviour
                 _tChampsEndDay[6].transform.GetChild(0).GetComponent<Text>().text = _baseStats.deforestAugment.ToString(); // le valeur du total prend la valeur du deforestAugment du BasicStats
                 _tChampsEndDay[7].SetActive(true); // on affiche la categorie Total des scores
                 _tChampsEndDay[7].transform.GetChild(0).GetComponent<Text>().text = (_taskManager.scoreArbre + _taskManager.scoreTache).ToString(); // le valeur du total prend la valeur cumulee des arbres plantes et des taches accomplies
-                _genSalle.GenererFirstSalle();
-                Debug.Log("On recommence la carte");
+                if(_deforestation.actualDefo < _deforestation.maxDefo){
+                    _genSalle.GenererFirstSalle();
+                    Debug.Log("On recommence la carte");
+                }
                 break; // on sort de la condition
             }
             case 5 : { // si _indexTableau est de 5¸

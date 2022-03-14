@@ -106,6 +106,7 @@ public class Tache : MonoBehaviour
                     Transform sallePos = transform.GetComponentInParent<Salle>().gameObject.transform;
                     perso.ChangerPos(sallePos);
                     perso.ChangerRot(true);
+                    perso.ChangerPourTour(true);
                     GetComponent<TacheCentre>().DemarrerSpawn();
                     break;
             }

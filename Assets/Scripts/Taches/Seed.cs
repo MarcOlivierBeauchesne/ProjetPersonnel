@@ -32,8 +32,8 @@ public class Seed : MonoBehaviour
         GetComponent<CircleCollider2D>().enabled = false;
         GetComponent<SpriteRenderer>().sprite = null;
         GameObject particle = Instantiate(_particleNoix, transform.position, Quaternion.identity);
-        yield return new WaitForSeconds(1f);
-        Destroy(particle);
+        particle.transform.SetParent(transform);
+        yield return new WaitForSeconds(0.7f);
         Destroy(gameObject);
     }
 }

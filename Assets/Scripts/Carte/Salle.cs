@@ -8,10 +8,13 @@ public class Salle : MonoBehaviour
 {
     [SerializeField] private LayerMask _layerSol; // layer du sol d'une tache
     [SerializeField] private LayerMask _layerTache; 
+    [SerializeField] private LayerMask _layerSolDefo;
     [SerializeField] GameObject[] _tDetecteurs; // tableaux des detecteurs de la salle
     [SerializeField] Transform[] _tPosTaches; // tableau des positions possible des taches
     [SerializeField] Transform[] _tPosMimo; // tableau des positions possible des Mimos
     [SerializeField] Transform[] _tPosSeed;
+    [SerializeField] Transform[] _tPosTransit;
+    [SerializeField] GameObject[] _tLayerTransit;
     [SerializeField] List<Transform> _listPosEnnemi;
     private List<Transform> _listPosEnnemiTemp = new List<Transform>();
     private List<Transform> _listPosEnnemiSpawn = new List<Transform>();
@@ -204,6 +207,16 @@ public class Salle : MonoBehaviour
             foreach (GameObject ennemi in _listEnnemi)
             {
                 Destroy(ennemi);
+            }
+        }
+    }
+
+    public void PlacerTransition(){
+        for (int i = 0; i < _tPosTransit.Length; i++)
+        {   
+            bool toucheDefo = Physics2D.Raycast(_tPosTransit[i].position, Vector2.up, 0.1f, _layerSolDefo);
+            if(toucheDefo){
+                _tLayerTransit[i].SetActive(true);
             }
         }
     }

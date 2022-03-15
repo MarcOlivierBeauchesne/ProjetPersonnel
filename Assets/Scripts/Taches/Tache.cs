@@ -114,9 +114,13 @@ public class Tache : MonoBehaviour
     }
 
     public void FinirTache(int points){
+        float totalPoint = 0;
         BasicStats basicStats = GetComponentInParent<Salle>().genSalle.basicStats;
-        float totalPoint = (points + (basicStats.deforestLevel * basicStats.npGain))/2;
-        StartCoroutine(CoroutineFinTache((int)totalPoint));
+        if(points > 0){
+            totalPoint = (points + (basicStats.deforestLevel * basicStats.npGain))/2;
+            StartCoroutine(CoroutineFinTache((int)totalPoint));
+        }
+        perso.missionManager.AccomplirMission(TypeMission.Tache);
     }
 
     private IEnumerator CoroutineFinTache(int points){

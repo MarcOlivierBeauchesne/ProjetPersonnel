@@ -15,6 +15,7 @@ public class Timer : MonoBehaviour
     [SerializeField] private DayManager _dayManager; // reference au DayManager
     [SerializeField] private TaskManager _taskManager; // reference au TaskManager
     [SerializeField] private DayLightManager _dayLightManager;
+    [SerializeField] private MissionManager _missionManager;
     [SerializeField] private GameObject _champsEnnemis;
     [SerializeField] private GameObject _champsProjectiles;
     [SerializeField] private GameObject _champsExpliEnnemi;
@@ -80,6 +81,7 @@ public class Timer : MonoBehaviour
         StartCoroutine(CoroutineChampsJour());
         yield return new WaitForSeconds(2f);
         StartCoroutine(CoroutineTips(1));
+        _missionManager.InitierMission();
         _dayWindowAnim.SetTrigger("NewDay");
     }
 
@@ -106,6 +108,7 @@ public class Timer : MonoBehaviour
             _dayManager.genSalle.ClearTache();
             _champsEnnemis.SetActive(false);
             _champsExpliEnnemi.SetActive(false);
+            _missionManager.ResetDayMission();
         }
         else if (minute > 0 || seconde >= 0) // si minute est plus grand que 0 ou seconde est plus grand ou egal a 0
         {
@@ -136,6 +139,7 @@ public class Timer : MonoBehaviour
         _dayWindowAnim.SetTrigger("NewDay");
         _perso.ChangerEtat(true);
         _dayLightManager.AjusterVitesseJour();
+        _missionManager.InitierMission();
     }
 
     private IEnumerator CoroutineTips(int waitTime){
@@ -145,7 +149,10 @@ public class Timer : MonoBehaviour
         yield return new WaitForSeconds(5f);
         _tuto.gameObject.SetActive(true);
         _tuto.OuvrirTips(0);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
+        _tuto.gameObject.SetActive(true);
+        _tuto.OuvrirTips(9);
+        yield return new WaitForSeconds(5f);
         _tuto.gameObject.SetActive(true);
         _tuto.OuvrirTips(3);
     }

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _typeMission: 2
   _nomMission: "Nouvelle g\xE9n\xE9ration"
-  _missionAmount: 10
+  _missionAmount: 2
   _descriptionMission: "Ramasser des noix dans la for\xEAt puis diriger vous dans
     une zone de d\xE9forestation pour planter des arbres."
   _rewardValue: 1500

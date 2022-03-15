@@ -89,7 +89,7 @@ public class Collection : MonoBehaviour
                 int valeurMimo = _tObjetCol[i].GetComponent<ObjetCollection>().infosObjet.mimoValue;
                 if(estTrouve){
                     _perso.AjusterPoint("naturePoint",valeurMimo, TypeTache.Mimo);
-                    // ajout puissance nat
+                    _perso.missionManager.AccomplirMission(TypeMission.Mimo);
                 }
                 else{
                     InfosCollection infoMimo = _tObjetCol[i].GetComponent<ObjetCollection>().infosObjet;
@@ -101,6 +101,7 @@ public class Collection : MonoBehaviour
                     CreateNewMimo(infoMimo);
                     _perso.AjusterPoint("naturePoint",valeurMimo, TypeTache.Mimo);
                     gameObject.SetActive(false);
+                    _perso.missionManager.AccomplirMission(TypeMission.Mimo);
                     return;
                 }
             }

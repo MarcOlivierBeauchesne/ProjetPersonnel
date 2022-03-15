@@ -58,6 +58,7 @@ public class TacheCentre : MonoBehaviour
             tache.perso.ChangerRot(false);
             tache.perso.ResetRot();
             tache.perso.ChangerPourTour(false);
+            tache.FinirTache(0);
             Debug.Log("joueur peut bouger");
         }
     }

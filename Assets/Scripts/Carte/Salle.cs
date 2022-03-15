@@ -30,8 +30,6 @@ public class Salle : MonoBehaviour
     private int _spawnedEnnemy;
 
     private bool _peutGenererEnnemi = true;
-    private GameObject _champsEnnemi;
-    private GameObject _champsProjectiles;
     private List<Vector2> _listFreePos = new List<Vector2> { }; // liste des position disponible pour instancier une salle
     private bool _toucheAuxBlocs; // bool qui determine si un detecteur touche a _layerTuile
     
@@ -56,7 +54,7 @@ public class Salle : MonoBehaviour
     /// </summary>
     void Start()
     {
-        Scan(); // on appel Scan
+        //Scan(); // on appel Scan
         if(_tPosTaches.Length > 0){ // si la liste des positions de tache n'est pas vide
             GenererTaches(); // on appel GenererTache
         }
@@ -65,8 +63,6 @@ public class Salle : MonoBehaviour
             SpawnSeed();
             StartCoroutine(CoroutineSpawnSeed());
         }
-        _champsEnnemi = genSalle.boiteEnnemis;
-        _champsProjectiles = genSalle.boiteProjectiles;
     }
 
     /// <summary>
@@ -80,7 +76,7 @@ public class Salle : MonoBehaviour
             }
         }
         if(_listFreePos.Count > 0){ // s'il y a au moins 1 position disponible dans _listFreePos
-            _genSalle.GenererSalles(_listFreePos); // on demande a _genSalle de generer les salle selon les position disponibles
+            _genSalle.OuvrirCarte(_listFreePos); // on demande a _genSalle de generer les salle selon les position disponibles
         }
     }
 
@@ -175,21 +171,22 @@ public class Salle : MonoBehaviour
             _ennemiToSpawn = Mathf.Clamp(5 * genSalle.timer.nbJour, 5, _listPosEnnemi.Count);
             _spawnedEnnemy += _ennemiToSpawn;
             _actualRoomEnnemi += _ennemiToSpawn;
-            _champsEnnemi.SetActive(true);
-            _champsEnnemi.transform.GetChild(1).gameObject.SetActive(true);
-            _champsEnnemi.transform.GetChild(0).transform.GetChild(0).GetComponentInChildren<Text>().text = _actualRoomEnnemi.ToString();
+            _genSalle.boiteEnnemis.SetActive(true);
+            _genSalle.boiteEnnemis.transform.GetChild(1).gameObject.SetActive(true);
+            _genSalle.boiteEnnemis.transform.GetChild(0).transform.GetChild(0).GetComponentInChildren<Text>().text = _actualRoomEnnemi.ToString();
             SpawnEnnemiForet();
         }
     }
 
     public void RetirerEnnemi(){
         _actualRoomEnnemi--;
-        _champsEnnemi.transform.GetChild(0).transform.GetChild(0).GetComponentInChildren<Text>().text = _actualRoomEnnemi.ToString();
+        _genSalle.boiteEnnemis.transform.GetChild(0).transform.GetChild(0).GetComponentInChildren<Text>().text = _actualRoomEnnemi.ToString();
         _listEnnemi.RemoveAt(0);
         if(_actualRoomEnnemi == 0){
-            _champsEnnemi.SetActive(false);
+            _genSalle.boiteEnnemis.SetActive(false);
             int totalPoint = (_spawnedEnnemy * _ennemiTaskValue) + ((int)_genSalle.basicStats.npGain * _spawnedEnnemy);
             _genSalle.perso.GetComponent<Personnage>().AjusterPoint("naturePoint", totalPoint, TypeTache.Tache);
+            _genSalle.perso.GetComponent<Personnage>().missionManager.AccomplirMission(TypeMission.Tache);
             _genSalle.taskManager.AjouterPoint(TypeTache.Tache, totalPoint);
             _genSalle.canvas.transform.GetChild(2).gameObject.SetActive(false);
             if(_listEnnemi.Count > 0){
@@ -246,13 +243,13 @@ public class Salle : MonoBehaviour
     }
 
     public void AfficherTacheProjectile(){
-        _champsProjectiles.SetActive(true);
+        _genSalle.boiteProjectiles.SetActive(true);
     }
 
     public void AjusterAffichageProjectiles(int nbProjectile){
-        _champsProjectiles.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = nbProjectile.ToString();
+        _genSalle.boiteProjectiles.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = nbProjectile.ToString();
         if(nbProjectile == 0){
-            _champsProjectiles.SetActive(false);
+            _genSalle.boiteProjectiles.SetActive(false);
         }
     }
 }

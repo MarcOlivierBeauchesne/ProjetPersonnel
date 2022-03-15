@@ -28,6 +28,7 @@ public class Plantage : MonoBehaviour
             _perso.AjusterPoint("seed", -1, TypeTache.Aucun);
             _perso.taskManager.AjouterPoint(TypeTache.Arbre, 10 + (int)_perso.basicStats.npGain);
             _perso.AjusterPoint("naturePoint", 10 + (int)_perso.basicStats.npGain, TypeTache.Arbre);
+            _perso.missionManager.AccomplirMission(TypeMission.Arbre);
             _tGoArbres.Add(arbre);
         }
         else{

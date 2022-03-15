@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 2375456770309849919}
   - component: {fileID: 3431070768857350422}
   m_Layer: 0
-  m_Name: tacheFeu
+  m_Name: TacheCentre
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

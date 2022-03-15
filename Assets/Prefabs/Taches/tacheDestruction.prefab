@@ -322,7 +322,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tacheDestruction: {fileID: 2047097585}
   _minClic: 8
-  _maxClic: 15
+  _maxClic: 10
 --- !u!95 &1480707338
 Animator:
   serializedVersion: 3
@@ -567,8 +567,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tacheDestruction: {fileID: 2047097585}
-  _minClic: 8
-  _maxClic: 15
+  _minClic: 3
+  _maxClic: 5
 --- !u!95 &1480707340
 Animator:
   serializedVersion: 3
@@ -813,8 +813,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tacheDestruction: {fileID: 2047097585}
-  _minClic: 8
-  _maxClic: 15
+  _minClic: 5
+  _maxClic: 8
 --- !u!95 &1480707339
 Animator:
   serializedVersion: 3
@@ -1364,7 +1364,7 @@ GameObject:
   - component: {fileID: 724363948}
   - component: {fileID: 724363947}
   m_Layer: 9
-  m_Name: tacheNature
+  m_Name: tacheDestruction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

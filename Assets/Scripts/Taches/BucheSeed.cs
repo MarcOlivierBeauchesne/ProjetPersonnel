@@ -88,6 +88,7 @@ public class BucheSeed : MonoBehaviour
                 _sr.sprite = _bucheFull; 
                 int totalPoint = (_seedAmount * _taskValue + (int)_perso.basicStats.npGain) + _seedAmount * (int)_perso.basicStats.npGain;
                 _perso.AjusterPoint("naturePoint", totalPoint, TypeTache.Tache);
+                _perso.missionManager.AccomplirMission(TypeMission.Tache);
                 _perso.taskManager.AjouterPoint(TypeTache.Tache, totalPoint);
             }
         }

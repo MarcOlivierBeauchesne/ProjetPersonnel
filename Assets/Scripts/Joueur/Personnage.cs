@@ -23,6 +23,10 @@ public class Personnage : MonoBehaviour
     public TaskManager taskManager{
         get=>_taskManager;
     }
+    [SerializeField] MissionManager _missionManager;
+    public MissionManager missionManager{
+        get=>_missionManager;
+    }
     [SerializeField] private BasicStats _basicStats; // reference au BasicStats
     public BasicStats basicStats{
         get=>_basicStats;

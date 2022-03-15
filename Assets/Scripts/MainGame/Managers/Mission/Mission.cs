@@ -20,10 +20,20 @@ public class Mission : ScriptableObject
             _missionAmount = value;
         }
     }
+    int _missionTotal = 0;
+    public int missionTotal{
+        get=>_missionTotal;
+        set{
+            _missionTotal = value;
+        }
+    }
     [TextArea]
     [SerializeField] string _descriptionMission;
     public string descriptionMission{
         get=>_descriptionMission;
     }
     [SerializeField] int _rewardValue = 0;
+    public int rewardValue{
+        get=>_rewardValue;
+    }
 }

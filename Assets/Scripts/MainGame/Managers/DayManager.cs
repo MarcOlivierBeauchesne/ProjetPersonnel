@@ -10,6 +10,7 @@ public class DayManager : MonoBehaviour
 {
     [SerializeField] GameObject[] _tChampsEndDay; // tableau des differents champs de la page de fin de journee
     [SerializeField] Animator _animFenetre; // animator de la fenetre de fin de journee
+    [SerializeField] GameObject _fenetreLoading;
     [SerializeField] Animator _animDefoDefaite;
     [SerializeField] Timer _timer;
     [SerializeField] TaskManager _taskManager; // reference au TaskManager qui gere les taches
@@ -93,10 +94,6 @@ public class DayManager : MonoBehaviour
                 _tChampsEndDay[6].transform.GetChild(0).GetComponent<Text>().text = _baseStats.deforestAugment.ToString(); // le valeur du total prend la valeur du deforestAugment du BasicStats
                 _tChampsEndDay[7].SetActive(true); // on affiche la categorie Total des scores
                 _tChampsEndDay[7].transform.GetChild(0).GetComponent<Text>().text = (_taskManager.scoreArbre + _taskManager.scoreTache).ToString(); // le valeur du total prend la valeur cumulee des arbres plantes et des taches accomplies
-                if(_deforestation.actualDefo < _deforestation.maxDefo){
-                    _genSalle.GenererFirstSalle();
-                    Debug.Log("On recommence la carte");
-                }
                 break; // on sort de la condition
             }
             case 5 : { // si _indexTableau est de 5¸
@@ -115,6 +112,17 @@ public class DayManager : MonoBehaviour
         if(_indexTableau < _tChampsEndDay.Length){ // si l'index est plus petit que la longueur du _tChampsEndDay
             StartCoroutine(CoroutineAfficherPoint()); // on redemarre la coroutine CoroutineAfficherPoint
         }
+    }
+
+    public void DemarrerJournee(){
+        StartCoroutine(CoroutineNouvelleJournee());
+    }
+
+    IEnumerator CoroutineNouvelleJournee(){
+        _fenetreLoading.SetActive(true);
+        _fenetreLoading.GetComponent<Animator>().SetBool("IsLoading", true);
+        yield return new WaitForSeconds(1f);
+        _genSalle.DemarrerCarte();
     }
 
     /// <summary>

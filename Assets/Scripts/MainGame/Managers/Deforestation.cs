@@ -73,7 +73,7 @@ public class Deforestation : MonoBehaviour
 
     private IEnumerator CoroutineAugmentation(float amount){
         GameObject augmentation = Instantiate(_goTxtAugmentDefo, transform.position, Quaternion.identity);
-        augmentation.transform.SetParent(_canvas.transform.GetChild(1));
+        augmentation.transform.SetParent(_canvas.transform.GetChild(2));
         RectTransform pos = augmentation.GetComponent<RectTransform>();
         pos.anchoredPosition = new Vector3(0f, -500f, 0f);
         augmentation.GetComponent<Text>().text = "+ " + amount.ToString();

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7742653072742578732}
   - component: {fileID: 1738397517}
   - component: {fileID: 7257712204065002350}
-  m_Layer: 5
+  m_Layer: 4
   m_Name: FondMimo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 7742653074642308845}
   - component: {fileID: 7742653074642308847}
   - component: {fileID: 7742653074642308844}
-  m_Layer: 5
+  m_Layer: 4
   m_Name: NomMimo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -200,7 +200,7 @@ GameObject:
   - component: {fileID: 7742653074737298943}
   - component: {fileID: 7742653074737298937}
   - component: {fileID: 7742653074737298942}
-  m_Layer: 5
+  m_Layer: 4
   m_Name: TitreNewMimo
   m_TagString: Untagged
   m_Icon: {fileID: 0}

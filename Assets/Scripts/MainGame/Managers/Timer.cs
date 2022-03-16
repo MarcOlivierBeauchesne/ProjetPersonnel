@@ -134,7 +134,7 @@ public class Timer : MonoBehaviour
     /// </summary>
     public void ProchaineJournee(){
         _dayManager.ResetChamps(); // on demande au DayManager de fermer tous les champs
-        _dayWindowAnim.SetBool("EndDay", false); // on met le bool de _dayWindowAnim a false
+
         _minute = _basicStats.dayTime;
         StartCoroutine(CoroutineTemps()); // on démarre la coroutine CoroutineTemps
         _taskManager.ResetScore(); // on demande au TaskManager de reinitialiser les scores de la journee

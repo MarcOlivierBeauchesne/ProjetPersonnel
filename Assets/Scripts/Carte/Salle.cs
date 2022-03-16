@@ -75,9 +75,7 @@ public class Salle : MonoBehaviour
                 _listFreePos.Add((Vector2)transform.position + _listPositions[i]); // on ajoute la position du laser dans la lsite des positions disponibles
             }
         }
-        if(_listFreePos.Count > 0){ // s'il y a au moins 1 position disponible dans _listFreePos
-            _genSalle.OuvrirCarte(_listFreePos); // on demande a _genSalle de generer les salle selon les position disponibles
-        }
+        _genSalle.OuvrirCarte(_listFreePos); // on demande a _genSalle de generer les salle selon les position disponibles
     }
 
     /// <summary>

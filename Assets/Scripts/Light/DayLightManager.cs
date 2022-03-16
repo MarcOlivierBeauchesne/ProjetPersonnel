@@ -11,7 +11,6 @@ public class DayLightManager : MonoBehaviour
     void Start()
     {
         _anim.speed = 1 / _basicStats.dayTime;
-        _anim.SetTrigger("DayTime");
     }
 
     public void AjusterVitesseJour(){

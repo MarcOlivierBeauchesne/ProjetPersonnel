@@ -19962,6 +19962,7 @@ MonoBehaviour:
   _tuto: {fileID: 210643170}
   _canvas: {fileID: 1124406530}
   _timer: {fileID: 1468142675}
+  _dayLightManager: {fileID: 495741338}
   _taskManager: {fileID: 1029080596}
   _deforestation: {fileID: 554104810}
   _tSalleForet:
@@ -19972,7 +19973,7 @@ MonoBehaviour:
   _basicStats: {fileID: 554104806}
   _animLoading: {fileID: 524642374}
   _perso: {fileID: 580331200}
-  _nbSalle: 25
+  _nbSalle: 100
 --- !u!1 &1461111895
 GameObject:
   m_ObjectHideFlags: 0
@@ -22694,7 +22695,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7776026, y: 1}
+    m_SensorSize: {x: 2.1498423, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0

@@ -59,6 +59,10 @@ public class Timer : MonoBehaviour
     /// </summary>
     void Start()
     {
+        //StartCoroutine(CoroutineDemarrerJournee());
+    }
+
+    public void DemarrerJournee(){
         StartCoroutine(CoroutineDemarrerJournee());
     }
 

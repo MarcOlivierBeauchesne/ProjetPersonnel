@@ -25,6 +25,7 @@ public class GenerateurSalle : MonoBehaviour
     public Timer timer{
         get=>_timer;
     }
+    [SerializeField] DayLightManager _dayLightManager;
     [SerializeField] private TaskManager _taskManager;
     public TaskManager taskManager{
         get=>_taskManager;
@@ -53,9 +54,11 @@ public class GenerateurSalle : MonoBehaviour
     private bool secondeVague = false;
 
     private List<GameObject> _listSalle = new List<GameObject> { }; // liste des salles generees
+    private List<GameObject> _listSalleTotal = new List<GameObject> { }; // liste des salles generees
     private List<Vector2> _listPosDispo = new List<Vector2> { }; // liste des positions disponibles pour generer des salles
 
     int _salleSpawned = 0;
+    int _indexSalle = 0;
 
     private /// <summary>
     /// Start is called on the frame when a script is enabled just before
@@ -115,6 +118,8 @@ public class GenerateurSalle : MonoBehaviour
         salle.transform.SetParent(transform); // le generateur de salle devient le parent de la premiere salle
         salle.GetComponent<Salle>().genSalle = this; // on attribue le genSalle de la salle pour le script actuel
         salle.GetComponent<Salle>().Scan();
+        _listSalle.Add(salle);
+        _listSalleTotal.Add(salle);
     }
 
     public void OuvrirCarte(List<Vector2> listPos){
@@ -126,24 +131,37 @@ public class GenerateurSalle : MonoBehaviour
         if(_salleSpawned < _nbSalle){
             foreach (Vector2 pos in listPos)
             {
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForSeconds(0.01f);
                 int spawnChance = Random.Range(0,100);
-                if(spawnChance<10){
-                    GameObject salle = Instantiate(_firstSalle, pos, Quaternion.identity);
-                    salle.transform.SetParent(transform); // on dit a la salle que son parent devient le generateur de salles
-                    salle.GetComponent<Salle>().genSalle = this; // on attribue le genSalle de la salle pour le script actuel
-                    _listSalle.Add(salle);
-                }
+                GameObject salle = Instantiate(_firstSalle, pos, Quaternion.identity);
+                salle.transform.SetParent(transform); // on dit a la salle que son parent devient le generateur de salles
+                salle.GetComponent<Salle>().genSalle = this; // on attribue le genSalle de la salle pour le script actuel
+                _listSalle.Add(salle);
+                _listSalleTotal.Add(salle);
             }
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.01f);
             Debug.Log(_listSalle.Count + " list");
+            // if(_indexSalle > (_listSalle.Count - 1)){
+            //     _indexSalle = 0;
+            // }
             int randomSalle = Random.Range(0, _listSalle.Count);
             _listSalle[randomSalle].GetComponent<Salle>().Scan();
+            _indexSalle++;
             _salleSpawned++;
             _listSalle.Clear();
         }
         else{
             _animLoading.SetBool("IsLoading", false);
+            _timer.DemarrerJournee();
+            _dayLightManager.AjusterVitesseJour();
+        }
+    }
+
+    private void OuvrirPorte(){
+        foreach (GameObject salle in _listSalleTotal)
+        {
+            salle.GetComponent<Salle>().CreerDetecteurs();
+            salle.GetComponent<Salle>().PlacerTransition();
         }
     }
 

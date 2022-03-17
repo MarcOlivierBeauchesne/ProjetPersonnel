@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Experimental.Rendering.Universal;
 
 /// <summary>
 /// Script qui controle le deplacement du perso et met a jour ses ressources
@@ -49,8 +50,8 @@ public class Personnage : MonoBehaviour
     Animator _anim;
     SpriteRenderer _sr;
     Plantage _pl;
-    Light _leafLight;
-    Light _areaLight;
+    Light2D _leafLight;
+    Light2D _areaLight;
     // Start is called before the first frame update
     void Start()
     {
@@ -58,8 +59,8 @@ public class Personnage : MonoBehaviour
         _ressourcesPlayer.naturePoint = 0;
         _ressourcesPlayer.naturePower = 1000;
         _ressourcesPlayer.naturePowerPool = (int)_basicStats.npMaxPool;
-        _areaLight = transform.GetChild(1).gameObject.GetComponent<Light>();
-        _leafLight = transform.GetChild(2).gameObject.GetComponent<Light>();
+        _areaLight = transform.GetChild(1).gameObject.GetComponent<Light2D>();
+        _leafLight = transform.GetChild(2).gameObject.GetComponent<Light2D>();
         _pl = GetComponent<Plantage>();
         _anim = GetComponent<Animator>(); // anim s'associr au AnimatorController du perso
         _rb = GetComponent<Rigidbody2D>(); // _rb s'associe au RigidBody 2D du perso
@@ -103,6 +104,21 @@ public class Personnage : MonoBehaviour
                     AjusterPoint("naturePower", valeur/10, TypeTache.Aucun);
                 }
                 break; // on sort de la condition
+        }
+    }
+
+    public void AjusterLeafLight(string intensity){
+        switch(intensity){
+            case "up" :
+                while(_leafLight.intensity < 1){
+                    _leafLight.intensity += Time.deltaTime/100;
+                }
+            break;
+            case "down" :
+                while(_leafLight.intensity > 0){
+                    _leafLight.intensity -= Time.deltaTime/100;
+                }
+            break;
         }
     }
 

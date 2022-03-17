@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class Tache : MonoBehaviour
 {
@@ -32,6 +33,7 @@ public class Tache : MonoBehaviour
     }
 
     SpriteRenderer _sr;
+    Salle _salle;
 
     /// <summary>
     /// Start is called on the frame when a script is enabled just before
@@ -39,6 +41,7 @@ public class Tache : MonoBehaviour
     /// </summary>
     void Start()
     {
+        _salle = GetComponentInParent<Salle>();
         _sr = GetComponent<SpriteRenderer>();
         if(_goTache != null){
             _goTache.SetActive(false);
@@ -91,6 +94,7 @@ public class Tache : MonoBehaviour
                         }
                         GetComponentInParent<Salle>().GenererEnnemi(_tacheValue);
                         _peutGenererEnnemi = false;
+                        GetComponentInChildren<Light2D>().intensity = 0;
                         _isDone = true;
                         Animator anim = GetComponent<Animator>();
                         anim.SetTrigger("FinTache");
@@ -113,11 +117,15 @@ public class Tache : MonoBehaviour
         }   
     }
 
+    public void AjouterProjectile(GameObject projectile){
+        _salle.AjouterProjectile(projectile);
+    }
+
     public void FinirTache(int points){
         float totalPoint = 0;
         BasicStats basicStats = GetComponentInParent<Salle>().genSalle.basicStats;
         if(points > 0){
-            totalPoint = (points + (basicStats.deforestLevel * basicStats.npGain))/2;
+            totalPoint = (points * basicStats.npGain)/10;
             StartCoroutine(CoroutineFinTache((int)totalPoint));
         }
         perso.missionManager.AccomplirMission(TypeMission.Tache);
@@ -129,7 +137,9 @@ public class Tache : MonoBehaviour
         _sr.sprite = _imageDone;
         _perso.AjusterPoint("naturePoint", points, TypeTache.Tache);
         _perso.taskManager.AjouterPoint(TypeTache.Tache, points);
-        _goTache.SetActive(false);
+        if(_goTache!=null){
+            _goTache.SetActive(false);
+        }
         GetComponent<BoxCollider2D>().isTrigger = false;
     }
 

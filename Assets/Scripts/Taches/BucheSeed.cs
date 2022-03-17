@@ -6,11 +6,9 @@ public class BucheSeed : MonoBehaviour
 {
     [SerializeField] private int _minSeed;
     [SerializeField] private int _maxSeed;
-    [SerializeField] private GameObject _btnInterraction;
     [SerializeField] private SpriteRenderer[] _tSeedVisual;
     [SerializeField] private Sprite _imgEmptySeed;
     [SerializeField] private Sprite _imgFullSeed;
-    [SerializeField] private Sprite _bucheFull;
     [SerializeField] private int _taskValue;
     private bool _isFull = false;
     private int _seedAmount = 0;
@@ -30,7 +28,6 @@ public class BucheSeed : MonoBehaviour
         _sr = GetComponent<SpriteRenderer>();
         _seedNeeded = CalculerSeedNeeded();
         AjusterSeedNeeded();
-        _btnInterraction.SetActive(false);
     }
 
     private int CalculerSeedNeeded(){
@@ -53,21 +50,19 @@ public class BucheSeed : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.CompareTag("Player") && !_isFull){
+            _playerClose = true;
             if(_genSalle.tuto.dictTips["TipsSouche"] == false){
                 _genSalle.tuto.gameObject.SetActive(true);
                 _genSalle.tuto.OuvrirTips(5);
             }
-            _playerClose = true;
-            _btnInterraction.SetActive(true);
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if(other.gameObject.CompareTag("Player")){
+        if(other.gameObject.CompareTag("Player") && !_isFull){
             _playerClose = false;
-            _btnInterraction.SetActive(false);
-        }   
+        }
     }
 
     private void AjusterSeedVisuel(){
@@ -85,11 +80,8 @@ public class BucheSeed : MonoBehaviour
             if(_seedAmount == _seedNeeded){
                 _isFull = true;
                 _genSalle.taskManager.AjouterPoint(TypeTache.Tache, _taskValue);
-                _sr.sprite = _bucheFull; 
-                int totalPoint = (_seedAmount * _taskValue + (int)_perso.basicStats.npGain) + _seedAmount * (int)_perso.basicStats.npGain;
-                _perso.AjusterPoint("naturePoint", totalPoint, TypeTache.Tache);
-                _perso.missionManager.AccomplirMission(TypeMission.Tache);
-                _perso.taskManager.AjouterPoint(TypeTache.Tache, totalPoint);
+                int totalPoint = _seedAmount * _taskValue;
+                GetComponent<Tache>().FinirTache(totalPoint);
             }
         }
         else{
@@ -99,7 +91,7 @@ public class BucheSeed : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E) && _playerClose){
+        if(Input.GetKeyDown(KeyCode.E) && _playerClose && !_isFull){
             AjouterSeed();
         }
     }

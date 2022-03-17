@@ -24,13 +24,13 @@ public class Salle : MonoBehaviour
     [SerializeField] GameObject _goEnnemiForet;
     [SerializeField] private int _chanceSeed = 30;
     private List<GameObject> _listEnnemi = new List<GameObject>();
+    private List<GameObject> _listProjectiles = new List<GameObject>();
     private int _actualRoomEnnemi;
     private int _ennemiToSpawn;
     private int _ennemiTaskValue;
     private int _spawnedEnnemy;
 
     private bool _peutGenererEnnemi = true;
-    private List<Vector2> _listFreePos = new List<Vector2> { }; // liste des position disponible pour instancier une salle
     private bool _toucheAuxBlocs; // bool qui determine si un detecteur touche a _layerTuile
     
     private List<Vector2> _listPositions = new List<Vector2> // list de positions a verifier pour une salle
@@ -63,19 +63,6 @@ public class Salle : MonoBehaviour
             SpawnSeed();
             StartCoroutine(CoroutineSpawnSeed());
         }
-    }
-
-    /// <summary>
-    /// Fonction qui verifie les positions disponibles pour generer une salle a proximite
-    /// </summary>
-    public void Scan(){
-        for (int i = 0; i < _listPositions.Count; i++){ // boucle selon la taille de la liste de positions a verifier
-            bool detection = Physics2D.Raycast((Vector2)transform.position+_listPositions[i], _listPositions[i], 0.1f, _layerSol); // on lance un rayon pour toucher le _layerSol
-            if(!detection){ // si le rayon n'a pas toucher de sol
-                _listFreePos.Add((Vector2)transform.position + _listPositions[i]); // on ajoute la position du laser dans la lsite des positions disponibles
-            }
-        }
-        _genSalle.OuvrirCarte(_listFreePos); // on demande a _genSalle de generer les salle selon les position disponibles
     }
 
     /// <summary>
@@ -124,6 +111,10 @@ public class Salle : MonoBehaviour
         }
     }
 
+    public void AjouterProjectile(GameObject projectile){
+        _listProjectiles.Add(projectile);
+    }
+
     private void SpawnSeed(){
         foreach (Transform posSeed in _tPosSeed)
         {
@@ -170,7 +161,6 @@ public class Salle : MonoBehaviour
             _spawnedEnnemy += _ennemiToSpawn;
             _actualRoomEnnemi += _ennemiToSpawn;
             _genSalle.boiteEnnemis.SetActive(true);
-            _genSalle.boiteEnnemis.transform.GetChild(1).gameObject.SetActive(true);
             _genSalle.boiteEnnemis.transform.GetChild(0).transform.GetChild(0).GetComponentInChildren<Text>().text = _actualRoomEnnemi.ToString();
             SpawnEnnemiForet();
         }
@@ -186,10 +176,7 @@ public class Salle : MonoBehaviour
             _genSalle.perso.GetComponent<Personnage>().AjusterPoint("naturePoint", totalPoint, TypeTache.Tache);
             _genSalle.perso.GetComponent<Personnage>().missionManager.AccomplirMission(TypeMission.Tache);
             _genSalle.taskManager.AjouterPoint(TypeTache.Tache, totalPoint);
-            _genSalle.canvas.transform.GetChild(2).gameObject.SetActive(false);
-            if(_listEnnemi.Count > 0){
-                DetuireEnnemis();
-            }
+            DetuireEnnemis();
         }
     }
 
@@ -200,6 +187,12 @@ public class Salle : MonoBehaviour
     public void DetuireEnnemis(){
         if(_listEnnemi.Count > 0){
             foreach (GameObject ennemi in _listEnnemi)
+            {
+                Destroy(ennemi);
+            }
+        }
+        if(_listProjectiles.Count > 0){
+            foreach (GameObject ennemi in _listProjectiles)
             {
                 Destroy(ennemi);
             }

@@ -120,7 +120,6 @@ public class DayManager : MonoBehaviour
 
     IEnumerator CoroutineNouvelleJournee(){
         _fenetreLoading.SetActive(true);
-        _fenetreLoading.GetComponent<Animator>().SetBool("IsLoading", true);
         yield return new WaitForSeconds(1f);
         _genSalle.DemarrerCarte();
     }

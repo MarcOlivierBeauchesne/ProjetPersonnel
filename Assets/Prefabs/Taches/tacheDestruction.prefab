@@ -321,8 +321,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tacheDestruction: {fileID: 2047097585}
-  _minClic: 8
-  _maxClic: 10
+  _minClic: 2
+  _maxClic: 5
 --- !u!95 &1480707338
 Animator:
   serializedVersion: 3
@@ -567,7 +567,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tacheDestruction: {fileID: 2047097585}
-  _minClic: 3
+  _minClic: 2
   _maxClic: 5
 --- !u!95 &1480707340
 Animator:
@@ -813,8 +813,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tacheDestruction: {fileID: 2047097585}
-  _minClic: 5
-  _maxClic: 8
+  _minClic: 2
+  _maxClic: 5
 --- !u!95 &1480707339
 Animator:
   serializedVersion: 3

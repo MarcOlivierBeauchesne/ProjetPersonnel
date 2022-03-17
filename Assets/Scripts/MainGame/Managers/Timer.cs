@@ -111,7 +111,7 @@ public class Timer : MonoBehaviour
             _champsJour.text = "";
             _dayManager.genSalle.ClearTache();
             _champsEnnemis.SetActive(false);
-            _champsExpliEnnemi.SetActive(false);
+            _champsProjectiles.SetActive(false);
             _missionManager.ResetDayMission();
         }
         else if (minute > 0 || seconde >= 0) // si minute est plus grand que 0 ou seconde est plus grand ou egal a 0
@@ -134,7 +134,6 @@ public class Timer : MonoBehaviour
     /// </summary>
     public void ProchaineJournee(){
         _dayManager.ResetChamps(); // on demande au DayManager de fermer tous les champs
-
         _minute = _basicStats.dayTime;
         StartCoroutine(CoroutineTemps()); // on démarre la coroutine CoroutineTemps
         _taskManager.ResetScore(); // on demande au TaskManager de reinitialiser les scores de la journee
@@ -143,6 +142,7 @@ public class Timer : MonoBehaviour
         _dayWindowAnim.SetTrigger("NewDay");
         _perso.ChangerEtat(true);
         _dayLightManager.AjusterVitesseJour();
+        _missionManager.fondMission.SetActive(true);
         _missionManager.InitierMission();
     }
 

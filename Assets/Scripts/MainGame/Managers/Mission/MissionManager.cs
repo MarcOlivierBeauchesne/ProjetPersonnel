@@ -5,6 +5,15 @@ using UnityEngine;
 public class MissionManager : MonoBehaviour
 {
     [SerializeField] Personnage _perso;
+    [SerializeField] GameObject _fondMission;
+    [SerializeField] Timer _timer;
+    public Timer timer{
+        get=>_timer;
+    }
+
+    public GameObject fondMission{
+        get=>_fondMission;
+    }
     public Personnage perso{
         get=>_perso;
     }
@@ -15,9 +24,15 @@ public class MissionManager : MonoBehaviour
 
     private int _nbMission = 0;
     private int _actualMission = 0;
+    
+
+
+    Animator _animFondMission;
+
 
     private void Start()
     {
+        _animFondMission = _fondMission.GetComponent<Animator>();
         RemplirList();
     }
 
@@ -70,8 +85,21 @@ public class MissionManager : MonoBehaviour
             if(typeMission == missioninfos.typeMission){
                 missioninfos.missionTotal++;
                 missionObjet.SetupChamps();
+                if(missioninfos.missionTotal>=missioninfos.missionAmount){
+                    _listMissionActives.Remove(mission);
+                    if(_listMissionActives.Count <= 0){
+                        StartCoroutine(CoroutineVerifierMissionActives());   
+                    }
+                }
             }
         }
+    }
+  
+    IEnumerator CoroutineVerifierMissionActives(){
+        yield return new WaitForSeconds(3f);
+        _animFondMission.SetTrigger("MissionVide");
+        yield return new WaitForSeconds(1f);
+        _fondMission.SetActive(false);
     }
 }
 

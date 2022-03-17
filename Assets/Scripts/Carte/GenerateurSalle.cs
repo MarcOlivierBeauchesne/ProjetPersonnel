@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class GenerateurSalle : MonoBehaviour
 {
+    [SerializeField] int largeurMap = 10;
+    [SerializeField] int hauteurMap = 10;
+    [SerializeField] int largeursalle = 26;
+    [SerializeField] int hauteursalle = 22;
     [SerializeField] private GameObject _firstSalle; // gameObject de la premiere salle
     [SerializeField] GameObject _boiteProjectiles;
     public GameObject boiteProjectiles{
@@ -50,12 +54,8 @@ public class GenerateurSalle : MonoBehaviour
     private int _nbSalleRef = 10; // nombre de salle a generer
     private int _qteSalleForet = 10; // quantite de salle de foret a generer
     private int _qteSalleCoupe = 10; // quantite de salle de deforestation a generer
-    private bool _salleOuverte = false; // bool pour savoir si les salles sont ouvertes
-    private bool secondeVague = false;
 
-    private List<GameObject> _listSalle = new List<GameObject> { }; // liste des salles generees
     private List<GameObject> _listSalleTotal = new List<GameObject> { }; // liste des salles generees
-    private List<Vector2> _listPosDispo = new List<Vector2> { }; // liste des positions disponibles pour generer des salles
 
     int _salleSpawned = 0;
     int _indexSalle = 0;
@@ -80,116 +80,90 @@ public class GenerateurSalle : MonoBehaviour
     /// Fonction qui detruit toutes les salles de la liste des salles generees
     /// </summary>
     IEnumerator CoroutineClearRooms(){
-        for (int i = 0; i < 10; i++)
+        foreach (GameObject salle in _listSalleTotal)
         {
-            Destroy(_listSalleTotal[0]);
+            Destroy(salle);
+            yield return new WaitForSeconds(0.1f);
         }
-        yield return new WaitForSeconds(1f);
-        if(_listSalleTotal.Count>0){
-            StartCoroutine(CoroutineClearRooms());
-        }
-        else{
-            _listSalleTotal.Clear(); // par securite, on vide la liste
-            _listSalle.Clear(); // par securite, on vide la liste
-        }
+        _listSalleTotal.Clear(); // par securite, on vide la liste
+        StartCoroutine(CoroutineSpawnCarte());
+        _perso.GetComponent<Plantage>().NettoyerArbre();
     }
 
     public void ClearTache(){
-        foreach(GameObject salle in _listSalle){ // pour chaque salle dans la liste de _listeSalle
+        foreach(GameObject salle in _listSalleTotal){ // pour chaque salle dans la liste de _listeSalle
             salle.GetComponent<Salle>().DetuireEnnemis();
         }
     }
 
     public void DemarrerCarte(){
-        _salleSpawned = 0;
         _pourcentage = _basicStats.deforestLevel; // le pourcentage prend la valeur de deforestLevel du BasicStats
         StartCoroutine(CoroutineClearRooms()); // on appel ClearRooms
         _qteSalleCoupe = Mathf.RoundToInt((_nbSalle * _pourcentage)/100); // le nombre de salle de deforestaation prend la valeur en pourcentage selon le total de salle a generer
         _qteSalleForet = _nbSalle - _qteSalleCoupe; // la quantite de salle de forest est la balance du total de salle moins le nombre de salles de deforestation
-        GameObject salle = Instantiate(_firstSalle, Vector3.zero, Quaternion.identity); // on genere la premiere salle
-        salle.transform.SetParent(transform); // le generateur de salle devient le parent de la premiere salle
-        _perso.GetComponent<Personnage>().ChangerPos(salle.transform);
-        salle.GetComponent<Salle>().genSalle = this; // on attribue le genSalle de la salle pour le script actuel
-        salle.GetComponent<Salle>().Scan();
-        _listSalle.Add(salle);
-        _listSalleTotal.Add(salle);
     }
 
-    public void OuvrirCarte(List<Vector2> listPos){
-        
-        StartCoroutine(CoroutineSpawnCarte(listPos));
-    }
-
-    public IEnumerator CoroutineSpawnCarte(List<Vector2> listPos){
-        if(_salleSpawned < _nbSalle){
-            GameObject salle = null;
-            foreach (Vector2 pos in listPos)
+    IEnumerator CoroutineSpawnCarte(){
+        for (int x = 0; x < largeurMap; x++)
+        {
+            for (int y = 0; y < hauteurMap; y++)
             {
-                yield return new WaitForSeconds(0.1f);
+                GameObject salle = null;
+                int spawnChance = Random.Range(0,101);
                 int quelleSalle = Random.Range(0, 2); // on genere un nombre entre 0 et 1 pour le type de salle a generer
                 int salleForetRand = Random.Range(0, _tSalleForet.Length); // on genere un nombre entre 0 et la longueur du tableau de salle de foret pour choisir une salle a generer
                 int salleCoupeRand = Random.Range(0, _tSalleCoupe.Length); // on genere un nombre entre 0 et la longueur du tableau de salle de coupe pour choisir une salle a generer
-                if (quelleSalle == 0) // si quelleSalle donne 0 (salle foret)
-                {
-                    if (_qteSalleForet >= 1) // si la quantite de salle de foret est superieur ou egal a 1
-                    {
-                        salle = Instantiate(_tSalleForet[salleForetRand], pos, Quaternion.identity); // on genere une salle foret a la position posNewList de la _listPos
-                        _qteSalleForet--; // on reduit la quantite de salle de foret a generer de 1
+                    if(x == largeurMap/2 && y == hauteurMap/2){
+                        salle = Instantiate(_firstSalle, new Vector2(x * largeursalle,y * hauteursalle), Quaternion.identity); // on genere une salle foret a la position posNewList de la _listPos
+                        _perso.GetComponent<Personnage>().ChangerPos(salle.transform);
                     }
-                    else // si la quantite de salle de foret est inferieur a 1
-                    {
-                        salle = Instantiate(_tSalleCoupe[salleCoupeRand], pos, Quaternion.identity); // on genere une salle de coupe a la position posNewList de la _listPos
-                        _qteSalleCoupe--; // on reduit la quantite de salle de coupe a generer de 1
+                    else{
+                        if (quelleSalle == 0) // si quelleSalle donne 0 (salle foret)
+                        {
+                            if (_qteSalleForet >= 1) // si la quantite de salle de foret est superieur ou egal a 1
+                            {
+                                salle = Instantiate(_tSalleForet[salleForetRand], new Vector2(x * largeursalle,y * hauteursalle), Quaternion.identity); // on genere une salle foret a la position posNewList de la _listPos
+                                _qteSalleForet--; // on reduit la quantite de salle de foret a generer de 1
+                            }
+                            else // si la quantite de salle de foret est inferieur a 1
+                            {
+                                salle = Instantiate(_tSalleCoupe[salleCoupeRand], new Vector2(x * largeursalle,y * hauteursalle), Quaternion.identity); // on genere une salle de coupe a la position posNewList de la _listPos
+                                _qteSalleCoupe--; // on reduit la quantite de salle de coupe a generer de 1
+                            }
+                        }
+                        else if (quelleSalle == 1) // si quelleSalle donne 1 (salle coupe)
+                        {
+                            if (_qteSalleCoupe >= 1) // si la quantite de salle de coupe est superieur ou egal a 1
+                            {
+                                salle = Instantiate(_tSalleCoupe[salleCoupeRand], new Vector2(x * largeursalle,y * hauteursalle), Quaternion.identity); // on genere une salle de coupe a la position posNewList de la _listPos
+                                _qteSalleCoupe--; // on reduit la quantite de salle de coupe a generer de 1
+                            }
+                            else
+                            {
+                                salle = Instantiate(_tSalleForet[salleForetRand], new Vector2(x * largeursalle,y * hauteursalle), Quaternion.identity); // on genere une salle foret a la position posNewList de la _listPos
+                                _qteSalleForet--; // on reduit la quantite de salle de foret a generer de 1
+                            }
+                        }
                     }
-                }
-                else if (quelleSalle == 1) // si quelleSalle donne 1 (salle coupe)
-                {
-                    if (_qteSalleCoupe >= 1) // si la quantite de salle de coupe est superieur ou egal a 1
-                    {
-                        salle = Instantiate(_tSalleCoupe[salleCoupeRand], pos, Quaternion.identity); // on genere une salle de coupe a la position posNewList de la _listPos
-                        _qteSalleCoupe--; // on reduit la quantite de salle de coupe a generer de 1
-                    }
-                    else
-                    {
-                        salle = Instantiate(_tSalleForet[salleForetRand], pos, Quaternion.identity); // on genere une salle foret a la position posNewList de la _listPos
-                        _qteSalleForet--; // on reduit la quantite de salle de foret a generer de 1
-                    }
-                }
                 salle.transform.SetParent(transform); // on dit a la salle que son parent devient le generateur de salles
                 salle.GetComponent<Salle>().genSalle = this; // on attribue le genSalle de la salle pour le script actuel
-                _listSalle.Add(salle);
                 _listSalleTotal.Add(salle);
                 salle.transform.SetParent(transform); // on dit a la salle que son parent devient le generateur de salles
-                salle.GetComponent<Salle>().genSalle = this; // on attribue le genSalle de la salle pour le script actuel
+                yield return new WaitForSeconds(0.1f);
             }
-            yield return new WaitForSeconds(0.01f);
-            if(listPos.Count > 0){
-                Debug.Log("la salle a des position");
-                int randomSalle = Random.Range(0, _listSalle.Count);
-                _listSalle[randomSalle].GetComponent<Salle>().Scan();
-                _indexSalle++;
-                _salleSpawned++;
-                _listSalle.Clear();
-            }
-            else{
-                Debug.Log("on demande a une autre salle de scan");
-                int randomSalle = Random.Range(1,_listSalleTotal.Count);
-                _listSalleTotal[randomSalle].GetComponent<Salle>().Scan();
-            }
+        }
+        
+        _animLoading.SetBool("IsLoading", false);
+        _dayLightManager.AjusterVitesseJour();
+        OuvrirPorte();
+        _perso.GetComponent<Personnage>().ChangerEtat(true);
+        if(!_firstDay){
+            _timer.ProchaineJournee();
         }
         else{
-            _animLoading.SetBool("IsLoading", false);
-            _dayLightManager.AjusterVitesseJour();
-            OuvrirPorte();
-            _perso.GetComponent<Personnage>().ChangerEtat(true);
-            if(!_firstDay){
-                _timer.ProchaineJournee();
-            }
-            else{
-                _timer.DemarrerJournee();
-            }
-            _firstDay = false;
+            _timer.DemarrerJournee();
         }
+        _firstDay = false;
     }
 
     private void OuvrirPorte(){

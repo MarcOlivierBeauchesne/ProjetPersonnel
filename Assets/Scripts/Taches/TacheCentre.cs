@@ -12,6 +12,14 @@ public class TacheCentre : MonoBehaviour
         get=>_nbProjectile;
     }
     int _spawnEnnemis = 0;
+    int _totalProjectile = 0;
+    public int totalProjectile{
+        get=>_totalProjectile;
+        set{
+            _totalProjectile = value;
+        }
+    }
+    int _projectilKilled = 0;
 
     Transform _originPos;
     SpriteRenderer _sr;
@@ -19,6 +27,7 @@ public class TacheCentre : MonoBehaviour
     CircleCollider2D _circCol;
     Salle _salle;
     Timer _timer;
+    Tache _tache;
 
     int _nbEnnemis = 0;
     public int nbEnnemis{
@@ -30,6 +39,7 @@ public class TacheCentre : MonoBehaviour
 
     private void Start()
     {
+        _tache = GetComponent<Tache>();
         _originPos = transform;
         _sr = GetComponent<SpriteRenderer>();
         _boxCol = GetComponent<BoxCollider2D>();
@@ -45,37 +55,36 @@ public class TacheCentre : MonoBehaviour
         _boxCol.enabled = false;
         _circCol.enabled = false;
         nbEnnemis = Random.Range(_minSpawn, _maxSpawn + 1);
+        _totalProjectile = nbEnnemis;
+        _salle.AjusterAffichageProjectiles(_totalProjectile - _projectilKilled);
         _spawnEnnemis = nbEnnemis;
         StartCoroutine(CoroutineSpawnEnnemi());
     }
 
     public void RetirerProjectile(){
-        _nbProjectile--;
-        _salle.AjusterAffichageProjectiles(_nbProjectile);
-        if(_nbProjectile <=0){
-            Tache tache = GetComponent<Tache>();
-            tache.perso.ChangerPos(_originPos);
-            tache.perso.ChangerRot(false);
-            tache.perso.ResetRot();
-            tache.perso.ChangerPourTour(false);
-            tache.FinirTache(0);
+        _projectilKilled++;
+        _salle.AjusterAffichageProjectiles(_totalProjectile - _projectilKilled);
+        if(_projectilKilled >= _totalProjectile){
+            _tache.perso.ChangerPos(_originPos);
+            _tache.perso.ChangerRot(false);
+            _tache.perso.ResetRot();
+            _tache.perso.ChangerPourTour(false);
+            _tache.FinirTache(0);
             Debug.Log("joueur peut bouger");
         }
     }
 
     private IEnumerator CoroutineSpawnEnnemi(){
-
         Vector2 posPerso = GetComponent<Tache>().perso.gameObject.transform.position;
         float randomWaitTime = Random.Range(0, 1.2f);
         yield return new WaitForSeconds(randomWaitTime);
         GameObject ennemi = Instantiate(_goEnnemis, transform.position, Quaternion.identity);
-        _nbProjectile++;
-        _salle.AjusterAffichageProjectiles(_nbProjectile);
         ennemi.transform.SetParent(_salle.gameObject.transform);
         Vector2 ajustPos = new Vector2(_salle.gameObject.transform.position.x, _salle.gameObject.transform.position.y);
         ennemi.transform.position = Random.insideUnitCircle * 10 + ajustPos;
         ennemi.GetComponent<EnnemiVersCentre>().refTache = this;
         ennemi.GetComponent<EnnemiVersCentre>().timer = _timer;
+        _tache.AjouterProjectile(ennemi);
         nbEnnemis--;
         if(nbEnnemis>0){
             StartCoroutine(CoroutineSpawnEnnemi());

@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class MissionObjet : MonoBehaviour
 {
+    [SerializeField] int _minMissionAmount = 0;
+    [SerializeField] int _maxMissionAmount = 1;
     MissionManager _missionManager;
     public MissionManager missionManager{
         get=>_missionManager;
@@ -21,6 +23,7 @@ public class MissionObjet : MonoBehaviour
 
     private void Start()
     {
+        _missionInfos.missionAmount = (Random.Range(_minMissionAmount, _maxMissionAmount+1)*_missionManager.timer.nbJour);
         _anim = GetComponent<Animator>();
         SetupMission();
     }
@@ -47,7 +50,8 @@ public class MissionObjet : MonoBehaviour
         txtExpli.color = Color.green;
         txtExpli.text = "Mission terminée!";
         yield return new WaitForSeconds(1f);
-        _missionManager.perso.AjusterPoint("naturePoint", _missionInfos.rewardValue, TypeTache.Aucun);
+        int totalPoint = _missionInfos.rewardValue * _missionManager.timer.nbJour;
+        _missionManager.perso.AjusterPoint("naturePoint", totalPoint, TypeTache.Aucun);
         _anim.SetTrigger("FinMission");
         yield return new WaitForSeconds(1f);
         Destroy(gameObject);

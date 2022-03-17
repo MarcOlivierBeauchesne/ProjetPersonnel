@@ -546,6 +546,7 @@ GameObject:
   - component: {fileID: 4823447535886285969}
   - component: {fileID: 4823447535886285968}
   - component: {fileID: 4823447535886285971}
+  - component: {fileID: -3583255143281419470}
   m_Layer: 9
   m_Name: tronc
   m_TagString: Untagged
@@ -677,7 +678,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minSeed: 2
   _maxSeed: 5
-  _btnInterraction: {fileID: 4823447535286235759}
   _tSeedVisual:
   - {fileID: 4823447535057254698}
   - {fileID: 4823447535270569364}
@@ -686,5 +686,21 @@ MonoBehaviour:
   - {fileID: 4823447535374020463}
   _imgEmptySeed: {fileID: 21300000, guid: 4af9333287624de4eb6185030eacf13a, type: 3}
   _imgFullSeed: {fileID: 21300000, guid: 8e74212e166288345b34acb836cca6e4, type: 3}
-  _bucheFull: {fileID: 21300000, guid: 7aaa8d9428bd9a547b65ec22db1a09ed, type: 3}
   _taskValue: 50
+--- !u!114 &-3583255143281419470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4823447535886285970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 359451e2529bc614ba1972994d42aad4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _goTache: {fileID: 0}
+  _btnInterraction: {fileID: 4823447535286235759}
+  _imageDone: {fileID: 21300000, guid: 7aaa8d9428bd9a547b65ec22db1a09ed, type: 3}
+  _tacheValue: 0
+  _typeTache: 0

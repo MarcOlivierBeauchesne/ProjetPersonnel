@@ -15,8 +15,11 @@ public class Tutoriel : MonoBehaviour
     List<string> keyList = new List<string>();
     private GameObject _activeTips;
 
+    Animator _anim;
+
     private void Start()
     {
+        _anim = GetComponent<Animator>();
         SetupDict();
         keyList = new List<string>(_dictTips.Keys);
         gameObject.SetActive(false);
@@ -36,17 +39,19 @@ public class Tutoriel : MonoBehaviour
     }
 
     public void OuvrirTips(int indexTips){
+        StartCoroutine(CoroutineOuvrirTips(indexTips));
+    }
+
+    IEnumerator CoroutineOuvrirTips(int indexTips){
         string key = keyList[indexTips];
         if(!_dictTips[key]){
             _dictTips[key] = true;
-            Time.timeScale = 0;
             GameObject tips = transform.GetChild(indexTips).gameObject;
             tips.SetActive(true);
             _activeTips = tips;
         }
-        else{
-            
-        }
+        yield return new WaitForSeconds(0.6f);
+        Time.timeScale = 0;
     }
 
     public void FermerTips(){

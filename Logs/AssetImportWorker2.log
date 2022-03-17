@@ -1,0 +1,27 @@
+Using pre-set license
+Built from '2021.1/release' branch; Version is '2021.1.16f1 (5fa502fca597) revision 6268162'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10 Education; OS build 19042.1586; Version 2009; 64bit' Language: 'fr' Physical Memory: 16279 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+ COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2021.1.16f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker2
+-projectPath
+D:/beam1322044/Session6/ProjetLLocal
+-logFile
+Logs/AssetImportWorker2.log
+-srvPort
+2255
+Successfully changed project path to: D:/beam1322044/Session6/ProjetLLocal
+D:/beam1322044/Session6/ProjetLLocal
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 3289.52 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2021.1.16f1 (5fa502fca597)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2021.1.16f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path D:/beam1322044/Session6/ProjetLLocal/Assets
+GfxDevice: creating device client; threaded=0; jobified=0

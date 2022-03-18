@@ -74,6 +74,10 @@ public class TacheCentre : MonoBehaviour
         }
     }
 
+    public void ArreterSpawn(){
+        StopAllCoroutines();
+    }
+
     private IEnumerator CoroutineSpawnEnnemi(){
         Vector2 posPerso = GetComponent<Tache>().perso.gameObject.transform.position;
         float randomWaitTime = Random.Range(0, 1.2f);

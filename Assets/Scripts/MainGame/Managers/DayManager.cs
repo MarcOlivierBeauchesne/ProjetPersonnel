@@ -80,10 +80,14 @@ public class DayManager : MonoBehaviour
                 _tChampsEndDay[4].SetActive(true); // on affiche la categorie Progression (deforestation)
                 _tChampsEndDay[4].transform.GetChild(0).GetComponent<Text>().text = _baseStats.deforestAugment.ToString(); // la valeur affichee de la categorie prend la valeur du deforestAugment du BasicStats
                 _tChampsEndDay[5].transform.GetChild(0).GetComponent<Text>().text = _taskManager.scoreTache.ToString(); // la valeur affichee de la categorie prend la valeur du scoreTache du _taskManager 
+                _tChampsEndDay[13].transform.GetChild(0).GetComponent<Text>().text = _taskManager.scoreMission.ToString(); // la valeur affichee de la categorie prend la valeur du  du _taskManager 
+                _tChampsEndDay[14].transform.GetChild(0).GetComponent<Text>().text = _taskManager.scoreMimo.ToString(); // la valeur affichee de la categorie prend la valeur du  du _taskManager 
                 break; // on sort de la condition
             }
             case 3 : { // si _indexTableau est de 3
                 _tChampsEndDay[5].SetActive(true); // on affiche la categorie taches effectuees
+                _tChampsEndDay[13].SetActive(true); // on affiche la categorie mission
+                _tChampsEndDay[14].SetActive(true); // on affiche la categorie mimos sauves
                 if(_timer.nbJour > 0){
                     _defoManager.AjusterDefoLevel();
                 }
@@ -93,7 +97,8 @@ public class DayManager : MonoBehaviour
                 _tChampsEndDay[6].SetActive(true); // on affiche la categorie Total des scores
                 _tChampsEndDay[6].transform.GetChild(0).GetComponent<Text>().text = _baseStats.deforestAugment.ToString(); // le valeur du total prend la valeur du deforestAugment du BasicStats
                 _tChampsEndDay[7].SetActive(true); // on affiche la categorie Total des scores
-                _tChampsEndDay[7].transform.GetChild(0).GetComponent<Text>().text = (_taskManager.scoreArbre + _taskManager.scoreTache).ToString(); // le valeur du total prend la valeur cumulee des arbres plantes et des taches accomplies
+                int totalPoint = _taskManager.scoreArbre + _taskManager.scoreTache + _taskManager.scoreMission + _taskManager.scoreMimo;
+                _tChampsEndDay[7].transform.GetChild(0).GetComponent<Text>().text = totalPoint.ToString(); // le valeur du total prend la valeur cumulee des arbres plantes et des taches accomplies
                 break; // on sort de la condition
             }
             case 5 : { // si _indexTableau est de 5¸

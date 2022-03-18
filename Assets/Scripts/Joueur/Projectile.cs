@@ -31,6 +31,7 @@ public class Projectile : MonoBehaviour
         Timer timer = perso.timer;
         int totalScore = Mathf.RoundToInt((taskValue * bonusDistance) * timer.nbJour);
         perso.AjusterPoint("naturePoint", totalScore, TypeTache.Tache);
+        perso.taskManager.AjouterPoint(TypeTache.Tache, totalScore);
     }
 
     // Détruire le projectile si il quitte la scène

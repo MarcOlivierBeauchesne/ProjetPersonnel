@@ -11,6 +11,7 @@ public class Collection : MonoBehaviour
     [SerializeField] private GameObject _goNewMimo;
     [SerializeField] private GameObject _goCanvas;
     [SerializeField] Personnage _perso;
+    [SerializeField] TaskManager _taskManager;
     // Start is called before the first frame update
     private static Collection _instance;
     public static Collection instance => _instance;
@@ -89,6 +90,7 @@ public class Collection : MonoBehaviour
                 int valeurMimo = _tObjetCol[i].GetComponent<ObjetCollection>().infosObjet.mimoValue;
                 if(estTrouve){
                     _perso.AjusterPoint("naturePoint",valeurMimo, TypeTache.Mimo);
+                    _taskManager.AjouterPoint(TypeTache.Mimo, valeurMimo);
                     _perso.missionManager.AccomplirMission(TypeMission.Mimo);
                 }
                 else{
@@ -100,6 +102,7 @@ public class Collection : MonoBehaviour
                     gameObject.SetActive(true);
                     CreateNewMimo(infoMimo);
                     _perso.AjusterPoint("naturePoint",valeurMimo, TypeTache.Mimo);
+                    _taskManager.AjouterPoint(TypeTache.Mimo, valeurMimo);
                     gameObject.SetActive(false);
                     _perso.missionManager.AccomplirMission(TypeMission.Mimo);
                     return;

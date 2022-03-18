@@ -68,8 +68,8 @@ public class Collectible : MonoBehaviour
                 _tuto.OuvrirTips(6);
             }
             Collection.instance.RecevoirObjet(_nomObjet);
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
     }
 
 }

@@ -125,14 +125,14 @@ public class Tache : MonoBehaviour
         float totalPoint = 0;
         BasicStats basicStats = GetComponentInParent<Salle>().genSalle.basicStats;
         if(points > 0){
-            totalPoint = (points * basicStats.npGain)/10;
+            totalPoint = points + basicStats.npGain ;
             StartCoroutine(CoroutineFinTache((int)totalPoint));
         }
         perso.missionManager.AccomplirMission(TypeMission.Tache);
     }
 
     private IEnumerator CoroutineFinTache(int points){
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         _isDone = true;
         _sr.sprite = _imageDone;
         _perso.AjusterPoint("naturePoint", points, TypeTache.Tache);

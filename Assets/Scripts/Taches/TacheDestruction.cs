@@ -11,6 +11,7 @@ public class TacheDestruction : MonoBehaviour
     [SerializeField] TextMeshPro[] _tChampsAmount;
     [SerializeField] int _taskValue;
 
+    int _clicAmount = 0;
     int _joint = 0;
     int _imgJoint = 0;
 
@@ -39,6 +40,7 @@ public class TacheDestruction : MonoBehaviour
     }
 
     public void UserJoint(int actualClic, int goalClic){
+        _clicAmount++;
         SpriteRenderer spriteJoint = _tJoint[_joint].GetComponent<SpriteRenderer>();
         int tier = goalClic - (goalClic/3);
         Debug.Log(tier + " : tier1");
@@ -63,7 +65,8 @@ public class TacheDestruction : MonoBehaviour
                     _tJoint[_joint].SetActive(true);
                 }
                 if(_joint >= _tJoint.Length){
-                    GetComponentInParent<Tache>().FinirTache(_taskValue);
+                    float npGain = GetComponentInParent<Tache>().perso.basicStats.npGain;
+                    GetComponentInParent<Tache>().FinirTache(_taskValue + (_clicAmount * (int)npGain));
                 }
             }
         }

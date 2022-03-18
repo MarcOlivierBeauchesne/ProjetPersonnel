@@ -1281,7 +1281,7 @@ MonoBehaviour:
   - {fileID: 7003538833204731768}
   - {fileID: 1168224915909661875}
   - {fileID: 6666968653576402620}
-  _taskValue: 150
+  _taskValue: 1000
 --- !u!61 &2047097583
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1456,8 +1456,8 @@ MonoBehaviour:
   _goTache: {fileID: 2047097582}
   _btnInterraction: {fileID: 8527829688412416376}
   _imageDone: {fileID: 21300000, guid: e02ebbacdf70f754aa40ff1652c5fb50, type: 3}
-  _tacheValue: 0
-  _typeTache: 0
+  _tacheValue: 1000
+  _typeTache: 1
 --- !u!61 &724363948
 BoxCollider2D:
   m_ObjectHideFlags: 0

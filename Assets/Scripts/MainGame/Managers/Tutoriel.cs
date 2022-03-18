@@ -13,6 +13,18 @@ public class Tutoriel : MonoBehaviour
         get=>_dictTips;
     }
     List<string> keyList = new List<string>();
+    string[] _tTips = new string[]{
+        "TipsDefo",
+        "TipsDeplacement",
+        "TipsNoix",
+        "TipsTree",
+        "TipsTache",
+        "TipsSouche",
+        "TipsCollection",
+        "TipsDestruction",
+        "TipsCentre",
+        "TipsMission"
+    };
     private GameObject _activeTips;
 
     Animator _anim;
@@ -26,16 +38,10 @@ public class Tutoriel : MonoBehaviour
     }    
 
     private void SetupDict(){
-        _dictTips.Add("TipsDefo", false);
-        _dictTips.Add("TipsDeplacement", false);
-        _dictTips.Add("TipsNoix", false);
-        _dictTips.Add("TipsTree", false);
-        _dictTips.Add("TipsTache", false);
-        _dictTips.Add("TipsSouche", false);
-        _dictTips.Add("TipsCollection", false);
-        _dictTips.Add("TipsDestruction", false);
-        _dictTips.Add("TipsCentre", false);
-        _dictTips.Add("TipsMission", false);
+        for (int i = 0; i < _tTips.Length; i++)
+        {
+            _dictTips.Add(_tTips[i], false);
+        }
     }
 
     public void OuvrirTips(int indexTips){
@@ -50,7 +56,7 @@ public class Tutoriel : MonoBehaviour
             tips.SetActive(true);
             _activeTips = tips;
         }
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.4f);
         Time.timeScale = 0;
     }
 

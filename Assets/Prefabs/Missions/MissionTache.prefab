@@ -53,8 +53,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be30faa7c0881914cbf01111e7386073, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minMissionAmount: 2
-  _maxMissionAmount: 4
+  _minMissionAmount: 1
+  _maxMissionAmount: 2
   _missionInfos: {fileID: 11400000, guid: 2a19185fb6af6af4590e15ed30434707, type: 2}
 --- !u!95 &1034582290
 Animator:

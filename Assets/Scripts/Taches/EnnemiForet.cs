@@ -32,6 +32,11 @@ public class EnnemiForet : MonoBehaviour
         StartCoroutine(CoroutineCoupe());
     }
 
+    public void ArreterCoupe(){
+        StopAllCoroutines();
+        Destroy(gameObject);
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.CompareTag("Player")){

@@ -8,6 +8,7 @@ using UnityEngine;
 public class TaskManager : MonoBehaviour
 {
     [SerializeField] GameObject _goNpPoints;
+    [SerializeField] GameObject _goNpPointsNegatif;
     [SerializeField] GameObject _goNoixGain;
     [SerializeField] private int _scoretaches; // acces prive pour le score obtenu pour les taches
     public int scoreTache{ // acces public pour le score obtenu pour les taches
@@ -17,6 +18,15 @@ public class TaskManager : MonoBehaviour
     public int scoreArbre{ // acces public pour le score obtenu pour avoir plante des arbres
         get => _scoreArbre; // par scoreArbre, on retourne _scoreArbre
     }
+    [SerializeField] private int _scoreMission; // acces prive pour le score obtenu pour avoir plante des arbres
+    public int scoreMission{ // acces public pour le score obtenu pour avoir plante des arbres
+        get => _scoreMission; // par scoreArbre, on retourne _scoreArbre
+    }
+    [SerializeField] private int _scoreMimo; // acces prive pour le score obtenu pour avoir plante des arbres
+    public int scoreMimo{ // acces public pour le score obtenu pour avoir plante des arbres
+        get => _scoreMimo; // par scoreArbre, on retourne _scoreArbre
+    }
+
     [SerializeField] private BasicStats _basicStats; // reference pour le BasicStats
     
     /// <summary>
@@ -30,6 +40,12 @@ public class TaskManager : MonoBehaviour
             case TypeTache.Tache : 
                 _scoretaches += valeur;
             break;
+            case TypeTache.Mission : 
+                _scoreMission += valeur;
+            break;
+            case TypeTache.Mimo : 
+                _scoreMimo += valeur;
+            break;
         }
     }
 
@@ -39,12 +55,20 @@ public class TaskManager : MonoBehaviour
     public void ResetScore(){
         _scoreArbre = 0; // le _scoreArbre devient 0
         _scoretaches = 0; // le _scoreTaches devient 0
+        _scoreMimo = 0;
+        _scoreMission = 0;
     }
 
     public void CreatePopUpPoints(Vector2 pos, int amount, string type){
         if(type == "tache"){
-            GameObject pointsPopUp = Instantiate(_goNpPoints, pos, Quaternion.identity);
-            pointsPopUp.GetComponent<PopUpPoints>().Setup(amount);
+            if(amount>0){
+                GameObject pointsPopUp = Instantiate(_goNpPoints, pos, Quaternion.identity);
+                pointsPopUp.GetComponent<PopUpPoints>().Setup(amount);
+            }
+            else{
+                GameObject pointsPopUp = Instantiate(_goNpPointsNegatif, pos, Quaternion.identity);
+                pointsPopUp.GetComponent<PopUpPoints>().Setup(amount);
+            }
         }
         else if(type == "noix"){
             GameObject noixPopUp = Instantiate(_goNoixGain, pos, Quaternion.identity);
@@ -60,5 +84,6 @@ public enum TypeTache
     Centre,
     Ennemis,
     Aucun,
-    Mimo
+    Mimo,
+    Mission
 }

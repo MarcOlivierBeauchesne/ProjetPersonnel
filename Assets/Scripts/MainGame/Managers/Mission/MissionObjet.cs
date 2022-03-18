@@ -52,6 +52,7 @@ public class MissionObjet : MonoBehaviour
         yield return new WaitForSeconds(1f);
         int totalPoint = _missionInfos.rewardValue * _missionManager.timer.nbJour;
         _missionManager.perso.AjusterPoint("naturePoint", totalPoint, TypeTache.Aucun);
+        _missionManager.AjouterPoint(totalPoint);
         _anim.SetTrigger("FinMission");
         yield return new WaitForSeconds(1f);
         Destroy(gameObject);

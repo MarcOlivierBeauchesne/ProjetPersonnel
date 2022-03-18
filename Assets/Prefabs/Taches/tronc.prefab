@@ -686,7 +686,7 @@ MonoBehaviour:
   - {fileID: 4823447535374020463}
   _imgEmptySeed: {fileID: 21300000, guid: 4af9333287624de4eb6185030eacf13a, type: 3}
   _imgFullSeed: {fileID: 21300000, guid: 8e74212e166288345b34acb836cca6e4, type: 3}
-  _taskValue: 50
+  _taskValue: 100
 --- !u!114 &-3583255143281419470
 MonoBehaviour:
   m_ObjectHideFlags: 0

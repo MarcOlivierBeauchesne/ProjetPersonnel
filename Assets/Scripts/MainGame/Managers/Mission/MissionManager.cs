@@ -6,6 +6,7 @@ public class MissionManager : MonoBehaviour
 {
     [SerializeField] Personnage _perso;
     [SerializeField] GameObject _fondMission;
+    [SerializeField] TaskManager _taskManager;
     [SerializeField] Timer _timer;
     public Timer timer{
         get=>_timer;
@@ -86,17 +87,26 @@ public class MissionManager : MonoBehaviour
                 missioninfos.missionTotal++;
                 missionObjet.SetupChamps();
                 if(missioninfos.missionTotal>=missioninfos.missionAmount){
-                    _listMissionActives.Remove(mission);
-                    if(_listMissionActives.Count <= 0){
-                        StartCoroutine(CoroutineVerifierMissionActives());   
-                    }
+                    StartCoroutine(CoroutineDetruireMission(mission));
                 }
             }
         }
     }
+
+    IEnumerator CoroutineDetruireMission(GameObject mission){
+        yield return new WaitForSeconds(1f);
+        _listMissionActives.Remove(mission);
+        if(_listMissionActives.Count <= 0){
+            StartCoroutine(CoroutineVerifierMissionActives());   
+        }
+    }
+
+    public void AjouterPoint(int points){
+        _taskManager.AjouterPoint(TypeTache.Mission, points);
+    }
   
     IEnumerator CoroutineVerifierMissionActives(){
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         _animFondMission.SetTrigger("MissionVide");
         yield return new WaitForSeconds(1f);
         _fondMission.SetActive(false);

@@ -48,6 +48,7 @@ public class EnnemiVersCentre : MonoBehaviour
             other.gameObject.GetComponent<Projectile>().Detruire();
             StartCoroutine(CoroutineMort());
             _isDead = true;
+            GetComponent<CircleCollider2D>().enabled = false;
         }
     }
 
@@ -66,7 +67,7 @@ public class EnnemiVersCentre : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, _destination.position,_vitesse * Time.deltaTime);
             if(Vector2.Distance(transform.position, _destination.position) < 0.1 && !_danger){
                 _danger = true;
-                GetComponentInParent<Salle>().genSalle.perso.GetComponent<Personnage>().AjusterPoint("naturePoint", (_timer.nbJour * _pertePoint), TypeTache.Tache);
+                GetComponentInParent<Salle>().genSalle.perso.AjusterPoint("naturePoint", (_timer.nbJour * _pertePoint), TypeTache.Tache);
                 _refTache.RetirerProjectile();
                 Destroy(gameObject);
             }

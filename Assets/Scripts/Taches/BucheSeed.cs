@@ -23,7 +23,7 @@ public class BucheSeed : MonoBehaviour
     void Start()
     {
         _genSalle = GetComponentInParent<GenerateurSalle>();
-        _perso = _genSalle.perso.GetComponent<Personnage>();
+        _perso = _genSalle.perso;
         _resPlayer = _perso.ressourcesPlayer;
         _sr = GetComponent<SpriteRenderer>();
         _seedNeeded = CalculerSeedNeeded();
@@ -79,7 +79,7 @@ public class BucheSeed : MonoBehaviour
             AjusterSeedVisuel();
             if(_seedAmount == _seedNeeded){
                 _isFull = true;
-                _genSalle.taskManager.AjouterPoint(TypeTache.Tache, _taskValue);
+                _playerClose = false;
                 int totalPoint = _seedAmount * _taskValue;
                 GetComponent<Tache>().FinirTache(totalPoint);
             }

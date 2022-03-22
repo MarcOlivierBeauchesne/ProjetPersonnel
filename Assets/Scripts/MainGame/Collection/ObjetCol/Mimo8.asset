@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Mimo8
   m_EditorClassIdentifier: 
   _nomMimo: Hibou
-  _imageObjet: {fileID: 21300000, guid: f387adca2612e3a43bacb11ba5a8d534, type: 3}
-  _textObjet: "Ce hibou \xE0 toujours de bon conseil \xE0 donner. Parfois il lui
-    arrive de r\xE9p\xE9ter souvent les m\xEAme chose."
+  _imageMimo: {fileID: 21300000, guid: f387adca2612e3a43bacb11ba5a8d534, type: 3}
+  _loreText: 
   _isFound: 0

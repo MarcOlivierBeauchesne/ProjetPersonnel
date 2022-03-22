@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Mimo1
   m_EditorClassIdentifier: 
   _nomMimo: Chenille
-  _imageObjet: {fileID: 21300000, guid: 8a1208e9f142ed849845bf4245dd1328, type: 3}
-  _textObjet: "Cette petite chenille n'avais plus de feuilles \xE0 manger. Peut-\xEAtre
-    pourrez-vous l'aider afin qu'elle se r\xE9gale a nouveau?"
+  _imageMimo: {fileID: 21300000, guid: 8a1208e9f142ed849845bf4245dd1328, type: 3}
+  _loreText: 
   _isFound: 0

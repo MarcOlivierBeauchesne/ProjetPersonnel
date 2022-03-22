@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Mimo24
   m_EditorClassIdentifier: 
   _nomMimo: Dindon
-  _imageObjet: {fileID: 21300000, guid: e5c3a1b987cbd2a42b6f65ee6cb82501, type: 3}
-  _textObjet: "Ce dindon \xE0 r\xE9ussi a \xE9chapper au prochain souper du nouvel
-    an."
+  _imageMimo: {fileID: 21300000, guid: e5c3a1b987cbd2a42b6f65ee6cb82501, type: 3}
+  _loreText: 
   _isFound: 0

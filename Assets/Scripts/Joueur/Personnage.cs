@@ -74,7 +74,7 @@ public class Personnage : MonoBehaviour
     }
 
     /// <summary>
-    /// Fonction qui ajuste les points de nature, de puissance et de graines du joueur et 
+    /// Fonction publique qui ajuste les points de nature, de puissance et de graines du joueur et 
     /// met a jour le champs de texte apprporie
     /// </summary>
     /// <param name="ressources">Type de ressources que l'on modifie</param>
@@ -106,85 +106,121 @@ public class Personnage : MonoBehaviour
                     _txtNaturePoint.fontSize = 24; // la fontSize de _txtNaturePoint est egal a 24
                 }
                 _taskManager.AjouterPoint(type, valeur); // on demande au TaskManager d'ajouter des points selon le typ et valeur
-                _taskManager.CreatePopUpPoints(transform.position, valeur, "tache");
-                if(type == TypeTache.Mimo){
-                    AjusterPoint("naturePower", valeur/10, TypeTache.Aucun);
+                _taskManager.CreatePopUpPoints(transform.position, valeur, "tache"); // on demande au TaskManager de creer un PopUp des points recu 
+                if(type == TypeTache.Mimo){ // si le type est mimo
+                    AjusterPoint("naturePower", valeur/10, TypeTache.Aucun); // on ajoute au joueur la valeur des points recu divise par 10 en points de puissance
                 }
                 break; // on sort de la condition
         }
     }
 
+    /// <summary>
+    /// Fonction publique qui ajuste la luminosite de la lumiere de la feuille du perso
+    /// </summary>
+    /// <param name="intensity">Direction que l'on veut faire prendre a la lumiere (up ou down)</param>
     public void AjusterLeafLight(string intensity){
-        switch(intensity){
-            case "up" :
-                while(_leafLight.intensity < 1){
-                    _leafLight.intensity += Time.deltaTime/100;
+        switch(intensity){ // switch selon la valeur d'intensity
+            case "up" : // si intensity est ip
+                while(_leafLight.intensity < 1){ // tant que l'intensite de la lumiere est plus petite que 1
+                    _leafLight.intensity += Time.deltaTime/1000; // on augmente l'intensite de la lumiere de la feuille
                 }
-            break;
-            case "down" :
-                while(_leafLight.intensity > 0){
-                    _leafLight.intensity -= Time.deltaTime/100;
+            break; // on sort du switch
+            case "down" : // si intensity est down
+                while(_leafLight.intensity > 0){ // tant que l'intensite de l lumuere est plus grande que 0
+                    _leafLight.intensity -= Time.deltaTime/1000; // on reduit l'intensite de la lumierer de la feuille
                 }
-            break;
+            break; // on sort du switch
         }
     }
 
+    /// <summary>
+    /// fonction publique qui permet au joueur d'ajuster le maximum de puissance naturelle du joueur
+    /// </summary>
     public void AjusterNaturePowerPool(){
-        _ressourcesPlayer.naturePowerPool = (int)_basicStats.npMaxPool;
+        _ressourcesPlayer.naturePowerPool = (int)_basicStats.npMaxPool; // on met a jour le maximum de puissance naturelle avec la valeur du npMaxPool de _basicStats
     }
 
-    public void ChangerEtat(bool etat){
-        StartCoroutine(CoroutineChangerEtat(etat));
+    /// <summary>
+    /// fonction publique qui permet d'entamer le changement d'etat du joueur
+    /// </summary>
+    /// <param name="hero">bool si le joueur prend sa forme de hero ou de fleur</param>
+    public void ChangerEtat(bool hero){
+        StartCoroutine(CoroutineChangerEtat(hero)); // on appel la coroutine CoroutineChangerEtat en envoyant hero
     }
 
+    /// <summary>
+    /// Fonction publique qui permet de dire au joueur s'il peut tourner ou non
+    /// </summary>
+    /// <param name="tourne">bool si le joueur peut tourner</param>
     public void ChangerRot(bool tourne){
-        GetComponent<ControleCentre>().peutTourner = tourne;
+        GetComponent<ControleCentre>().peutTourner = tourne; // on accede a ControleCentre et on change sa valeur peutTourner pour tourne
     }
 
+    /// <summary>
+    /// fonction publique qui permet d'entamer le changement de forme du joueur vers ou de sa forme agressive
+    /// </summary>
+    /// <param name="versTour">bool si on change vers la forme tourelle ou non</param>
     public void ChangerPourTour(bool versTour){
-        StartCoroutine(CoroutineVersTour(versTour));
+        StartCoroutine(CoroutineVersTour(versTour)); // on demarre la coroutine CoroutineVersTour en envoyant versTour
     }
 
+    /// <summary>
+    /// Coroutine qui change la forme du joueur vers sa forme de tourelle ou vers sa forme hero
+    /// </summary>
+    /// <param name="versTour">bool si on change la forme du joueur vers sa forme tourelle ou hero</param>
+    /// <returns>temps d'attente</returns>
     IEnumerator CoroutineVersTour(bool versTour){
-        if(versTour){
-            _peutBouger = false;
-            _anim.SetTrigger("ToTower");
+        if(versTour){ // si versTour est vrai
+            _peutBouger = false; // le joueur ne peut plus bouger
+            _anim.SetTrigger("ToTower"); // on demande au Animator du perso de changer sa forme vers la tourelle
         }
-        else{
-            _anim.SetTrigger("FromTower");
+        else{ // si versTour est faux
+            _anim.SetTrigger("FromTower"); // on demande au Animator du pero de changer sa forme vers sa forme hero
         }
-        yield return new WaitForSeconds(0.5f);
-        if(!versTour){
-            _peutBouger = true;
+        yield return new WaitForSeconds(0.5f); // attente de 0.5 seconde
+        if(!versTour){ // si versTour est faux
+            _peutBouger = true; // le joueur peut bouger
         }
     }
 
+    /// <summary>
+    /// Fonction publique pour changer la position du personnage
+    /// </summary>
+    /// <param name="newPos">La nouvelle position du joueur</param>
     public void ChangerPos(Transform newPos){
-        transform.position = newPos.position;
-        _rb.velocity = Vector2.zero;
+        transform.position = newPos.position; // on change la position du joueur pour la position newPos recu
+        _rb.velocity = Vector2.zero; // on change la velocite du Rigibody2D du perso pour 0,0
     }
 
+    /// <summary>
+    /// Fonction publique pour reinitialiser la rotation du joueur
+    /// </summary>
     public void ResetRot(){
-        transform.rotation = Quaternion.Euler(0f,0f,0f);
+        transform.rotation = Quaternion.Euler(0f,0f,0f); // on remet le joueur droit avec aucune rotation
     }
 
-    public IEnumerator CoroutineChangerEtat(bool etat){
-        float waitTime = 0f;
-        if(etat){
-            _anim.SetTrigger("GoMove");
-            waitTime = 1.5f;
+    /// <summary>
+    /// Coroutine qui permet de changer la forme du joueur en hero ou en plante
+    /// </summary>
+    /// <param name="hero">bool si on change vers al forme hero ou non</param>
+    /// <returns> temps d'attente</returns>
+    IEnumerator CoroutineChangerEtat(bool hero){
+        float waitTime = 0f; // float qui represente le temps d'attente dans la coroutine
+        if(hero){// si hero est vrai
+            _anim.SetTrigger("GoMove"); // on demande a l'animator du joueur d'activer le trigger GoMove (transformation en hero)
+            waitTime = 1.5f; // le temps d'attente sera de 1.5 seconde
         }
-        else{
-            waitTime = 0f;
-            _rb.velocity = Vector2.zero;
-            _peutBouger = etat;
+        else{ // si hero est false
+            waitTime = 0f; // le temps d'attente sera de 0 seconde
+            _rb.velocity = Vector2.zero; // on change la velocite du Rigibody2D du perso pour 0,0
+            _peutBouger = hero; // _peutBouger prend la valeur de hero (false)
         }
-        yield return new WaitForSeconds(waitTime);
-        if(!etat){
-            _anim.SetTrigger("StopMove");
+        yield return new WaitForSeconds(waitTime); // temps d'attente selon waitTime
+        if(!hero){ // si hero est false
+            _anim.SetTrigger("StopMove"); // on demande a l'animator du joueur d'activer le trigger StopMove (transformation en fleur)
         }
-        else{
-            _peutBouger = etat;
+        else{ // si hero est vrai
+            _peutBouger = hero; // _peutBouger prend la valeur de hero (true)
         }
     }
 
@@ -216,12 +252,12 @@ public class Personnage : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if(_peutBouger){
+        if(_peutBouger){ // si _peutBouger est vrai
             Mouvement(); // on appel Mouvement
         }
-        if(Input.GetKeyDown(KeyCode.Space) && _peutBouger){
-            if(_ressourcesPlayer.seedAmount >=1){
-                _pl.PlanterArbre();
+        if(Input.GetKeyDown(KeyCode.Space) && _peutBouger){ // si le joueur appuie sur Space et que _peutBouger est vrai
+            if(_ressourcesPlayer.seedAmount >=1){ // si le seedAmount de _ressourcesPlayer est plus grand ou egal a 1
+                _pl.PlanterArbre(); // on appel PlanterArbre de Plantage
             }
         }
     }
@@ -231,7 +267,7 @@ public class Personnage : MonoBehaviour
     /// </summary>
     void FixedUpdate()
     {
-        if(_peutBouger){
+        if(_peutBouger){ // si _peutBouger est vrai
             _rb.velocity = new Vector2(_axeX * _mouvementSpeed, _axeY * _mouvementSpeed); // on bouge le RigidBody2D du perso ave un Vector2 de _axeX et _axeY multiplie par la _mouvementSpeed
         }
     }

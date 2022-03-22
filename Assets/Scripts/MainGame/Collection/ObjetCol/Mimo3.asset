@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Mimo3
   m_EditorClassIdentifier: 
   _nomMimo: Lapin
-  _imageObjet: {fileID: 21300000, guid: 409cd76cc85d5374aab1cc8ba59d14b5, type: 3}
-  _textObjet: "Ce petit lapin sauvage a perdu le reste de sa famille. Son terrier
-    ayant \xE9t\xE9 d\xE9truit, il esp\xE8re trouver refuge aupr\xE8s de vous."
+  _imageMimo: {fileID: 21300000, guid: 409cd76cc85d5374aab1cc8ba59d14b5, type: 3}
+  _loreText: 
   _isFound: 0

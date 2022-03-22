@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: Mimo28
   m_EditorClassIdentifier: 
   _nomMimo: Coleoptere
-  _imageObjet: {fileID: 21300000, guid: 7968fc0696ab5b943a9f9acc443b5dc4, type: 3}
-  _textObjet: "Vous n'avez jamais observ\xE9 ce type d'insect avant. Sa carapace
-    est tr\xE8s solide et il semble avoir une grande valeur. On pourrait croire qu'il
-    est fait de roche et de m\xE9tal."
+  _imageMimo: {fileID: 21300000, guid: 7968fc0696ab5b943a9f9acc443b5dc4, type: 3}
+  _loreText: 
   _isFound: 0

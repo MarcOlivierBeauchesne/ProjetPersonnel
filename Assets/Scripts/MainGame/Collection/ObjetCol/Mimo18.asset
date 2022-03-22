@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: Mimo18
   m_EditorClassIdentifier: 
   _nomMimo: Grenouille
-  _imageObjet: {fileID: 21300000, guid: 47b5150a36e830843b05054a55f4b0b1, type: 3}
-  _textObjet: "Cette grenouille est sorti de la rivi\xE8re et ne la retrouve plus.
-    Elle aurait pourtant jur\xE9 l'avoir laiss\xE9e \xE0 la m\xEAme place que la
-    derni\xE8re fois."
+  _imageMimo: {fileID: 21300000, guid: 47b5150a36e830843b05054a55f4b0b1, type: 3}
+  _loreText: 
   _isFound: 0

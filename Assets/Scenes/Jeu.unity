@@ -3574,7 +3574,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _basicStats: {fileID: 554104806}
-  _anim: {fileID: 1217776482}
+  _animLumiere: {fileID: 1217776482}
 --- !u!1 &518250151
 GameObject:
   m_ObjectHideFlags: 0
@@ -4373,15 +4373,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 936282f711cedc74abfba83931270f22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _perso: {fileID: 580331201}
   _fondMission: {fileID: 1632220172}
+  _parentMission: {fileID: 806144874}
   _taskManager: {fileID: 1029080596}
   _timer: {fileID: 1468142675}
+  _perso: {fileID: 580331201}
   _listMission:
   - {fileID: 5373808195081299753, guid: 1ab2fbccb930b4047b1400811ede7d1b, type: 3}
   - {fileID: 7374773462222206942, guid: 43852d6f8e2c4244095f392e7e11dead, type: 3}
   - {fileID: 41594052762101118, guid: 6ebe2985d28cae74985d278a27eff958, type: 3}
-  _parentMission: {fileID: 806144874}
 --- !u!1 &566901510
 GameObject:
   m_ObjectHideFlags: 0
@@ -4650,10 +4650,10 @@ MonoBehaviour:
   _txtNaturePower: {fileID: 1821861898}
   _txtSeed: {fileID: 1809434496}
   _timer: {fileID: 1468142675}
-  _ressourcesPlayer: {fileID: 11400000, guid: 2fbd6f0ed2302fd46af9da866231cafc, type: 2}
   _taskManager: {fileID: 1029080596}
   _missionManager: {fileID: 554104812}
   _basicStats: {fileID: 554104806}
+  _ressourcesPlayer: {fileID: 11400000, guid: 2fbd6f0ed2302fd46af9da866231cafc, type: 2}
 --- !u!4 &580331202
 Transform:
   m_ObjectHideFlags: 0
@@ -4812,7 +4812,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _vitesseRot: 160
   _goProjectile: {fileID: 4299458537929637822, guid: bd9d30a711d637a4b964d4598e4f6d99, type: 3}
-  _SpawnPos: {fileID: 1735809984}
+  _ProjectileSpawnPos: {fileID: 1735809984}
 --- !u!1 &592789167
 GameObject:
   m_ObjectHideFlags: 0
@@ -13841,7 +13841,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1217776479}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c08bec3258373064190e1b563ce2fdb1, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c104d59ebc48b64dbb257519f033ec3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _perso: {fileID: 580331201}
@@ -23109,7 +23109,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7774245, y: 1}
+    m_SensorSize: {x: 1.9242902, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0

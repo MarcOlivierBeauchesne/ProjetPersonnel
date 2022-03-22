@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Mimo26
   m_EditorClassIdentifier: 
   _nomMimo: Loup
-  _imageObjet: {fileID: 21300000, guid: d8119a63554ca2f4484d39ed0158bb39, type: 3}
-  _textObjet: Parfois, ce loup aimerait bien se transformer en humain, ou quelque
-    chose qui y ressemble.
+  _imageMimo: {fileID: 21300000, guid: d8119a63554ca2f4484d39ed0158bb39, type: 3}
+  _loreText: 
   _isFound: 0

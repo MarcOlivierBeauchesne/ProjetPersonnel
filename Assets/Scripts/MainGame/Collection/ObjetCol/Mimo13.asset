@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: Mimo13
   m_EditorClassIdentifier: 
   _nomMimo: Tortue
-  _imageObjet: {fileID: 21300000, guid: a59fb1013d7e50543ad24dae507f2744, type: 3}
-  _textObjet: "Cette tortue n'a jamais vraiment eu de nom pour elle-m\xEAme. Mais
-    elle y pense depuis tr\xE8s longtemps et si elle avait \xE0 se donner un nom,
-    ce serait Benjamin."
+  _imageMimo: {fileID: 21300000, guid: a59fb1013d7e50543ad24dae507f2744, type: 3}
+  _loreText: 
   _isFound: 0

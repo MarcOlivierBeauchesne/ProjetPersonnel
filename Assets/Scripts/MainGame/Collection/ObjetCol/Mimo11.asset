@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Mimo11
   m_EditorClassIdentifier: 
   _nomMimo: Moufette
-  _imageObjet: {fileID: 21300000, guid: 835c4c23811cc1a459018f58fc767ff9, type: 3}
-  _textObjet: "Cette mouffette \xE0 toujours eu de la difficult\xE9 a se faire des
-    amis. "
+  _imageMimo: {fileID: 21300000, guid: 835c4c23811cc1a459018f58fc767ff9, type: 3}
+  _loreText: 
   _isFound: 0

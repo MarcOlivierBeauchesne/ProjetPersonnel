@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: Mimo14
   m_EditorClassIdentifier: 
   _nomMimo: Raton
-  _imageObjet: {fileID: 21300000, guid: e145d9f653f7b254b8383a0deef2054b, type: 3}
-  _textObjet: "Sa m\xE8re lui a toujours dit de manger des fruits et des l\xE9gumes.
-    Par contre, elle n'a jamais dit non quand il fouillait dans les ordures humaines
-    pour trouver le souper."
+  _imageMimo: {fileID: 21300000, guid: e145d9f653f7b254b8383a0deef2054b, type: 3}
+  _loreText: 
   _isFound: 0

@@ -8,16 +8,14 @@ using UnityEngine;
 /// </summary>
 public class BasicStats : MonoBehaviour
 {
+    [Header("Informations du joueur")] // identification de la section Informations du joueur
     [SerializeField] PlayerRessources _playerRessources; // Reference pour le ScriptableObject PlayerRessources
-    public PlayerRessources playerRessources{
-        get=>_playerRessources;
+    public PlayerRessources playerRessources{ // acces public pour le ScriptableObject PlayerRessources
+        get=>_playerRessources; // par playerRessources, on retourne _playerRessources
     }
     [SerializeField] Personnage _perso; // reference au Personnage du perso
-    [SerializeField] private Deforestation _defoManager;
-
-    [Header("Player Updrades")] // identification de la section des ameliorations du joueur
-    [SerializeField] private float _mouvementSpeedRef = 10; // acces prive pour la reference de la vitesse de deplacement du joueur
-    [SerializeField] private float _mouvementSpeed = 10; // acces prive pour la vitesse de deplacement du joueur
+    [SerializeField] float _mouvementSpeedRef = 10; // acces prive pour la reference de la vitesse de deplacement du joueur
+    [SerializeField] float _mouvementSpeed = 10; // acces prive pour la vitesse de deplacement du joueur
     public float mouvementSpeed{ // acces public pour la vitesse de deplacement du joueur
         get => _mouvementSpeed; // par mouvementSpeed, on retourne la valeur _mouvementSpeed
         set{
@@ -26,11 +24,11 @@ public class BasicStats : MonoBehaviour
         }
     }
 
-    [SerializeField] private float _npGainRef = 100; // acces prive a la reference du gain de point de nature 
-    [SerializeField] private float _npGain = 100; // acces prive au gain de point de nature 
+    [SerializeField] float _npGainRef = 100; // acces prive a la reference du gain de point de nature 
+    [SerializeField] float _npGain = 100; // acces prive au gain de point de nature 
     public float npGain{ // acces public au gain de point de nature 
         get => _npGain; // par npGain, on retourne la valeur _npGain 
-        set{
+        set{ // on change la valeur de _npGain
             _npGain = value; // par npGain, on change la valeur de _npGain
         }
     }
@@ -39,9 +37,9 @@ public class BasicStats : MonoBehaviour
     [SerializeField] private float _npMaxPool = 100; // acces prive au maximum de puissance de nature
     public float npMaxPool{ // acces public au maximum de puissance de nature
         get => _npMaxPool; // par npMaxPool, on retourne la valeur _npMaxPool 
-        set{
+        set{ // on change la valeur de _npMaxPool
             _npMaxPool = value; // par npMaxPool, on change la valeur de _npMaxPool
-            _perso.AjusterNaturePowerPool();
+            _perso.AjusterNaturePowerPool(); // on met a jour le maximum de puissance naturelle du joueur
         }
     }
 
@@ -50,7 +48,7 @@ public class BasicStats : MonoBehaviour
     [SerializeField] private float _seedDrop = 1; // acces prive pour la quantite de graines qui tombent
     public float seedDrop{ // acces public pour la quantite de graines qui tombent
         get => _seedDrop; // par seedDrop, on retourne la valeur _seedDrop 
-        set{
+        set{ // on change la valeur de _seedDrop
             _seedDrop = value;  // par seedDrop, on change la valeur _seedDrop 
         }
     }
@@ -59,15 +57,16 @@ public class BasicStats : MonoBehaviour
     [SerializeField] private float _dayTime = 5; // acces prive au temps disponible par jour 
     public float dayTime{ // acces public au temps disponible par jour 
         get => _dayTime; // par dayTime, on retourne la valeur _dayTime
-        set{
+        set{ // on change la valeur de _dayTime
             _dayTime = value; // par dayTime, on change la valeur _dayTime
         }
     }
 
     [Header("Deforesation")] // Identification de la section des caracteristiques de la deforestation
+    [SerializeField] Deforestation _defoManager; // reference pour Deforestation
     [SerializeField] private float _deforestAugmentRef = 10; // acces prive a la reference de l'augmentation de la deforestation par jour
-    public float deforestAugmentRef{
-        get=> _deforestAugmentRef;
+    public float deforestAugmentRef{ // acces public a la reference de l'augmentation de la deforestation par jour
+        get=> _deforestAugmentRef; // par deforestAugmentRef, on retourne _deforestAugmentRef
     }
     
     [SerializeField] private float _deforestAugment = 10; // acces prive a l'augmentation de la deforestation par jour 
@@ -75,10 +74,10 @@ public class BasicStats : MonoBehaviour
         get => _deforestAugment; // par deforestAugment, on retourne la valeur _deforestAugment
         set{
             _deforestAugment = value; // par deforestAugment, on change la valeur _deforestAugment
-            if(_deforestAugment < 0){
-                _deforestAugment = 0;
+            if(_deforestAugment < 0){ // si _deforestAugment est plus petit que 0
+                _deforestAugment = 0; // _deforestAugment on ramene _deforestAugment a 0
             }
-            _defoManager.AjusterNextDefoVisuel();
+            _defoManager.AjusterNextDefoVisuel(); // on demande au Deforestation d'ajuster son visuel
         }
     }
 
@@ -88,10 +87,10 @@ public class BasicStats : MonoBehaviour
         get => _deforestLevel; // par deforestLevel, on retourne la valeur _deforestLevel
         set{
             _deforestLevel = value; // par deforestLevel, on change la valeur _deforestLevel
-            if(_deforestLevel < 0){
-                _deforestLevel = 0;
+            if(_deforestLevel < 0){ // si _deforestLevel est plus petit que 0
+                _deforestLevel = 0; // on ramene _deforestLevel a 0
             }
-            _defoManager.AjusterDefoVisuel();
+            _defoManager.AjusterDefoVisuel(); // on demande au Deforestation d'ajuster son visuel
         }
     }
 
@@ -99,9 +98,9 @@ public class BasicStats : MonoBehaviour
     [SerializeField] private float _deforestPool = 100; // acces prive au maximum de deforestation globale 
     public float deforestPool{ // acces public au maximum de deforestation globale 
         get => _deforestPool; // par deforestPool, on retourne la valeur _deforestPool
-        set{
+        set{ // on change la valeur de _deforestPool
             _deforestPool = value; // par deforestPool, on change la valeur _deforestPool
-            _defoManager.AjusterDefoVisuel();
+            _defoManager.AjusterDefoVisuel(); // on demande au Deforestation d'ajuster son visuel
         } 
     }
 

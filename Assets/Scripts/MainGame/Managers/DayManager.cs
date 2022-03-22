@@ -8,28 +8,30 @@ using UnityEngine.UI;
 /// </summary>
 public class DayManager : MonoBehaviour
 {
+    [Header("Managers")] // Identification de la section Managers
+    [SerializeField] Timer _timer; // reference au Timer
+    [SerializeField] TaskManager _taskManager; // reference au TaskManager qui gere les taches
+    [SerializeField] private GenerateurSalle _genSalle; // reference au GenerateurSalle
+    public GenerateurSalle genSalle{ // acces public au GenerateurSalle
+        get=>_genSalle; // par genSalle, on retourne _genSalle
+    }
+    [Header("Composante de la fenetre")] // Identification de la section Composante de la fenetre
     [SerializeField] GameObject[] _tChampsEndDay; // tableau des differents champs de la page de fin de journee
     [SerializeField] Animator _animFenetre; // animator de la fenetre de fin de journee
-    [SerializeField] GameObject _fenetreLoading;
-    [SerializeField] Animator _animDefoDefaite;
-    [SerializeField] Timer _timer;
-    [SerializeField] TaskManager _taskManager; // reference au TaskManager qui gere les taches
-    [SerializeField] private GenerateurSalle _genSalle;
-    public GenerateurSalle genSalle{
-        get=>_genSalle;
-    }
-    private int _indexTableau = 0;
+    [SerializeField] Animator _animDefoDefaite; // Animator de la fenetre de defaite
+    [Header("Composante de la fenetre")] // Identification de la section Composante de la fenetre
+    [SerializeField] GameObject _fenetreLoading; // fenetre de changement
 
-    Deforestation _deforestation;
-    BasicStats _baseStats;
-    Deforestation _defoManager;
+    private int _indexTableau = 0; // index qui separe les differents affichages lors de al fin d'une journee
+
+    Deforestation _deforestation; // reference a Deforestation
+    BasicStats _baseStats; // reference au BasicStats
 
     // Start is called before the first frame update
     void Start()
     {
-        _baseStats = GetComponent<BasicStats>();
-        _deforestation = GetComponent<Deforestation>();
-        _defoManager = GetComponent<Deforestation>();
+        _baseStats = GetComponent<BasicStats>(); // _baseStats prend la valeur du BasicStats du gameObject
+        _deforestation = GetComponent<Deforestation>(); // _deforestation prend la valeur du Deforestation du gameObject
         ResetChamps(); // On appel ResetChamps
     }
 
@@ -37,25 +39,29 @@ public class DayManager : MonoBehaviour
     /// Fonction qui demarre la coroutine d'affichage des points
     /// </summary>
     public void AfficherPoint(){
-        if(_baseStats.deforestLevel + _baseStats.deforestAugment >= _baseStats.deforestPool){
-            StartCoroutine(CoroutineDefaite());
+        if(_baseStats.deforestLevel + _baseStats.deforestAugment >= _baseStats.deforestPool){ // si le niveau actuel de deforestation est plus grand ou egal au maximum de deforestation possible
+            StartCoroutine(CoroutineDefaite()); // on demarre la coroutine CoroutineDefaite
         }
-        else{
-            _animFenetre.SetTrigger("EndDay");
+        else{ // si le niveau actuel de deforestation est plus petit que le maximum de deforestation possible
+            _animFenetre.SetTrigger("EndDay"); // on declanche le trigger EndDay de _animFenetre
             StartCoroutine(CoroutineAfficherPoint()); // on demarre la coroutine CoroutineAfficherPoint
         }
     }
 
+    /// <summary>
+    /// Coroutine qui affiche les differents champs de la fenetre de defaite
+    /// </summary>
+    /// <returns>temps d'attente</returns>
     IEnumerator CoroutineDefaite(){
-        _animFenetre.SetTrigger("EndGame");
-        _animDefoDefaite.SetTrigger("DefoDefaite");
-        yield return new WaitForSeconds(3f);
-        _defoManager.AjusterDefoLevel();
-        yield return new WaitForSeconds(2f);
-        _tChampsEndDay[11].SetActive(true);
-        yield return new WaitForSeconds(1f);
-        _tChampsEndDay[8].SetActive(true);
-        _tChampsEndDay[12].SetActive(true);
+        _animFenetre.SetTrigger("EndGame"); // on declanche le trigger EndGame de _animFenetre
+        _animDefoDefaite.SetTrigger("DefoDefaite"); // on declanche le trigger DefoDefaite de _animDefoDefaite
+        yield return new WaitForSeconds(3f); // on attend 3 secondes
+        _deforestation.AjusterDefoLevel(); // on demande  a Deforestation d'ajuster son visuel
+        yield return new WaitForSeconds(2f); // on attend 2 secondes
+        _tChampsEndDay[11].SetActive(true); // on active le message de defaite
+        yield return new WaitForSeconds(1f); // on attend 1 secondes
+        _tChampsEndDay[8].SetActive(true); // on active le bouton pour retourner au menu
+        _tChampsEndDay[12].SetActive(true); // on active le bouton our reessayer
     }
 
     /// <summary>
@@ -88,8 +94,8 @@ public class DayManager : MonoBehaviour
                 _tChampsEndDay[5].SetActive(true); // on affiche la categorie taches effectuees
                 _tChampsEndDay[13].SetActive(true); // on affiche la categorie mission
                 _tChampsEndDay[14].SetActive(true); // on affiche la categorie mimos sauves
-                if(_timer.nbJour > 0){
-                    _defoManager.AjusterDefoLevel();
+                if(_timer.nbJour > 0){ // si le nbJour de Timer est plus grand que 0
+                    _deforestation.AjusterDefoLevel(); // on demande  a Deforestation d'ajuster son visuel
                 }
                 break; // on sort de la condition
             }
@@ -97,19 +103,13 @@ public class DayManager : MonoBehaviour
                 _tChampsEndDay[6].SetActive(true); // on affiche la categorie Total des scores
                 _tChampsEndDay[6].transform.GetChild(0).GetComponent<Text>().text = _baseStats.deforestAugment.ToString(); // le valeur du total prend la valeur du deforestAugment du BasicStats
                 _tChampsEndDay[7].SetActive(true); // on affiche la categorie Total des scores
-                int totalPoint = _taskManager.scoreArbre + _taskManager.scoreTache + _taskManager.scoreMission + _taskManager.scoreMimo;
+                int totalPoint = _taskManager.scoreArbre + _taskManager.scoreTache + _taskManager.scoreMission + _taskManager.scoreMimo; // on affiche le total de tous les scores
                 _tChampsEndDay[7].transform.GetChild(0).GetComponent<Text>().text = totalPoint.ToString(); // le valeur du total prend la valeur cumulee des arbres plantes et des taches accomplies
                 break; // on sort de la condition
             }
             case 5 : { // si _indexTableau est de 5¸
-                if(_deforestation.actualDefo > _deforestation.maxDefo){
-                    _tChampsEndDay[8].SetActive(true);
-                    _tChampsEndDay[11].SetActive(true);
-                }
-                else{
-                    _tChampsEndDay[9].SetActive(true); // on affiche le bouton pour passer a la prochaine journee
-                    _tChampsEndDay[10].SetActive(true);
-                }
+                _tChampsEndDay[9].SetActive(true); // on affiche le bouton pour passer a la prochaine journee
+                _tChampsEndDay[10].SetActive(true); // on affiche un message de felicitation
                 break; // on sort de la condition
             }
         }
@@ -119,24 +119,31 @@ public class DayManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Coroutine qui enclanche une nouvelle journee
+    /// </summary>
     public void DemarrerJournee(){
-        StartCoroutine(CoroutineNouvelleJournee());
+        StartCoroutine(CoroutineNouvelleJournee()); // on demarre la coroutine CoroutineNouvelleJournee
     }
 
+    /// <summary>
+    /// Coroutine qui declanche la generation d'une nouvelle carte
+    /// </summary>
+    /// <returns>temps d'attente</returns>
     IEnumerator CoroutineNouvelleJournee(){
-        _fenetreLoading.SetActive(true);
-        yield return new WaitForSeconds(1f);
-        _genSalle.DemarrerCarte();
+        _fenetreLoading.SetActive(true); // on active la fenetre de chargement
+        yield return new WaitForSeconds(1f); // on attend 1 seconde
+        _genSalle.DemarrerCarte(); // on demande au GenerateurSalle de generer une nouvelle foret
     }
 
     /// <summary>
     /// Fonction qui ferme tous les champs de texte et remet l'index a 0
     /// </summary>
     public void ResetChamps(){
-        for (int i = 0; i < _tChampsEndDay.Length; i++) // selon la longueur du tableau
+        for (int i = 0; i < _tChampsEndDay.Length; i++) // selon la longueur du tableau _tChampsEndDay
         {
             _tChampsEndDay[i].SetActive(false); // on prend chaque element du tableau et on le ferme
-            StopAllCoroutines();
+            StopAllCoroutines(); // on arrete toutes les coroutines
         }
         _indexTableau = 0; // on remet _indexTableau a 0
     }

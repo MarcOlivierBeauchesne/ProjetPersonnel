@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Mimo15
   m_EditorClassIdentifier: 
   _nomMimo: Hermine
-  _imageObjet: {fileID: 21300000, guid: 90461b00cfc31d8438559d1cd1d9d069, type: 3}
-  _textObjet: Troisieme animal de la liste
+  _imageMimo: {fileID: 21300000, guid: 90461b00cfc31d8438559d1cd1d9d069, type: 3}
+  _loreText: 
   _isFound: 0

@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Mimo19
   m_EditorClassIdentifier: 
   _nomMimo: Cerf
-  _imageObjet: {fileID: 21300000, guid: 984d497a5fa295b4cbc8080c4b39c43e, type: 3}
-  _textObjet: "Autrefois, Ce cerf m\xE2le vivait heureux avec sa compagne et leur
-    fils. Un jour, un chasseur tua sa compagne et il ne retrouva jamais son fils."
+  _imageMimo: {fileID: 21300000, guid: 984d497a5fa295b4cbc8080c4b39c43e, type: 3}
+  _loreText: 
   _isFound: 0

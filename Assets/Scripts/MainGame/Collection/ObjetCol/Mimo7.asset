@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Mimo7
   m_EditorClassIdentifier: 
   _nomMimo: Marmotte
-  _imageObjet: {fileID: 21300000, guid: 07b6441917fc2294cba209d6c6956f1c, type: 3}
-  _textObjet: "Cette marmotte \xE0 vu son ombre plus t\xF4t que pr\xE9vu, ce n'est
-    pas bon signe!"
+  _imageMimo: {fileID: 21300000, guid: 07b6441917fc2294cba209d6c6956f1c, type: 3}
+  _loreText: 
   _isFound: 0

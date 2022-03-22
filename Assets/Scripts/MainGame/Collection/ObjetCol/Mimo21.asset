@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: Mimo21
   m_EditorClassIdentifier: 
   _nomMimo: Ours
-  _imageObjet: {fileID: 21300000, guid: 05e88cafc1524a748a02eb7bdd96dc6c, type: 3}
-  _textObjet: "Cet ours \xE0 toujours eu l'impression d'avoir \xE9t\xE9 un humain,
-    il y a longtemps. Le seul souvenir qu'il lui reste se manifeste sous la forme
-    d'innombrables couleurs dans le ciel."
+  _imageMimo: {fileID: 21300000, guid: 05e88cafc1524a748a02eb7bdd96dc6c, type: 3}
+  _loreText: 
   _isFound: 0

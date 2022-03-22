@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: Mimo5
   m_EditorClassIdentifier: 
   _nomMimo: Ecureuil
-  _imageObjet: {fileID: 21300000, guid: 61694723c6defa64386e8f9e3beb4648, type: 3}
-  _textObjet: "Il n'y a pas si longtemps, cet \xE9cureuil se faisait constamment
-    r\xE9veiller par ses voisins les tamias. Ils avaient la mauvaise habithude de
-    chanter fort et souvent."
+  _imageMimo: {fileID: 21300000, guid: 61694723c6defa64386e8f9e3beb4648, type: 3}
+  _loreText: 
   _isFound: 0

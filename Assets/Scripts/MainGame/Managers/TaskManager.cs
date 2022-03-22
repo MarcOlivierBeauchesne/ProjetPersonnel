@@ -7,9 +7,11 @@ using UnityEngine;
 /// </summary>
 public class TaskManager : MonoBehaviour
 {
-    [SerializeField] GameObject _goNpPoints;
-    [SerializeField] GameObject _goNpPointsNegatif;
-    [SerializeField] GameObject _goNoixGain;
+    [Header("PopUp des gains de points")] // Identification de la section PopUp des gains de points
+    [SerializeField] GameObject _goNpPoints; // popUp de point positif
+    [SerializeField] GameObject _goNpPointsNegatif; // popUp de point negatifs
+    [SerializeField] GameObject _goNoixGain; // popup pour un gain de noix
+    [Header("Scores")] // Identification de la section Scores
     [SerializeField] private int _scoretaches; // acces prive pour le score obtenu pour les taches
     public int scoreTache{ // acces public pour le score obtenu pour les taches
         get => _scoretaches; // par scoreTache, on retourne _scoreTache
@@ -26,26 +28,26 @@ public class TaskManager : MonoBehaviour
     public int scoreMimo{ // acces public pour le score obtenu pour avoir plante des arbres
         get => _scoreMimo; // par scoreArbre, on retourne _scoreArbre
     }
-
+    [Header("Managers")] // Identification de la section Managers
     [SerializeField] private BasicStats _basicStats; // reference pour le BasicStats
     
     /// <summary>
-    /// Fonction public que les taches appelent pour attribuer des points au joueur
+    /// Fonction publique que les taches appelent pour ajuster les differents scores
     /// </summary>
     public void AjouterPoint(TypeTache type, int valeur){
-        switch(type){
-            case TypeTache.Arbre :
-                _scoreArbre += valeur; 
-            break;
-            case TypeTache.Tache : 
-                _scoretaches += valeur;
-            break;
-            case TypeTache.Mission : 
-                _scoreMission += valeur;
-            break;
-            case TypeTache.Mimo : 
-                _scoreMimo += valeur;
-            break;
+        switch(type){ // switch selon type
+            case TypeTache.Arbre : // si le type est Arbre
+                _scoreArbre += valeur; // on ajouter valeur a _scoreAbre
+            break; // on sort de la condition
+            case TypeTache.Tache :  // si le type est Tache
+                _scoretaches += valeur; // on joute valeur a _scoreTaches
+            break; // on sort de la condition
+            case TypeTache.Mission : // si le type est Mission
+                _scoreMission += valeur; // on ajoute valeur a _scoreMission
+            break; // on sort de la condition
+            case TypeTache.Mimo : // si le type est Mimo
+                _scoreMimo += valeur; // on ajoute valeur a _scoreMimo
+            break; // on sort de la condition
         }
     }
 
@@ -55,28 +57,37 @@ public class TaskManager : MonoBehaviour
     public void ResetScore(){
         _scoreArbre = 0; // le _scoreArbre devient 0
         _scoretaches = 0; // le _scoreTaches devient 0
-        _scoreMimo = 0;
-        _scoreMission = 0;
+        _scoreMimo = 0; // le _scoreMimo devient 0
+        _scoreMission = 0; // le _scoreMission devient 0
     }
 
+    /// <summary>
+    /// Fonction publique qui cree un popUp de point
+    /// </summary>
+    /// <param name="pos"> position du popUp</param>
+    /// <param name="amount">Montant a afficher</param>
+    /// <param name="type">type de popUp a afficher</param>
     public void CreatePopUpPoints(Vector2 pos, int amount, string type){
-        if(type == "tache"){
-            if(amount>0){
-                GameObject pointsPopUp = Instantiate(_goNpPoints, pos, Quaternion.identity);
-                pointsPopUp.GetComponent<PopUpPoints>().Setup(amount);
+        if(type == "tache"){ // si el type est tache
+            GameObject pointsPopUp = null;
+            if(amount>0){ // si amount est plus grand que 0
+                pointsPopUp = Instantiate(_goNpPoints, pos, Quaternion.identity); // on cree un popUp _goNpPoints a la position pos
             }
-            else{
-                GameObject pointsPopUp = Instantiate(_goNpPointsNegatif, pos, Quaternion.identity);
-                pointsPopUp.GetComponent<PopUpPoints>().Setup(amount);
+            else{ // si amount est plus petit que 0
+                pointsPopUp = Instantiate(_goNpPointsNegatif, pos, Quaternion.identity); // on cree un popUp _goNpPointsNegatif a la position pos
             }
+            pointsPopUp.GetComponent<PopUpPoints>().Setup(amount); // on demande au PopUpPoints du popUp de faire son Setup
         }
-        else if(type == "noix"){
-            GameObject noixPopUp = Instantiate(_goNoixGain, pos, Quaternion.identity);
-            noixPopUp.GetComponent<PopUpPoints>().Setup((int)_basicStats.seedDrop);
+        else if(type == "noix"){ // si le type est noix
+            GameObject noixPopUp = Instantiate(_goNoixGain, pos, Quaternion.identity); // on cree un popUp _goNoixGain a la position pos
+            noixPopUp.GetComponent<PopUpPoints>().Setup((int)_basicStats.seedDrop); // on demande au PopUpPoints du popUp de faire son Setup
         }
     }
 }
 
+/// <summary>
+/// enum public pour le type de tache
+/// </summary>
 public enum TypeTache
 {
     Arbre,

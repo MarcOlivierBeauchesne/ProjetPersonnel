@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: Mimo6
   m_EditorClassIdentifier: 
   _nomMimo: PicBois
-  _imageObjet: {fileID: 21300000, guid: 69237bf13dce0fa44b1623e960fbe3e1, type: 3}
-  _textObjet: "Ce pic-bois \xE9tait bien install\xE9 dans son nid qu'il s'\xE9tait
-    fait lui-m\xEAme dans le creux d'un arbre. Malheureusement, son arbre a trembl\xE9
-    plus est tomb\xE9 dans un grand fracas.  "
+  _imageMimo: {fileID: 21300000, guid: 69237bf13dce0fa44b1623e960fbe3e1, type: 3}
+  _loreText: 
   _isFound: 0

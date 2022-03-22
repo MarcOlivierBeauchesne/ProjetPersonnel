@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nomMimo: Tortue
   _imageMimo: {fileID: 21300000, guid: a59fb1013d7e50543ad24dae507f2744, type: 3}
-  _loreText: 
+  _loreText: Cette tortue n'a jamais vraiment eu de nom, mais si elle pouvait s'en
+    donner un, ce serait surement Benjamin
   _isFound: 0

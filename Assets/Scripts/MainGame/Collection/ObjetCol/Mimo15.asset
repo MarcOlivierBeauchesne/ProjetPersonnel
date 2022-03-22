@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nomMimo: Hermine
   _imageMimo: {fileID: 21300000, guid: 90461b00cfc31d8438559d1cd1d9d069, type: 3}
-  _loreText: 
+  _loreText: "Cette hermine l'a pourtant r\xE9p\xE9ter et r\xE9p\xE9ter, elle n'est
+    en aucune cas une belette."
   _isFound: 0

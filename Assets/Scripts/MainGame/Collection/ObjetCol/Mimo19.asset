@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nomMimo: Cerf
   _imageMimo: {fileID: 21300000, guid: 984d497a5fa295b4cbc8080c4b39c43e, type: 3}
-  _loreText: 
+  _loreText: Ce jeune male vivait heureux avec sa compagne et leur jeune fils. Un
+    jour, Sa femme mourru et son fils disparu pour ne plus jamais donner de nouvelles.
   _isFound: 0

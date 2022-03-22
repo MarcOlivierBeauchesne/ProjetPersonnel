@@ -26,6 +26,8 @@ public class Timer : MonoBehaviour
     [SerializeField] private GameObject _champsProjectiles;
     [Header("Informations de journee")] // Identification de la sectionInformations de journee 
     [SerializeField] private float _endDayWaitTime = 2f; // temps d'attente a la fin de la journee
+    [Header("Sons")] // identification de la section Sons
+    [SerializeField] AudioClip _sonFinJournee; // son quand la journee se termine
 
     private int _nbJour = 1; // journee actuelle
     public int nbJour{ // acces public a la journee actuelle
@@ -113,6 +115,8 @@ public class Timer : MonoBehaviour
         }
         if (minute == 0 && seconde == 0) // si minute et seconde sont egals a 0
         {
+            GameAudio.instance.JouerSon(_sonFinJournee); // on joue un son quand la journee se termine
+            GameAudio.instance.AjusterSon(false); // on arrete la musique
             _perso.ResetRot(); // on appel ResetRot du Personnage
             _perso.ChangerRot(false); // on appel ChangerRot du Personnage
             _perso.ChangerEtat(false); // on appel ChangerEtat du Personnage

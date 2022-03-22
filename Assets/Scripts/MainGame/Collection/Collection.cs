@@ -16,6 +16,10 @@ public class Collection : MonoBehaviour
     [SerializeField] private GameObject[] _tObjetCol; // tableau de tous les GameObject de mimo dans la fenetre de collection
     [SerializeField] Personnage _perso; // reference au Personnage
     [SerializeField] TaskManager _taskManager; // reference au TaskManager
+    [Header("Sons")] // identification de la section Sons
+    [SerializeField] AudioClip _sonNewMimo; // son quand le joueur trouve un nouveau mimo
+    [SerializeField] AudioClip _sonMimo; // son quand le joueur trouve un mimo
+
 
     private static Collection _instance; // reference static pour la collection
     public static Collection instance => _instance; // reference static publique pour la colleciton (Singleton)
@@ -110,6 +114,7 @@ public class Collection : MonoBehaviour
                 if(estTrouve){ // si le mimo est deja decouvert
                     _perso.AjusterPoint("naturePoint",valeurMimo, TypeTache.Mimo); // on demande au joueur de s'ajouter des points avec valeurMimo
                     _perso.missionManager.AccomplirMission(TypeMission.Mimo); // on demande au MissionManager d'accomplir la mission de type Mimo
+                    GameAudio.instance.JouerSon(_sonMimo); // on joue un son quand le joueur ramasse un mimo
                 }
                 else{ // si le mimo n'est pas encore decouvert
                     InfosCollection infoMimo = _tObjetCol[i].GetComponent<ObjetCollection>().infosObjet; // on stock le InfosCollection du GameObject dans infoMimo
@@ -122,6 +127,7 @@ public class Collection : MonoBehaviour
                     _perso.AjusterPoint("naturePoint",valeurMimo, TypeTache.Mimo); // on demande au joueur de s'ajouter des points avec valeurMimo
                     gameObject.SetActive(false); // on desactive la fenetre de collection
                     _perso.missionManager.AccomplirMission(TypeMission.Mimo); // on demande au MissionManager d'accomplir la mission de type Mimo
+                    GameAudio.instance.JouerSon(_sonNewMimo); // on joue un son quand le joueur ramasse un nouveau mimo
                     return; // on quitte la fonction
                 }
             }

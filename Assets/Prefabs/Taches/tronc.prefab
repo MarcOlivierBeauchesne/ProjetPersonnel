@@ -678,6 +678,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minSeed: 2
   _maxSeed: 5
+  _taskValue: 100
   _tSeedVisual:
   - {fileID: 4823447535057254698}
   - {fileID: 4823447535270569364}
@@ -686,7 +687,7 @@ MonoBehaviour:
   - {fileID: 4823447535374020463}
   _imgEmptySeed: {fileID: 21300000, guid: 4af9333287624de4eb6185030eacf13a, type: 3}
   _imgFullSeed: {fileID: 21300000, guid: 8e74212e166288345b34acb836cca6e4, type: 3}
-  _taskValue: 100
+  _sonSouche: {fileID: 8300000, guid: 864cf007ba92f584fab546b25e7e4e16, type: 3}
 --- !u!114 &-3583255143281419470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -701,6 +702,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _goTache: {fileID: 0}
   _btnInterraction: {fileID: 4823447535286235759}
+  _typeTache: 0
   _imageDone: {fileID: 21300000, guid: 7aaa8d9428bd9a547b65ec22db1a09ed, type: 3}
   _tacheValue: 0
-  _typeTache: 0
+  _sonGenerationEnnemi: {fileID: 0}
+  _sonGenerationProjectiles: {fileID: 0}

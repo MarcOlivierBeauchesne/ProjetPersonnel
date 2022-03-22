@@ -29,6 +29,8 @@ public class Skilltree : MonoBehaviour
     [SerializeField] Personnage _perso; // reference au personnage
     [Header("Position du canva")] // identification de la section Position du Canva
     [SerializeField] Transform _canvasPos; // position du Canva
+    [Header("Sons")] // identification de la section Sons
+    [SerializeField] AudioClip _sonAbsorbTree; // son quand le joueur absorbe l'arbre des talents
 
     /// <summary>
     /// Start is called on the frame when a script is enabled just before
@@ -89,6 +91,7 @@ public class Skilltree : MonoBehaviour
     public void AbsorbSkills(){
         int coutReel = CalculerCout(absorbCost, _absorbCount); // coutReel prend la valeur de retour de CalculerCout
         _perso.AjusterPoint("naturePoint", -coutReel, TypeTache.Aucun); // on eneleve les points de nature du joueur
+        GameAudio.instance.JouerSon(_sonAbsorbTree); // on joue un son quand le joueur absorbe l'arbre des talents
         _absorbCount += 0.1f; // on augmente le _absorbCount de 0.1
         _boiteExplication.transform.GetChild(3).GetComponent<Text>().text = CalculerCout(absorbCost, _absorbCount).ToString(); // on affiche le cout du skill
         foreach (SkillInfos skill in _tSkills) // pour chaque skill dans le tSkills

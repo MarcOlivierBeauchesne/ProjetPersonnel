@@ -16,6 +16,24 @@ public class GameAudio : MonoBehaviour
 
     private bool _isMuted = false; // acces prive pour le bool si le volume est mute 
 
+    private static GameAudio _instance; // reference static pour le GameAudio
+    public static GameAudio instance => _instance; // reference static publique pour le GameAudio (Singleton)
+
+    /// <summary>
+    /// Awake is called when the script instance is being loaded.
+    /// </summary>
+    void Awake()
+    {
+        if (_instance == null){ // si _instance est null
+            _instance = this; // _instance represente cette classe
+        }
+        else //sinon (s'il existe un instance)
+        {
+            Destroy(gameObject); //on detruit ce gameObject
+            return; // on quiite le fonction
+        }
+    }
+
     /// <summary>
     /// Start is called on the frame when a script is enabled just before
     /// any of the Update methods is called the first time.
@@ -54,6 +72,15 @@ public class GameAudio : MonoBehaviour
         SaveVolume(); // on appel SaveVolume
     }
 
+    public void AjusterSon(bool ouvert){
+        if(ouvert){
+            _audioSource.Play();
+        }
+        else{
+            _audioSource.Stop();
+        }
+    }
+
     /// <summary>
     /// Fonction qui allume ou eteint le son
     /// </summary>
@@ -82,6 +109,14 @@ public class GameAudio : MonoBehaviour
         else{ // sinon (_optionWindow est active dans la hierarchie)
             _optionsWindow.SetActive(false); // on desactive _optionWindow
         }
+    }
+
+    /// <summary>
+    /// Fonction qui joue un son recu
+    /// </summary>
+    /// <param name="son">le son a jouer</param>
+    public void JouerSon(AudioClip son){
+        _audioSource.PlayOneShot(son); // on demande au AudioSource de jouer le son son
     }
 
     /// <summary>

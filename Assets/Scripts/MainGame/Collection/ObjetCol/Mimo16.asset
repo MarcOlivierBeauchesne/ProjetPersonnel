@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nomMimo: Renard
   _imageMimo: {fileID: 21300000, guid: 3388408a1c3b8ae479b634a54f438e29, type: 3}
-  _loreText: 
+  _loreText: "Ce jeune renard a deja eu un chien pour ami. Ils ont eu quelques diff\xE9rents
+    mais leur histoire a tout de m\xEAme bien fini."
   _isFound: 0

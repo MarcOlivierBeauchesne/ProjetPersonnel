@@ -17,6 +17,7 @@ public class PopUpPoints : MonoBehaviour
     /// </summary>
     /// <param name="points">Point a afficher</param>
     public void Setup(int points){
+        _textPoints = GetComponent<TextMeshPro>();
         _textPoints.SetText(points.ToString()); // on affiche textuellement les points
         StartCoroutine(CoroutineDestroyPopUp()); // on demarre la coroutine CoroutineDestroyPopUp
     }

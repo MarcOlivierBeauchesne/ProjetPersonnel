@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _particleNoix: {fileID: 4937463526743783760, guid: ec3ac02a018813f47945294e6b81a495, type: 3}
+  _sonNoix: {fileID: 8300000, guid: 1ba3b5527d701c44d9ec7ba83906316f, type: 3}
 --- !u!58 &7594742878225917723
 CircleCollider2D:
   m_ObjectHideFlags: 0

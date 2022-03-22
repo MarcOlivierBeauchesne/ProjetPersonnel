@@ -21,6 +21,9 @@ public class DayManager : MonoBehaviour
     [SerializeField] Animator _animDefoDefaite; // Animator de la fenetre de defaite
     [Header("Composante de la fenetre")] // Identification de la section Composante de la fenetre
     [SerializeField] GameObject _fenetreLoading; // fenetre de changement
+    [Header("Sons")] // identification de la section Sons
+    [SerializeField] AudioClip _sonDefaite; // son quand le joueur perd la partie
+    [SerializeField] AudioClip _sonAffichagePoint; // son quand on affiche un pointage
 
     private int _indexTableau = 0; // index qui separe les differents affichages lors de al fin d'une journee
 
@@ -41,6 +44,7 @@ public class DayManager : MonoBehaviour
     public void AfficherPoint(){
         if(_baseStats.deforestLevel + _baseStats.deforestAugment >= _baseStats.deforestPool){ // si le niveau actuel de deforestation est plus grand ou egal au maximum de deforestation possible
             StartCoroutine(CoroutineDefaite()); // on demarre la coroutine CoroutineDefaite
+            GameAudio.instance.JouerSon(_sonDefaite); // on joue un son quand le joueur perd la partie
         }
         else{ // si le niveau actuel de deforestation est plus petit que le maximum de deforestation possible
             _animFenetre.SetTrigger("EndDay"); // on declanche le trigger EndDay de _animFenetre
@@ -73,11 +77,13 @@ public class DayManager : MonoBehaviour
         switch(_indexTableau){ // selon _indexTableau
             case 0 : { // si _indexTableau est de 0
                 _tChampsEndDay[0].SetActive(true); // on affiche le titre de la page
+                GameAudio.instance.JouerSon(_sonAffichagePoint); // on joue un son quand on affiche un pointage
                 break; // on sort de la condition
             }
             case 1 : { // si _indexTableau est de 1
                 _tChampsEndDay[1].SetActive(true); // on affiche le titre Deforestation
                 _tChampsEndDay[2].SetActive(true); // on affiche le titre Nature
+                GameAudio.instance.JouerSon(_sonAffichagePoint); // on joue un son quand on affiche un pointage
                 break; // on sort de la condition
             }
             case 2 : { // si _indexTableau est de 2
@@ -88,6 +94,7 @@ public class DayManager : MonoBehaviour
                 _tChampsEndDay[5].transform.GetChild(0).GetComponent<Text>().text = _taskManager.scoreTache.ToString(); // la valeur affichee de la categorie prend la valeur du scoreTache du _taskManager 
                 _tChampsEndDay[13].transform.GetChild(0).GetComponent<Text>().text = _taskManager.scoreMission.ToString(); // la valeur affichee de la categorie prend la valeur du  du _taskManager 
                 _tChampsEndDay[14].transform.GetChild(0).GetComponent<Text>().text = _taskManager.scoreMimo.ToString(); // la valeur affichee de la categorie prend la valeur du  du _taskManager 
+                GameAudio.instance.JouerSon(_sonAffichagePoint); // on joue un son quand on affiche un pointage
                 break; // on sort de la condition
             }
             case 3 : { // si _indexTableau est de 3
@@ -97,6 +104,7 @@ public class DayManager : MonoBehaviour
                 if(_timer.nbJour > 0){ // si le nbJour de Timer est plus grand que 0
                     _deforestation.AjusterDefoLevel(); // on demande  a Deforestation d'ajuster son visuel
                 }
+                GameAudio.instance.JouerSon(_sonAffichagePoint); // on joue un son quand on affiche un pointage
                 break; // on sort de la condition
             }
             case 4 : { // si _indexTableau est de 4
@@ -105,6 +113,7 @@ public class DayManager : MonoBehaviour
                 _tChampsEndDay[7].SetActive(true); // on affiche la categorie Total des scores
                 int totalPoint = _taskManager.scoreArbre + _taskManager.scoreTache + _taskManager.scoreMission + _taskManager.scoreMimo; // on affiche le total de tous les scores
                 _tChampsEndDay[7].transform.GetChild(0).GetComponent<Text>().text = totalPoint.ToString(); // le valeur du total prend la valeur cumulee des arbres plantes et des taches accomplies
+                GameAudio.instance.JouerSon(_sonAffichagePoint); // on joue un son quand on affiche un pointage
                 break; // on sort de la condition
             }
             case 5 : { // si _indexTableau est de 5¸

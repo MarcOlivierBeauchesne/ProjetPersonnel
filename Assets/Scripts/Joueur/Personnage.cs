@@ -34,6 +34,10 @@ public class Personnage : MonoBehaviour
     public PlayerRessources ressourcesPlayer{ // acces public au PlayerRessources
         get=> _ressourcesPlayer; // par ressourcesPlayer, on retourne _ressourcesPlayer
     }
+    [SerializeField] AudioClip _sonPersoVersPlante; // son quand le joueur se transforme en plante
+    [SerializeField] AudioClip _sonPlanteVersPerso; // son quand le joueur se transforme en hero
+    [SerializeField] AudioClip[] _tSonMarche; // son quand le joueur marche
+
 
     private bool _peutBouger = true; // bool si le personnage peut bouger
     public bool peutBouger{ // acces public a _peutBouger
@@ -115,6 +119,14 @@ public class Personnage : MonoBehaviour
     }
 
     /// <summary>
+    /// Fonction qui joue un son quand le joueur marche
+    /// </summary>
+    /// <param name="indexSon">index du son a jouer</param>
+    public void JouerSonMarche(int indexSon){
+        GameAudio.instance.JouerSon(_tSonMarche[indexSon]); // on joue un son quand le joueur marche
+    }
+
+    /// <summary>
     /// Fonction publique qui ajuste la luminosite de la lumiere de la feuille du perso
     /// </summary>
     /// <param name="intensity">Direction que l'on veut faire prendre a la lumiere (up ou down)</param>
@@ -173,9 +185,11 @@ public class Personnage : MonoBehaviour
         if(versTour){ // si versTour est vrai
             _peutBouger = false; // le joueur ne peut plus bouger
             _anim.SetTrigger("ToTower"); // on demande au Animator du perso de changer sa forme vers la tourelle
+            GameAudio.instance.JouerSon(_sonPersoVersPlante); // on joue un son quand le joueur se transforme en sa forme agressive
         }
         else{ // si versTour est faux
             _anim.SetTrigger("FromTower"); // on demande au Animator du pero de changer sa forme vers sa forme hero
+            GameAudio.instance.JouerSon(_sonPlanteVersPerso); // on joue un son quand le joueur se transforme en hero
         }
         yield return new WaitForSeconds(0.5f); // attente de 0.5 seconde
         if(!versTour){ // si versTour est faux

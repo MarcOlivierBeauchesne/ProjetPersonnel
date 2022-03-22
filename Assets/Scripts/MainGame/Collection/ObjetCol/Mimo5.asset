@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nomMimo: Ecureuil
   _imageMimo: {fileID: 21300000, guid: 61694723c6defa64386e8f9e3beb4648, type: 3}
-  _loreText: 
+  _loreText: "Cet \xE9cureuil a eu beacoup de difficult\xE9s \xE0 dormir. Ses voisins
+    \xE9tait des tamias ray\xE9s qui chantaient tout le temps. "
   _isFound: 0

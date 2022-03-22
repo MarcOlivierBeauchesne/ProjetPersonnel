@@ -185,9 +185,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _goTache: {fileID: 0}
   _btnInterraction: {fileID: 3010202310324757190}
+  _typeTache: 2
   _imageDone: {fileID: 0}
   _tacheValue: 150
-  _typeTache: 2
+  _sonGenerationEnnemi: {fileID: 8300000, guid: 2d424640ee564354aa18d05c41affdf2, type: 3}
+  _sonGenerationProjectiles: {fileID: 8300000, guid: 3783af1250fc72043a4f50e62db729af, type: 3}
 --- !u!61 &1829065552
 BoxCollider2D:
   m_ObjectHideFlags: 0

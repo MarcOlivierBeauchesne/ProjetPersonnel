@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nomMimo: Salamandre
   _imageMimo: {fileID: 21300000, guid: 70163d49269d71f4f9ca75a6b9ac1690, type: 3}
-  _loreText: 
+  _loreText: "Cette salamandre \xE0 eu un jour la chance de choisir un superpouvoir.
+    Elle choisi que si sa queue devait tomber d'une fa\xE7on ou d'une autre, qu'elle
+    allait repousser avec le temps."
   _isFound: 0

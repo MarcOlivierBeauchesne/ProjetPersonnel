@@ -8,6 +8,8 @@ using UnityEngine;
 public class Tutoriel : MonoBehaviour
 {
     [SerializeField] private Timer _timer; // reference au Timer
+    [Header("Sons")] // identification de la section Sons
+    [SerializeField] AudioClip _sonAfficherTips; // son quand un tips apparait
     private Dictionary<string, bool> _dictTips = new Dictionary<string, bool>(){ // dictionnaire pour les conseils (nom du conseil => deja montre)
         
     };
@@ -54,6 +56,7 @@ public class Tutoriel : MonoBehaviour
     /// </summary>
     /// <param name="indexTips">index dans le tableau keyList que l'on desir ouvrir</param>
     public void OuvrirTips(int indexTips){
+        GameAudio.instance.JouerSon(_sonAfficherTips); // on joue un son quand un tips apparait
         StartCoroutine(CoroutineOuvrirTips(indexTips)); // on demarre la coroutine CoroutineOuvrirTips avec indexTips
     }
 

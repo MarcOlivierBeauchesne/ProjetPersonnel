@@ -11,7 +11,9 @@ public class ControleCentre : MonoBehaviour
     [SerializeField] float _vitesseRot = 1f; // vitesse de rotation
     [Header("Projectile")] // identification de la section Projectile
     [SerializeField] GameObject _goProjectile; // gameOjbect du projectile
-    [SerializeField] Transform _ProjectileSpawnPos; // point d'apparition du projectile
+    [SerializeField] Transform _ProjectileSpawnPos; // point d'apparition du projectileà
+    [Header("Sons")] // identification de la section Sons
+    [SerializeField] AudioClip _sonLancerProjectile; // son quand le joueur lance un projectile
 
     bool _peutTourner = false; // bool si le personnage peut tourner
     public bool peutTourner{ // acces public a _peutTourner
@@ -45,6 +47,7 @@ public class ControleCentre : MonoBehaviour
                 StartCoroutine(CoroutineTir()); // on demarre la coroutine CoroutineTir
                 GameObject projectile = Instantiate(_goProjectile, _ProjectileSpawnPos.position, transform.rotation); // on genere un projectile a l'emplacement de _ProjectileSpawnPos
                 projectile.GetComponent<Projectile>().perso = GetComponent<Personnage>(); // on attribue le perso du projectile selon la Composante Personnage du gameObject actuel
+                GameAudio.instance.JouerSon(_sonLancerProjectile); // on joue un son quand le joueur lance un projectile
             }
         }
     }

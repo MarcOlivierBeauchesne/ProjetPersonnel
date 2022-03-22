@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nomMimo: Serpent
   _imageMimo: {fileID: 21300000, guid: bf09b2abbabdb224c8daa3062219790d, type: 3}
-  _loreText: 
+  _loreText: "Ce serpent est assez solitaire. En revanche, sa soeur, elle, a pour
+    amis un koala, une mygale, un scorpion et un l\xE9zard."
   _isFound: 0

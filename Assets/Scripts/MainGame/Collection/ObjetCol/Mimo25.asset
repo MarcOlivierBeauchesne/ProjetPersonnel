@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nomMimo: Coccinelle
   _imageMimo: {fileID: 21300000, guid: 5803aa0589170834c9da74685323f615, type: 3}
-  _loreText: 
+  _loreText: "Cette coccinelle c'est toujours demand\xE9 combien de points noires
+    elle avait sur le dos. Elle ne le saura sans doute jamais."
   _isFound: 0

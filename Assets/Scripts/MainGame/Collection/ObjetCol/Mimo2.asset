@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nomMimo: Souris
   _imageMimo: {fileID: 21300000, guid: 58bc756c40b3c8d45a141027c35c5a74, type: 3}
-  _loreText: 
+  _loreText: Cette souris a deja participer a la confection d'une superbe robe pour
+    une princesse dans le besoin.
   _isFound: 0

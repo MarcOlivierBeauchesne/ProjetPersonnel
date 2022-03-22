@@ -9,6 +9,9 @@ public class TacheDestruction : MonoBehaviour
     [SerializeField] GameObject[] _tMorceaux; // tableau des morceau qui se detache de la machine
     [SerializeField] Sprite[] _tImgMontant; // tableau des image des joints pour la progression
     [SerializeField] int _taskValue; // valeur de la tache
+    [Header("Sons")] // identification de la section Sons
+    [SerializeField] AudioClip _sonUserJoint; // son quand le joueur use un joint
+    [SerializeField] AudioClip _sonBriserJoint; // son quand le joueur brise un joint
 
     int _clicAmount = 0; // nombre de clic effectue
     int _joint = 0; // indicatif de quel joint le joueur est rendu
@@ -46,6 +49,7 @@ public class TacheDestruction : MonoBehaviour
     /// <param name="actualClic">nombre de clic restant</param>
     /// <param name="goalClic">objectif de clic</param>
     public void UserJoint(int actualClic, int goalClic){
+        GameAudio.instance.JouerSon(_sonUserJoint); // on joue un son quand le joueur use un joint
         _clicAmount++; // on augmente le nombre de clic de 1
         SpriteRenderer spriteJoint = _tJoint[_joint].GetComponent<SpriteRenderer>(); // spriteJoint prend la valeur du SpriteRenderer du joint _tJoint[_joint]
         int tier = goalClic - (goalClic/3); // tier prend la valeur du total moins 1/3
@@ -64,9 +68,11 @@ public class TacheDestruction : MonoBehaviour
                 _joint++; // _joint augmente de 1
                 if(_joint<_tJoint.Length){ // si _joint est plus petit que la longueur du tableau _tJoint
                     _tJoint[_joint].SetActive(true); // on active le joint _tJoint[_joint]
+                    GameAudio.instance.JouerSon(_sonBriserJoint); // on joue un son quand le joueur brise un joint
                 }
                 if(_joint >= _tJoint.Length){ // si _joint est plus grand ou egal a la longueur du tableau _tJoint
                     float npGain = GetComponentInParent<Tache>().perso.basicStats.npGain; // npGain prend la valeur de npGain du BasicStats
+                    GameAudio.instance.JouerSon(_sonBriserJoint); // on joue un son quand le joueur brise un joint
                     GetComponentInParent<Tache>().FinirTache(_taskValue + (_clicAmount * (int)npGain)); // on demande a Tache dans le parent de terminer la tache et on avoie les points
                 }
             }

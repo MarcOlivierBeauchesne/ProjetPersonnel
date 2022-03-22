@@ -9,6 +9,8 @@ public class Plantage : MonoBehaviour
     [Header("Layers de permission")] // identification de la section Layers de permission
     [SerializeField] private LayerMask _layerSolDefo; // Layer du sol de deforestation
     [SerializeField] private LayerMask _layerTache; // layer des tache
+    [Header("Sons")] // identification de la section Sons
+    [SerializeField] AudioClip _sonPlantage; // son quand le joueur plante un arbre
 
     private List<GameObject> _listGoArbres = new List<GameObject>(); // liste pour contenir tous les arbres plantes
 
@@ -32,6 +34,7 @@ public class Plantage : MonoBehaviour
         if(solDefo && !tache){ // si le ray touche a un sol de deforestation et pas a une tache
             GameObject arbre = Instantiate(_goArbre, posPossible, Quaternion.identity); // on genere un arbre a la position posPossible
             _perso.AjusterPoint("seed", -1, TypeTache.Aucun); // on demande au Personnage de reduire sa quantite de noix de 1
+            GameAudio.instance.JouerSon(_sonPlantage); // on joue un son quand le joueur plante un arbre
             _perso.AjusterPoint("naturePoint", 10 + (int)_perso.basicStats.npGain, TypeTache.Arbre); // on demande au Personnage de se donner des points de type Arbre
             _perso.missionManager.AccomplirMission(TypeMission.Arbre); // on demande au MissionManager du Personnage d'accomplir la mission de plantage d'arbre
             _listGoArbres.Add(arbre); // on ajoute l'arbre a la liste des arbres plantes

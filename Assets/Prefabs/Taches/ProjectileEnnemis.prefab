@@ -119,6 +119,8 @@ MonoBehaviour:
   _pertePoint: -30
   _partProject: {fileID: 6684667731155816989}
   _partScie: {fileID: 4836606603885151290}
+  _sonBriserProjectile: {fileID: 8300000, guid: b96fe96c4388b3c4e9eecbcc49c23ddf, type: 3}
+  _sonPertePoint: {fileID: 8300000, guid: e32dcc43a1b0c1a4386c67f8412b6fdb, type: 3}
 --- !u!1 &2254625213659678249
 GameObject:
   m_ObjectHideFlags: 0

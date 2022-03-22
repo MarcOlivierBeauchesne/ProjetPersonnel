@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nomMimo: PicBois
   _imageMimo: {fileID: 21300000, guid: 69237bf13dce0fa44b1623e960fbe3e1, type: 3}
-  _loreText: 
+  _loreText: "Ce pic-bois aurait entendu dire qu'il poss\xE8de 4 type de cousins
+    diff\xE9rents. Il en a crois\xE9 aucun jusqu'a maintenant."
   _isFound: 0

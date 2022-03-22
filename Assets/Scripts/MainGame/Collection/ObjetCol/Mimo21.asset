@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nomMimo: Ours
   _imageMimo: {fileID: 21300000, guid: 05e88cafc1524a748a02eb7bdd96dc6c, type: 3}
-  _loreText: 
+  _loreText: "Cete ours a toujours eu l'impression qu'il e \xE9t\xE9 un humain. Le
+    seul souvenir qu'il lui reste est une nuit \xE9clair\xE9e par des lumi\xE8res
+    dans le ciel et l'apparition de ses anc\xEAtres."
   _isFound: 0

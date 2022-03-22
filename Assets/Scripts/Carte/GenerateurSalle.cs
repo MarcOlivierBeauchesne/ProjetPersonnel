@@ -52,6 +52,8 @@ public class GenerateurSalle : MonoBehaviour
     public GameObject boiteEnnemis{ // acces public a la boite qui englobe les informations a afficher pour les ennemis dans la foret
         get=>_boiteEnnemis; // par boiteEnnemis, on retourne _boiteEnnemis
     }
+    [Header("Sons")] // identification de la section Sons
+    [SerializeField] AudioClip _sonDebutJournee; // son quand une journee commence
 
     private float _pourcentage; // pourcentage de la carte couvert par al deforestation
     private int _qteSalleForet = 10; // quantite de salle de foret a generer
@@ -65,6 +67,7 @@ public class GenerateurSalle : MonoBehaviour
     /// </summary>
     void Start()
     {
+        GameAudio.instance.AjusterSon(false); // on arrete la musique
         _perso.ChangerEtat(false); // on dit au perso qu'il ne peut pas bouger
         StartCoroutine(CoroutineDemarrerJournee()); // on demarre la coroutine CoroutineDemarrerJournee
     }
@@ -168,6 +171,8 @@ public class GenerateurSalle : MonoBehaviour
         _animLoading.SetBool("IsLoading", false); // on dit a _animLoading que son bool IsLoading est false
         _dayLightManager.AjusterVitesseJour(); // on demande a _dayLightManager d'ajuster la vitesse de la journee (cycle jour/nuit)
         OuvrirPorte(); // on appel OuvrirPore
+        GameAudio.instance.JouerSon(_sonDebutJournee); // on joue un son quand la journee commence
+        GameAudio.instance.AjusterSon(true);  // on demarre la musique
         _perso.ChangerEtat(true); // on dit au perso qu'il peut bouger
         if(!_firstDay){ // si ce n'est pas la premiere journee
             _timer.ProchaineJournee(); // on appel ProchaineJournee du Timer

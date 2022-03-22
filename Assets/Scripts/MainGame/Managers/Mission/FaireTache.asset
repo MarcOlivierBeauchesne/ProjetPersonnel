@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _typeMission: 0
   _nomMission: Ralentir la progression
-  _missionAmount: 5
+  _missionAmount: 1
   _descriptionMission: "La d\xE9forestation prend lentement le contr\xF4le de la
     for\xEAt. Trouver et maitriser les machines qui nuisent \xE0 la for\xEAt."
-  _rewardValue: 1500
+  _rewardValue: 700

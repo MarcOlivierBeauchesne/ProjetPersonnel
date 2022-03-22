@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nomMimo: Poisson
   _imageMimo: {fileID: 21300000, guid: e6648a36af5e00e47b8f02570565b117, type: 3}
-  _loreText: 
+  _loreText: "Ce poisson aurait jur\xE9 avoir deja vu un papa poisson-clown avec
+    son fils dans l'ocean."
   _isFound: 0

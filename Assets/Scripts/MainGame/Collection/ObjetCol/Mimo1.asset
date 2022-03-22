@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nomMimo: Chenille
   _imageMimo: {fileID: 21300000, guid: 8a1208e9f142ed849845bf4245dd1328, type: 3}
-  _loreText: 
+  _loreText: "Cette chenille a toujours su qu'elle allait se transformer en papillon
+    un jour. Pourtant, une de ses cousine eloign\xE9e c'est deja transform\xE9e en
+    gu\xEApe!"
   _isFound: 0

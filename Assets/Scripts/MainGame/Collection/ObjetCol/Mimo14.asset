@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nomMimo: Raton
   _imageMimo: {fileID: 21300000, guid: e145d9f653f7b254b8383a0deef2054b, type: 3}
-  _loreText: 
+  _loreText: "La m\xE8re de ce raton l'a toujours encourag\xE9 \xE0 manger des fruits
+    et des l\xE9gumes. Mais ce que lui pr\xE9f\xE8re, ce sont les ordures."
   _isFound: 0

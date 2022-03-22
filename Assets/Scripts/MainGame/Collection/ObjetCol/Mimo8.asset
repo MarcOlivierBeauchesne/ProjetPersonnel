@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nomMimo: Hibou
   _imageMimo: {fileID: 21300000, guid: f387adca2612e3a43bacb11ba5a8d534, type: 3}
-  _loreText: 
+  _loreText: "Ce hibou vous donnera des conseils sans avoir \xE0 lui demander. Il
+    a la facheuse tendance \xE0 r\xE9peter les m\xEAme choses."
   _isFound: 0

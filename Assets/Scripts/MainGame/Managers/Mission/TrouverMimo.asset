@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _typeMission: 1
   _nomMission: Sauver les animaux
-  _missionAmount: 5
+  _missionAmount: 3
   _descriptionMission: "Parcourez la f\xF4ret et trouver les animaux en danger qui
     s'y cache!"
-  _rewardValue: 2000
+  _rewardValue: 1000

@@ -16,6 +16,8 @@ public class EnnemiForet : MonoBehaviour
     [SerializeField] private Sprite _imgMort; // image de l'ennemi mort
     [SerializeField] ParticleSystem _partExplosion; // particleEffect de l'explosion
     [SerializeField] ParticleSystem _partFumee; // particleEffect de la fumeee
+    [Header("Sons")] // identification de la section Sons
+    [SerializeField] AudioClip _sonDestruction; // son quand l'ennemi meurt
 
     Salle _salle; // reference a la Salle parent
     SpriteRenderer _sr; // Reference au SpriteRenderer de l'objet
@@ -59,6 +61,7 @@ public class EnnemiForet : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player")){ // si le tage du gameObject du colldier entrant est Player
             _salle.RetirerEnnemi(); // on demande a salle de retirer un ennemi
+            GameAudio.instance.JouerSon(_sonDestruction); // on joue un son l'ennemi meurt
             GetComponent<CircleCollider2D>().enabled = false; // on desactive le collider de l'ennemi
             StopAllCoroutines(); // on arrete toutes les coroutines
             StartCoroutine(CoroutineEnnemiMort()); // on demarre la coroutine CoroutineEnnemiMort

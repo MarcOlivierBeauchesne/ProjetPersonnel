@@ -15,6 +15,10 @@ public class Tache : MonoBehaviour
     public int tacheValue{ // acces public a la valeur de la tache une fois accomplie
         get=>_tacheValue; // par tacheValue, on retourne _tacheValue
     }
+    [Header("Sons")] // identification de la section Sons
+    [SerializeField] AudioClip _sonGenerationEnnemi; // son quand la tache des ennemis de la foret s'active
+    [SerializeField] AudioClip _sonGenerationProjectiles; // son quand la tache des projectiles ennemis s'active
+
     private Personnage _perso; // reference au Personnage
     public Personnage perso{ // acces public au Personnage
         get => _perso; // par perso, on retourne _perso
@@ -84,7 +88,7 @@ public class Tache : MonoBehaviour
             }
         }   
     }
-
+    
     /// <summary>
     /// fonction qui permet d'ouvrir ou d'active la tache
     /// </summary>
@@ -107,6 +111,7 @@ public class Tache : MonoBehaviour
                             _tuto.gameObject.SetActive(true); // on active la fenetre de tutoriel
                             _tuto.OuvrirTips(7); // on demande au Tutoriel d'ouvrir le tips a l'index 7
                         }
+                        GameAudio.instance.JouerSon(_sonGenerationEnnemi); // on joue un son quand la tache des ennemis de la foret s'active
                         _salle.GenererEnnemi(_tacheValue); // on dit a la salle de generer des ennemis
                         _peutGenererEnnemi = false; // la tache ne peut plus generer d'ennemis
                         GetComponentInChildren<Light2D>().intensity = 0; // on met la Light2D de la tache a intensite 0
@@ -122,6 +127,7 @@ public class Tache : MonoBehaviour
                             _tuto.gameObject.SetActive(true); // on active la fenetre de tutoriel
                             _tuto.OuvrirTips(8); // on demande au Tutoriel d'ouvrir le tips a l'index 8
                         }
+                    GameAudio.instance.JouerSon(_sonGenerationProjectiles); // on joue un son quand la tache des projectiles ennemis s'active
                     Transform sallePos = _salle.gameObject.transform; // sallePos prend la position de _salle 
                     perso.ChangerPos(sallePos); // on change la position du perso pour la position de la salle
                     perso.ChangerRot(true); // on dit au personnage qu'il peut tourner

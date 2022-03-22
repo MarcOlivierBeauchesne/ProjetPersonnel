@@ -15,6 +15,8 @@ public class BucheSeed : MonoBehaviour
     [SerializeField] private SpriteRenderer[] _tSeedVisual; // tableau des visuels de noix de la tache
     [SerializeField] private Sprite _imgEmptySeed; // image d'un emplacement de noix vide
     [SerializeField] private Sprite _imgFullSeed; // image d'un emplacement de noix plein
+    [Header("Sons")] // identification de la section Sons
+    [SerializeField] AudioClip _sonSouche; // son quand le joueur met une noix dans la souche
 
     private bool _isFull = false; // indicatif si la souche est pleine ou non
     private int _seedAmount = 0; // nombre de noix actuel dans la souche
@@ -103,6 +105,7 @@ public class BucheSeed : MonoBehaviour
         if(_resPlayer.seedAmount >= 1){ // si le joueur possede au moins 1 noix
             _seedAmount++; // on augmente le nombre de noix dans la souche de 1
             _perso.AjusterPoint("seed", -1, TypeTache.Aucun); // on enleve une noix au joueur
+            GameAudio.instance.JouerSon(_sonSouche); // on joue un son quand le joueur ajoute une noix dans la souche
             AjusterSeedVisuel(); // on appel AjusterSeedVisuel
             if(_seedAmount == _seedNeeded){ // si le nombre de noix dans la souche a atteint son objectif
                 _isFull = true; // _isFull est true (souche pleine)

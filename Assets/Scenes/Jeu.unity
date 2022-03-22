@@ -1493,16 +1493,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d492fdfc0ad8594eb74156256327242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tGoTips:
-  - {fileID: 2490403095772540963}
-  - {fileID: 2490403096561032717}
-  - {fileID: 2490403096534237264}
-  - {fileID: 2490403096207920002}
-  - {fileID: 2490403095262610362}
-  - {fileID: 2490403095458906064}
-  - {fileID: 2490403094843163040}
-  - {fileID: 298218998}
   _timer: {fileID: 1468142675}
+  _sonAfficherTips: {fileID: 8300000, guid: c22b88791bde1b140aaf7f969c7786b3, type: 3}
 --- !u!1 &226316239
 GameObject:
   m_ObjectHideFlags: 0
@@ -1627,11 +1619,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: dd5ef2503d4969548a499f10dfbad52c, type: 3}
+  m_audioClip: {fileID: 8300000, guid: eeddd60a79698c146ba3fcfbb683b192, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1923,26 +1915,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 034cf5f58c861744dadd0dcd790e5e13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _basicStats: {fileID: 554104806}
+  _arbre: {fileID: 1533937450}
+  _typeStats: 6
   _nom: DefoLevel
   _modifier: -15
-  _typeStats: 6
   _skillCostRef: 200
   _skillCost: 500
-  _savedTotalStack: 0
   _actualStack: 0
   _maxStack: 2
   _iconFullStack: {fileID: 21300000, guid: 72ff29dfbf79d8748a0530da8c3302f7, type: 3}
   _iconBase: {fileID: 21300000, guid: a35c3901961a1144dbdfba36ee83bdd7, type: 3}
-  _basicStats: {fileID: 554104806}
+  _skillExplication: {fileID: 11400000, guid: 07d1f070184a5d0428275363400c64e6, type: 2}
   _dependance: {fileID: 692851785}
+  _boiteExplication: {fileID: 135298818}
   _tHeritiers: []
   _playerRessources: {fileID: 11400000, guid: 2fbd6f0ed2302fd46af9da866231cafc, type: 2}
   _perso: {fileID: 580331201}
-  _arbre: {fileID: 1533937450}
-  _skillExplication: {fileID: 11400000, guid: 07d1f070184a5d0428275363400c64e6, type: 2}
-  _boiteExplication: {fileID: 135298818}
   _skillPopUp: {fileID: 2301127184328790232, guid: ca7d9eefe7b605740917ce8d42833c32, type: 3}
-  img: {fileID: 0}
+  _sonAchatSkill: {fileID: 8300000, guid: f33245e75aed8dc458991832815758b4, type: 3}
 --- !u!114 &254061669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2319,26 +2310,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 034cf5f58c861744dadd0dcd790e5e13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _basicStats: {fileID: 554104806}
+  _arbre: {fileID: 1533937450}
+  _typeStats: 2
   _nom: npMaxPool
   _modifier: 100
-  _typeStats: 2
   _skillCostRef: 200
   _skillCost: 500
-  _savedTotalStack: 0
   _actualStack: 0
   _maxStack: 3
   _iconFullStack: {fileID: 21300000, guid: e7dfd5eae5823f246974581aec14cba5, type: 3}
   _iconBase: {fileID: 21300000, guid: 0880d1bcdaa595d4bb3c3490d8219fa3, type: 3}
-  _basicStats: {fileID: 554104806}
+  _skillExplication: {fileID: 11400000, guid: 931f8851721264e49a9484f8a7fd26ce, type: 2}
   _dependance: {fileID: 1742341957}
+  _boiteExplication: {fileID: 135298818}
   _tHeritiers: []
   _playerRessources: {fileID: 11400000, guid: 2fbd6f0ed2302fd46af9da866231cafc, type: 2}
   _perso: {fileID: 580331201}
-  _arbre: {fileID: 1533937450}
-  _skillExplication: {fileID: 11400000, guid: 931f8851721264e49a9484f8a7fd26ce, type: 2}
-  _boiteExplication: {fileID: 135298818}
   _skillPopUp: {fileID: 1920982287771331465, guid: 10aca9da8087bab4db0963ca20e86615, type: 3}
-  img: {fileID: 0}
+  _sonAchatSkill: {fileID: 8300000, guid: f33245e75aed8dc458991832815758b4, type: 3}
 --- !u!114 &273324134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4247,7 +4237,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerRessources: {fileID: 11400000, guid: 2fbd6f0ed2302fd46af9da866231cafc, type: 2}
   _perso: {fileID: 580331201}
-  _defoManager: {fileID: 554104810}
   _mouvementSpeedRef: 3
   _mouvementSpeed: 3
   _npGainRef: 100
@@ -4258,6 +4247,7 @@ MonoBehaviour:
   _seedDrop: 1
   _dayTimeRef: 1
   _dayTime: 1
+  _defoManager: {fileID: 554104810}
   _deforestAugmentRef: 10
   _deforestAugment: 10
   _deforestLevelRef: 20
@@ -4307,6 +4297,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a99f2e395d0db234f9d7cc14629b1e15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _timer: {fileID: 1468142675}
+  _taskManager: {fileID: 1029080596}
+  _genSalle: {fileID: 1426685381}
   _tChampsEndDay:
   - {fileID: 1839104573}
   - {fileID: 577109128}
@@ -4324,11 +4317,10 @@ MonoBehaviour:
   - {fileID: 546560333}
   - {fileID: 1472786612}
   _animFenetre: {fileID: 1395302948}
-  _fenetreLoading: {fileID: 524642372}
   _animDefoDefaite: {fileID: 1278251333}
-  _timer: {fileID: 1468142675}
-  _taskManager: {fileID: 1029080596}
-  _genSalle: {fileID: 1426685381}
+  _fenetreLoading: {fileID: 524642372}
+  _sonDefaite: {fileID: 8300000, guid: fbb664da2361ac34aa9e3db2e5e5cede, type: 3}
+  _sonAffichagePoint: {fileID: 8300000, guid: 8b126a9c1fc7a034ea7e12a109caf9d2, type: 3}
 --- !u!114 &554104810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4341,13 +4333,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a60bb8e2b8140e4d98ff26704e8371f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _timer: {fileID: 1468142675}
+  _basicStats: {fileID: 554104806}
   _defoSlider: {fileID: 1860171421}
   _nextDefoSlider: {fileID: 1971307693}
-  _basicStats: {fileID: 554104806}
-  _timer: {fileID: 1468142675}
   _textDefo: {fileID: 858206406}
   _goTxtAugmentDefo: {fileID: 3757330138263552867, guid: 63f51cba55389244d9776130a0500fed, type: 3}
-  _posAugment: {fileID: 1032649458}
   _canvas: {fileID: 1124406530}
 --- !u!114 &554104811
 MonoBehaviour:
@@ -4382,6 +4373,8 @@ MonoBehaviour:
   - {fileID: 5373808195081299753, guid: 1ab2fbccb930b4047b1400811ede7d1b, type: 3}
   - {fileID: 7374773462222206942, guid: 43852d6f8e2c4244095f392e7e11dead, type: 3}
   - {fileID: 41594052762101118, guid: 6ebe2985d28cae74985d278a27eff958, type: 3}
+  _sonMissionAccompli: {fileID: 8300000, guid: de75576de121a3e429d2eb4a45309005, type: 3}
+  _sonMissionApparait: {fileID: 8300000, guid: 5006583853f02b34b9de545ebf03c85a, type: 3}
 --- !u!1 &566901510
 GameObject:
   m_ObjectHideFlags: 0
@@ -4654,6 +4647,11 @@ MonoBehaviour:
   _missionManager: {fileID: 554104812}
   _basicStats: {fileID: 554104806}
   _ressourcesPlayer: {fileID: 11400000, guid: 2fbd6f0ed2302fd46af9da866231cafc, type: 2}
+  _sonPersoVersPlante: {fileID: 8300000, guid: 54323b36b260d3c44a293763430eba70, type: 3}
+  _sonPlanteVersPerso: {fileID: 8300000, guid: 4e1f8f0423dbf4145a68b3d605d6a70e, type: 3}
+  _tSonMarche:
+  - {fileID: 8300000, guid: 9333d55773eacd3468f1bd394fa7465c, type: 3}
+  - {fileID: 8300000, guid: ad4ae0d31ef05b141a60bb197a812678, type: 3}
 --- !u!4 &580331202
 Transform:
   m_ObjectHideFlags: 0
@@ -4798,6 +4796,7 @@ MonoBehaviour:
   _layerTache:
     serializedVersion: 2
     m_Bits: 512
+  _sonPlantage: {fileID: 8300000, guid: a1710caf4b7f45140b8d295cd9a1bd81, type: 3}
 --- !u!114 &580331208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4813,6 +4812,7 @@ MonoBehaviour:
   _vitesseRot: 160
   _goProjectile: {fileID: 4299458537929637822, guid: bd9d30a711d637a4b964d4598e4f6d99, type: 3}
   _ProjectileSpawnPos: {fileID: 1735809984}
+  _sonLancerProjectile: {fileID: 8300000, guid: b2a01fecfc63f2442803265070c66bcc, type: 3}
 --- !u!1 &592789167
 GameObject:
   m_ObjectHideFlags: 0
@@ -9965,29 +9965,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 034cf5f58c861744dadd0dcd790e5e13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _basicStats: {fileID: 554104806}
+  _arbre: {fileID: 1533937450}
+  _typeStats: 7
   _nom: Champion
   _modifier: 10
-  _typeStats: 7
   _skillCostRef: 200
   _skillCost: 100
-  _savedTotalStack: 0
   _actualStack: 0
   _maxStack: 1
   _iconFullStack: {fileID: 21300000, guid: 2b5e09bade7ed5746b5eed5e8f1d981f, type: 3}
   _iconBase: {fileID: 21300000, guid: 3ea5fa8a225c5104692dafbf51eb239f, type: 3}
-  _basicStats: {fileID: 554104806}
+  _skillExplication: {fileID: 11400000, guid: 20936221d554edf4d9d6435d7b20b938, type: 2}
   _dependance: {fileID: 0}
+  _boiteExplication: {fileID: 135298818}
   _tHeritiers:
   - {fileID: 1742341957}
   - {fileID: 1519738905}
   - {fileID: 692851785}
   _playerRessources: {fileID: 11400000, guid: 2fbd6f0ed2302fd46af9da866231cafc, type: 2}
   _perso: {fileID: 580331201}
-  _arbre: {fileID: 1533937450}
-  _skillExplication: {fileID: 11400000, guid: 20936221d554edf4d9d6435d7b20b938, type: 2}
-  _boiteExplication: {fileID: 135298818}
   _skillPopUp: {fileID: 3392780206542625285, guid: 40617ee3c0c805d4dbd828e2377ac9a8, type: 3}
-  img: {fileID: 0}
+  _sonAchatSkill: {fileID: 8300000, guid: f33245e75aed8dc458991832815758b4, type: 3}
 --- !u!114 &611309878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10243,12 +10242,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _nav: {fileID: 650272002}
-  _player: {fileID: 580331201}
-  _collection: {fileID: 1466594390}
   _basicStats: {fileID: 554104806}
   _deforestation: {fileID: 554104810}
   _skillTree: {fileID: 1533937450}
   _timer: {fileID: 1468142675}
+  _player: {fileID: 580331201}
   _tSkillInfos:
   - {fileID: 611309877}
   - {fileID: 1742341957}
@@ -10661,27 +10659,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 034cf5f58c861744dadd0dcd790e5e13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _basicStats: {fileID: 554104806}
+  _arbre: {fileID: 1533937450}
+  _typeStats: 5
   _nom: defoAugment
   _modifier: -5
-  _typeStats: 5
   _skillCostRef: 200
   _skillCost: 300
-  _savedTotalStack: 0
   _actualStack: 0
   _maxStack: 3
   _iconFullStack: {fileID: 21300000, guid: 60dd58703df9dff4bb287da177efef8e, type: 3}
   _iconBase: {fileID: 21300000, guid: 23aa8db07b6444c4984c58387279049c, type: 3}
-  _basicStats: {fileID: 554104806}
+  _skillExplication: {fileID: 11400000, guid: 65531bd63465ad04fa14d0336b790061, type: 2}
   _dependance: {fileID: 611309877}
+  _boiteExplication: {fileID: 135298818}
   _tHeritiers:
   - {fileID: 254061668}
   _playerRessources: {fileID: 11400000, guid: 2fbd6f0ed2302fd46af9da866231cafc, type: 2}
   _perso: {fileID: 580331201}
-  _arbre: {fileID: 1533937450}
-  _skillExplication: {fileID: 11400000, guid: 65531bd63465ad04fa14d0336b790061, type: 2}
-  _boiteExplication: {fileID: 135298818}
   _skillPopUp: {fileID: 6467066683441094750, guid: cd63d3e3efa3dd642a3d7c0f3987af64, type: 3}
-  img: {fileID: 0}
+  _sonAchatSkill: {fileID: 8300000, guid: f33245e75aed8dc458991832815758b4, type: 3}
 --- !u!114 &692851786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11903,6 +11900,7 @@ MonoBehaviour:
   _scoreMission: 0
   _scoreMimo: 0
   _basicStats: {fileID: 554104806}
+  _sonGainPoint: {fileID: 8300000, guid: 3f9117bbc6630f34989a35f80e6c1046, type: 3}
 --- !u!4 &1029080597
 Transform:
   m_ObjectHideFlags: 0
@@ -12877,26 +12875,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 034cf5f58c861744dadd0dcd790e5e13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _basicStats: {fileID: 554104806}
+  _arbre: {fileID: 1533937450}
+  _typeStats: 4
   _nom: dayTime
   _modifier: 1
-  _typeStats: 4
   _skillCostRef: 200
   _skillCost: 600
-  _savedTotalStack: 0
   _actualStack: 0
   _maxStack: 2
   _iconFullStack: {fileID: 21300000, guid: b9550695a3d83d34fa2a82623a63bf17, type: 3}
   _iconBase: {fileID: 21300000, guid: 482ec2b7676488a42aa353a3dcb9fe6f, type: 3}
-  _basicStats: {fileID: 554104806}
+  _skillExplication: {fileID: 11400000, guid: a88d6be533a1c9a47b200a316c564c7e, type: 2}
   _dependance: {fileID: 1519738905}
+  _boiteExplication: {fileID: 135298818}
   _tHeritiers: []
   _playerRessources: {fileID: 11400000, guid: 2fbd6f0ed2302fd46af9da866231cafc, type: 2}
   _perso: {fileID: 580331201}
-  _arbre: {fileID: 1533937450}
-  _skillExplication: {fileID: 11400000, guid: a88d6be533a1c9a47b200a316c564c7e, type: 2}
-  _boiteExplication: {fileID: 135298818}
   _skillPopUp: {fileID: 7237629161408874440, guid: a1b9c0aa1230c3c489b7624a14f04e13, type: 3}
-  img: {fileID: 0}
+  _sonAchatSkill: {fileID: 8300000, guid: f33245e75aed8dc458991832815758b4, type: 3}
 --- !u!114 &1128500715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20054,6 +20051,7 @@ MonoBehaviour:
   _perso: {fileID: 580331201}
   _boiteProjectiles: {fileID: 1522811129}
   _boiteEnnemis: {fileID: 1356507248}
+  _sonDebutJournee: {fileID: 8300000, guid: e36e791840a54ae4ba5503ccf5b5e5a4, type: 3}
 --- !u!1 &1461111895
 GameObject:
   m_ObjectHideFlags: 0
@@ -20143,17 +20141,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6971220795657717097, guid: 16bd418a0d5cb7c4ebbe871b03a4afa2, type: 3}
   m_PrefabInstance: {fileID: 6971220794728051004}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1466594390 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6971220795657717098, guid: 16bd418a0d5cb7c4ebbe871b03a4afa2, type: 3}
-  m_PrefabInstance: {fileID: 6971220794728051004}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1466594388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 002fd4a65f5e72042bc35cab3f89ef77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1468142673
 GameObject:
   m_ObjectHideFlags: 0
@@ -20204,25 +20191,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c68ca6afe9b3244b908e13a09d50a87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _champTimer: {fileID: 1468142676}
-  _champsJour: {fileID: 1356719837}
   _basicStats: {fileID: 554104806}
-  _dayWindowAnim: {fileID: 1395302948}
   _dayManager: {fileID: 554104809}
   _taskManager: {fileID: 1029080596}
   _dayLightManager: {fileID: 495741338}
   _missionManager: {fileID: 554104812}
+  _tuto: {fileID: 210643170}
+  _perso: {fileID: 580331201}
+  _champTimer: {fileID: 1468142676}
+  _champsJour: {fileID: 1356719837}
+  _dayWindowAnim: {fileID: 1395302948}
   _champsEnnemis: {fileID: 1356507248}
   _champsProjectiles: {fileID: 1522811129}
-  _champsExpliEnnemi: {fileID: 133750762}
-  _defoManager: {fileID: 554104810}
-  _tuto: {fileID: 210643170}
-  _animDaylight: {fileID: 1395302948}
-  _perso: {fileID: 580331201}
   _endDayWaitTime: 0
-  _nbJour: 1
-  _minute: 1
-  _seconde: 0
+  _sonFinJournee: {fileID: 8300000, guid: 78da1b600a61cb94e9b0edaf336b0263, type: 3}
 --- !u!114 &1468142676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20462,27 +20444,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 034cf5f58c861744dadd0dcd790e5e13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _basicStats: {fileID: 554104806}
+  _arbre: {fileID: 1533937450}
+  _typeStats: 0
   _nom: Celerity
   _modifier: 0.1
-  _typeStats: 0
   _skillCostRef: 200
   _skillCost: 250
-  _savedTotalStack: 0
   _actualStack: 0
   _maxStack: 3
   _iconFullStack: {fileID: 21300000, guid: 9782d2d647c98e34fb4532427b725888, type: 3}
   _iconBase: {fileID: 21300000, guid: 1893f85b36927554ca28249918d4b47f, type: 3}
-  _basicStats: {fileID: 554104806}
+  _skillExplication: {fileID: 11400000, guid: 487dd28f22f6bf6489acdd4b6ac1168e, type: 2}
   _dependance: {fileID: 611309877}
+  _boiteExplication: {fileID: 135298818}
   _tHeritiers:
   - {fileID: 1128500714}
   _playerRessources: {fileID: 11400000, guid: 2fbd6f0ed2302fd46af9da866231cafc, type: 2}
   _perso: {fileID: 580331201}
-  _arbre: {fileID: 1533937450}
-  _skillExplication: {fileID: 11400000, guid: 487dd28f22f6bf6489acdd4b6ac1168e, type: 2}
-  _boiteExplication: {fileID: 135298818}
   _skillPopUp: {fileID: 8904534914442796554, guid: 7fa1bb39aaed5204390dc82625a8a100, type: 3}
-  img: {fileID: 0}
+  _sonAchatSkill: {fileID: 8300000, guid: f33245e75aed8dc458991832815758b4, type: 3}
 --- !u!114 &1519738906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20664,6 +20645,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb1aab208c665f24a8a9c6b0a97c3d2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _goSkillTree: {fileID: 2011223799}
+  _boiteExplication: {fileID: 135298818}
+  _boutonAbsorber: {fileID: 1946629532}
+  _textAbsorbtion: "Vous absorbez l'arbre des talents et tous les bonus qui en d\xE9coulent
+    viennent s'ajouter \xE0 vos statistiques. le cout des talents et d'absorbtion
+    augmente."
+  absorbCost: 1000
   _tSkills:
   - {fileID: 611309877}
   - {fileID: 1742341957}
@@ -20672,16 +20660,10 @@ MonoBehaviour:
   - {fileID: 1128500714}
   - {fileID: 692851785}
   - {fileID: 254061668}
-  _canvasPos: {fileID: 1124406534}
-  _boutonAbsorber: {fileID: 1946629532}
   _ressourcePlayer: {fileID: 11400000, guid: 2fbd6f0ed2302fd46af9da866231cafc, type: 2}
   _perso: {fileID: 580331201}
-  _goSkillTree: {fileID: 2011223799}
-  _boiteExplication: {fileID: 135298818}
-  _textAbsorbtion: "Vous absorbez l'arbre des talents et tous les bonus qui en d\xE9coulent
-    viennent s'ajouter \xE0 vos statistiques. le cout des talents et d'absorbtion
-    augmente."
-  absorbCost: 1000
+  _canvasPos: {fileID: 1124406534}
+  _sonAbsorbTree: {fileID: 8300000, guid: f14e36d867e69b8439e080211d368631, type: 3}
 --- !u!1 &1542055300
 GameObject:
   m_ObjectHideFlags: 0
@@ -21471,7 +21453,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 233003915}
         m_TargetAssemblyTypeName: GameAudio, Assembly-CSharp
         m_MethodName: ActiverFenetreOptions
         m_Mode: 1
@@ -21949,7 +21931,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1680370897
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22429,27 +22411,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 034cf5f58c861744dadd0dcd790e5e13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _basicStats: {fileID: 554104806}
+  _arbre: {fileID: 1533937450}
+  _typeStats: 1
   _nom: npGain
   _modifier: 15
-  _typeStats: 1
   _skillCostRef: 200
   _skillCost: 300
-  _savedTotalStack: 0
   _actualStack: 0
   _maxStack: 3
   _iconFullStack: {fileID: 21300000, guid: a0a125d6634fab94ea6fc511a5d09ad1, type: 3}
   _iconBase: {fileID: 21300000, guid: 7ddfa4a6210a95844940623174eb8096, type: 3}
-  _basicStats: {fileID: 554104806}
+  _skillExplication: {fileID: 11400000, guid: c5d304657576d734ab2a43ef66933431, type: 2}
   _dependance: {fileID: 611309877}
+  _boiteExplication: {fileID: 135298818}
   _tHeritiers:
   - {fileID: 273324133}
   _playerRessources: {fileID: 11400000, guid: 2fbd6f0ed2302fd46af9da866231cafc, type: 2}
   _perso: {fileID: 580331201}
-  _arbre: {fileID: 1533937450}
-  _skillExplication: {fileID: 11400000, guid: c5d304657576d734ab2a43ef66933431, type: 2}
-  _boiteExplication: {fileID: 135298818}
   _skillPopUp: {fileID: 7359095910600722136, guid: 839adb2d66d92314ebe9e3aeb2a85096, type: 3}
-  img: {fileID: 0}
+  _sonAchatSkill: {fileID: 8300000, guid: f33245e75aed8dc458991832815758b4, type: 3}
 --- !u!114 &1742341958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23109,7 +23090,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.9242902, y: 1}
+    m_SensorSize: {x: 1.9148265, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -38799,10 +38780,6 @@ PrefabInstance:
     - target: {fileID: 6971220795657717096, guid: 16bd418a0d5cb7c4ebbe871b03a4afa2, type: 3}
       propertyPath: m_Name
       value: Collection
-      objectReference: {fileID: 0}
-    - target: {fileID: 6971220795657717096, guid: 16bd418a0d5cb7c4ebbe871b03a4afa2, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6971220795657717097, guid: 16bd418a0d5cb7c4ebbe871b03a4afa2, type: 3}
       propertyPath: m_Pivot.x

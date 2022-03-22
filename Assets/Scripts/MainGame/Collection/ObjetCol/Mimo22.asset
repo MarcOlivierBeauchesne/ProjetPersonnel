@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nomMimo: Heron
   _imageMimo: {fileID: 21300000, guid: 8cf6d2c519fb58e429cbab865223e720, type: 3}
-  _loreText: 
+  _loreText: "Ce h\xE9ron fait partie d'une tr\xE8s grande famile d'oiseaux ayant
+    de grandes jambes pour bien circuler dans l'eau peu profonde."
   _isFound: 0

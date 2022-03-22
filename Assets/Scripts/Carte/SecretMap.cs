@@ -15,6 +15,8 @@ public class SecretMap : MonoBehaviour
     [Header("Cout d'utilisation")] // identification de la section Cout d'utilisation
     [SerializeField] GameObject _objetCout; // GameOjbect du cout d'utilisation
     [SerializeField] int _secretCost = 0; // cout d'utilisation
+    [Header("Sons")] // identification de la section Sons
+    [SerializeField] AudioClip _sonSecret; // son quand le joueur active un secret
 
     bool _playerClose = false; // bool si le joueur est proche
     Personnage _perso; // reference au Personnage
@@ -58,6 +60,7 @@ public class SecretMap : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.E) && _playerClose){ // si le joueur appuie sur la touche E et que _playerClose est true
             if(_perso.ressourcesPlayer.naturePower >= _secretCost){ // si le naturePower du perso est plus grand ou egal au _secretCost
                 _perso.AjusterPoint("naturePower", -_secretCost, TypeTache.Aucun); // on retire _secretCost des points de naturePower du perso
+                GameAudio.instance.JouerSon(_sonSecret); // on joue un son quand le joueur active un secret
                 if(_secondDoor != null){ // si _secondDoor n'est pas null
                     Destroy(_secondDoor); // on detruit _secondDoor
                 }

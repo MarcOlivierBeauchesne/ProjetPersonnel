@@ -52,7 +52,7 @@ public class MissionObjet : MonoBehaviour
     public void SetupChamps(){
         Text txtProgression = transform.GetChild(3).gameObject.GetComponent<Text>(); // txtProgression reprensente la progression de la mission
         txtProgression.text = $"{_missionInfos.missionTotal}/{_missionInfos.missionAmount}"; // on affiche le total de la mission par rapport au montant demande
-        if(missionInfos.missionTotal >= missionInfos.missionAmount){ // si missionTotal est plus grand ou egal a missionAmount
+        if(missionInfos.missionTotal == missionInfos.missionAmount){ // si missionTotal est plus grand ou egal a missionAmount
             StartCoroutine(CoroutineDestruction()); // on demarre la coroutine CoroutineDestruction
         }
     }

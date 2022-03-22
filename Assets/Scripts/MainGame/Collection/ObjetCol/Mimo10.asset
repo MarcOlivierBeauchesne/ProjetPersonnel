@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nomMimo: Corbeau
   _imageMimo: {fileID: 21300000, guid: ad8b854dd0d3c5148abecd0a79dc8c2a, type: 3}
-  _loreText: 
+  _loreText: "Lorsque ce corbeau vous regarde, vous avez l'impression que quelque
+    chose, ou quelqu'un vous regarde \xE0 travers ses yeux. Comme une puissance surhumaine."
   _isFound: 0

@@ -50,6 +50,8 @@ public class SkillInfos : MonoBehaviour
     [SerializeField] Personnage _perso; // Rerefence pour le personnage
     [Header("PopUp")] // identification de la section PopUp
     [SerializeField] GameObject _skillPopUp;
+    [Header("Sons")] // identification de la section Sons
+    [SerializeField] AudioClip _sonAchatSkill; // son quand le joueur achete un skill
     private int realCost;
 
     Image img; // reference a l'Image du gameObject
@@ -98,6 +100,7 @@ public class SkillInfos : MonoBehaviour
         realCost = _skillCost * (actualStack + 1); // on calcul le cout real du skill (temporaire)
         if(_playerRessources.naturePoint >= realCost){ // si les points de nature du joueur sont egal ou plus eleves que le cout real du skill
             _perso.AjusterPoint("naturePoint", -realCost, TypeTache.Aucun); // on demande au personnage d'ajuter ses points de nature
+            GameAudio.instance.JouerSon(_sonAchatSkill); // on joue un son quand le joueur achete un skill
             _arbre.CreateSkillPopUp(_skillPopUp); // on demande au SkillTree de creer un popUp du skill achete
             _arbre.CheckRessources(); // on demande au SkillTree de verifier les ressources
             actualStack++; // on augmente le niveau du skill actuel de 1

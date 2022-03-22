@@ -8,6 +8,8 @@ using UnityEngine;
 public class Seed : MonoBehaviour
 {
     [SerializeField] GameObject _particleNoix; // effect de particule lorsqu'on ramasse une noix
+    [Header("Sons")] // identification de la section Sons
+    [SerializeField] AudioClip _sonNoix; // son quand le joueur ramasse une noix
 
     Tutoriel _tuto; // reference a Tutoriel
     public Tutoriel tuto{ // acces public a Tutoriel
@@ -27,6 +29,7 @@ public class Seed : MonoBehaviour
         if(other.gameObject.CompareTag("Player")){ // si le tag du gameObject du collider entrant est Player
             Personnage perso = other.gameObject.GetComponent<Personnage>(); // on accede au Personnage du collider entrant
             perso.AjusterPoint("seed", 1, TypeTache.Aucun); // on ajoute 1 noix au joueur
+            GameAudio.instance.JouerSon(_sonNoix); // on joue un son quand le joueur ramasse une noix
             perso.taskManager.CreatePopUpPoints(transform.position, 1, "noix"); // on demande au TaskManger de creer un popUp de noix
             StartCoroutine(CoroutineNoix()); // on demarre la coroutineCoroutineNoix
             if(_tuto.dictTips["TipsNoix"] == false){ // si la clef TipsNoix du dictionnaire dictTips est false 

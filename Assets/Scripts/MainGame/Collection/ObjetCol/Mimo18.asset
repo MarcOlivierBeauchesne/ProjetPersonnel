@@ -14,5 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nomMimo: Grenouille
   _imageMimo: {fileID: 21300000, guid: 47b5150a36e830843b05054a55f4b0b1, type: 3}
-  _loreText: 
+  _loreText: "Cette grenouille c'est fait racont\xE9 de droles d'histoires par ses
+    cousines d'un autre univers. Il semblerait qu'elles auraient \xE9l\xE9 soulev\xE9es
+    par une force invisibles control\xE9e par un jene homme et une petite cr\xE9ature
+    verte."
   _isFound: 0

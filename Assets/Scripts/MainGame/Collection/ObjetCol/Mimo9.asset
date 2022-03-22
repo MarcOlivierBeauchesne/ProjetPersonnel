@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nomMimo: Canard
   _imageMimo: {fileID: 21300000, guid: 2a0a1cf8d352c9d4080189e2f26ccb41, type: 3}
-  _loreText: 
-  _isFound: 1
+  _loreText: "Ce canard n'a eu aucune chance de se perdre, jusqu'a maintenant. Il
+    avait fid\xE8lement suivi sa m\xE8re jusqu'\xE0 ce qu'il soit pr\xEAt a fonder
+    sa famille."
+  _isFound: 0

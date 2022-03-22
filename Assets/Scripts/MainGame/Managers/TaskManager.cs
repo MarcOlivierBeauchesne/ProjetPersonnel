@@ -30,6 +30,8 @@ public class TaskManager : MonoBehaviour
     }
     [Header("Managers")] // Identification de la section Managers
     [SerializeField] private BasicStats _basicStats; // reference pour le BasicStats
+    [Header("Sons")] // identification de la section Sons
+    [SerializeField] AudioClip _sonGainPoint; // son quand le joueur recolte des points
     
     /// <summary>
     /// Fonction publique que les taches appelent pour ajuster les differents scores
@@ -72,6 +74,7 @@ public class TaskManager : MonoBehaviour
             GameObject pointsPopUp = null;
             if(amount>0){ // si amount est plus grand que 0
                 pointsPopUp = Instantiate(_goNpPoints, pos, Quaternion.identity); // on cree un popUp _goNpPoints a la position pos
+                GameAudio.instance.JouerSon(_sonGainPoint); // on joue un son quand le joueur gagne des point
             }
             else{ // si amount est plus petit que 0
                 pointsPopUp = Instantiate(_goNpPointsNegatif, pos, Quaternion.identity); // on cree un popUp _goNpPointsNegatif a la position pos

@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nomMimo: Moufette
   _imageMimo: {fileID: 21300000, guid: 835c4c23811cc1a459018f58fc767ff9, type: 3}
-  _loreText: 
+  _loreText: "Cette moufette n'a jamais vraiment eu d'amis. Elle a entendu dire qu'un
+    certain phacoch\xE8re dans une contr\xE9e lointaine avait eu ce m\xEAme probl\xE8me.
+    Elle va peut-\xEAtre lui demander conseil."
   _isFound: 0

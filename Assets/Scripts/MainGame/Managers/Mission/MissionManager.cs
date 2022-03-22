@@ -25,6 +25,10 @@ public class MissionManager : MonoBehaviour
     }
     [Header("Liste des missions")] // identification de la section Liste des missions
     [SerializeField] List<GameObject> _listMission = new List<GameObject>(); // liste des missions disponibles
+    [Header("Sons")] // identification de la section Sons
+    [SerializeField] AudioClip _sonMissionAccompli; // son quand le joueur accompli une mission
+    [SerializeField] AudioClip _sonMissionApparait; // son quand une mission apparait
+
     List<GameObject> _listMissionPossibles = new List<GameObject>(); // liste qui ajoute et enleve les missions possible au joueur (evite les doublons)
     List<GameObject> _listMissionActives = new List<GameObject>(); // liste des missions actuellement actives
 
@@ -54,6 +58,7 @@ public class MissionManager : MonoBehaviour
     /// <returns>temps d'attente</returns>
     IEnumerator CoroutineMission(){
         yield return new WaitForSeconds(1f); // on attend 1 seconde
+            GameAudio.instance.JouerSon(_sonMissionApparait); // on joue un son quand une mission apparait
             int quelleMission = Random.Range(0, _listMissionPossibles.Count); // quelleMission prend une valeur entre 0 et la longeur de la liste _listMissionPossibles
             GameObject mission = Instantiate(_listMissionPossibles[quelleMission], transform.position, Quaternion.identity); // on genere la mission _listMissionPossibles[quelleMission] et on la stock dans mission
             mission.transform.SetParent(_parentMission); // mission devient l'enfant de _parentMission
@@ -107,6 +112,7 @@ public class MissionManager : MonoBehaviour
                 missionObjet.SetupChamps(); // on met a jour le champs de la mission
                 if(missioninfos.missionTotal>=missioninfos.missionAmount){ // si missionTotal de missioninfos est plus grand ou egal au missionAmount du missioninfos
                     StartCoroutine(CoroutineDetruireMission(mission)); // on demarre la coroutine CoroutineDetruireMission avec mission
+                    GameAudio.instance.JouerSon(_sonMissionAccompli); // on joue un son quand le joueur accompli une mission
                 }
             }
         }

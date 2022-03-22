@@ -10,6 +10,9 @@ public class EnnemiVersCentre : MonoBehaviour
     [Header("Effets de particules")] // identification de la section Effets de particules
     [SerializeField] ParticleSystem _partProject; // particule du projectile
     [SerializeField] ParticleSystem _partScie; // particule de l'ennemi
+    [Header("Sons")] // identification de la section Sons
+    [SerializeField] AudioClip _sonBriserProjectile; // son quand le projectile se brise
+    [SerializeField] AudioClip _sonPertePoint; // son quand le joueur perd des points
 
     TacheCentre _refTache; // reference au TacheCentre
     public TacheCentre refTache{ // acces public au TacheCentre
@@ -67,6 +70,7 @@ public class EnnemiVersCentre : MonoBehaviour
         _sr.sprite = null; // on enleve l'image de l'ennemi
         _partProject.Play(); // on demarre _partProject
         _partScie.Play(); // on demarre _partScie
+        GameAudio.instance.JouerSon(_sonBriserProjectile); // on joue un son quand le projectile se brise
         yield return new WaitForSeconds(2f); // on attend 2 seconde
         Destroy(gameObject); // on detruit l'ennemi
     }
@@ -81,6 +85,7 @@ public class EnnemiVersCentre : MonoBehaviour
                 _danger = true; // l'ennemi devient proche de son objectif
                 GetComponentInParent<Salle>().genSalle.perso.AjusterPoint("naturePoint", (_timer.nbJour * _pertePoint), TypeTache.Tache); // on fait perdre des points au joueur
                 _refTache.RetirerProjectile(); // on demande au TacheCentre de retirer un ennemi
+                GameAudio.instance.JouerSon(_sonPertePoint); // on joue un son quand le joueur perd de point
                 Destroy(gameObject); // on detruit ;'ennemi
             }
             transform.Rotate(new Vector3(0f,0f,100f)); // on fait tourner l'ennemi

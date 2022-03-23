@@ -97,7 +97,7 @@ public class Deforestation : MonoBehaviour
         GameObject augmentation = Instantiate(_goTxtAugmentDefo, transform.position, Quaternion.identity); // augmentation represente un popUp d'augmentation de deforestation
         augmentation.transform.SetParent(_canvas.transform.GetChild(2)); // augmentation devient l'enfent du 3em enfant de canvas
         RectTransform pos = augmentation.GetComponent<RectTransform>(); // pos prend le RectTransform d'augmentation
-        pos.anchoredPosition = new Vector3(0f, -500f, 0f); // on ajuste la position d'augmentation
+        pos.anchoredPosition = new Vector3(0f, 0f, 0f); // on ajuste la position d'augmentation
         augmentation.GetComponent<Text>().text = "+ " + amount.ToString(); // on aficche textuellement l'augmentation de deforestation
         yield return new WaitForSeconds(2f); // on attend 2 secondes
         Destroy(augmentation); // on detruit l'augmentation

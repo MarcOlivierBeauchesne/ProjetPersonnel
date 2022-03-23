@@ -11982,7 +11982,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -620.9, y: -851.7533}
+  m_AnchoredPosition: {x: -620.9, y: -843.46}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1032649459
@@ -13337,7 +13337,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 124.4, y: -29.2}
+  m_AnchoredPosition: {x: 124.4, y: -35.7}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1191523676
@@ -21298,7 +21298,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -200, y: 0}
+  m_AnchoredPosition: {x: -200, y: -85.8}
   m_SizeDelta: {x: 400, y: 480}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1632220174
@@ -23592,8 +23592,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -0.00010192, y: 0}
+  m_SizeDelta: {x: 75.7, y: 21.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1979867238
 MonoBehaviour:
@@ -38781,6 +38781,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Collection
       objectReference: {fileID: 0}
+    - target: {fileID: 6971220795657717096, guid: 16bd418a0d5cb7c4ebbe871b03a4afa2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6971220795657717097, guid: 16bd418a0d5cb7c4ebbe871b03a4afa2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -38972,6 +38976,14 @@ PrefabInstance:
     - target: {fileID: 6971220795927808418, guid: 16bd418a0d5cb7c4ebbe871b03a4afa2, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6971220795981911985, guid: 16bd418a0d5cb7c4ebbe871b03a4afa2, type: 3}
+      propertyPath: m_fontSize
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 6971220795981911985, guid: 16bd418a0d5cb7c4ebbe871b03a4afa2, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 6971220796035560329, guid: 16bd418a0d5cb7c4ebbe871b03a4afa2, type: 3}
       propertyPath: m_AnchorMax.y
